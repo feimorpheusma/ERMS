@@ -1,0 +1,4 @@
+1.php.ini 
+upload_max_filesize = 1000M
+post_max_size = 1000M
+2.iis Ìí¼ÓMP4 MIME

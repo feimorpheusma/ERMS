@@ -1,0 +1,82 @@
+<div class="pageContent">
+    <form method="post" action="__URL__/update/navTabId/liststudent/callbackType/closeCurrent"
+          enctype="multipart/form-data"
+          onsubmit="return iframeCallback(this, dialogAjaxDone);">
+        <input type="hidden" value="<{$vo.id}>" name='id'>
+        <div class="pageFormContent" layoutH="60">
+            <dl>
+                <dt>学号:</dt>
+                <dd><input type="text" class="required alphanumeric" style="width:100%" name="no" value="<{$vo.no}>"/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>姓名:</dt>
+                <dd><input type="text" style="width:100%" name="name" value="<{$vo.name}>"/></dd>
+            </dl>
+
+            <dl>
+                <dt>班级：</dt>
+                <dd><{html_options name='cid' options=$Classes selected=$vo.cid}></dd>
+            </dl>
+            <dl>
+                <dt>性别:</dt>
+                <{if $vo.sex=='1'}>
+                <dd>男<input type="radio" name="sex" value='1' checked/>
+                    女<input type="radio" name="sex" value='2'/></dd>
+                <{elseif $vo.sex==2}>
+                <dd>男<input type="radio" name="sex" value='1'/>
+                    女<input type="radio" name="sex" value='2' checked/></dd>
+                <{else}>
+                <dd>男<input type="radio" name="sex" value='1'/>
+                    女<input type="radio" name="sex" value='2'/></dd>
+                <{/if}>
+            </dl>
+            <dl>
+                <dt>出生年月:</dt>
+                <dd><input type="text" style="width:100%" class="date textInput valid" name="birthday"
+                           value="<{$vo.birthday}>" placeholder="年-月-日"/>
+            </dl>
+            <dl>
+                <dt>籍贯:</dt>
+                <dd><input type="text" style="width:100%" name="birthplace"
+                           value="<{$vo.birthplace}>"/></dd>
+            </dl>
+            <dl>
+                <dt>民族:</dt>
+                <dd><input type="text" style="width:100%" name="nation"
+                           value="<{$vo.nation}>"/></dd>
+            </dl>
+            <dl style="height: 74px;">
+                <dt>照片:</dt>
+                <dd><input type='file' size="10" name="picture">
+                    <br/>
+                    <img height='50' width='50'
+                         src="__PUBLIC__/Uploads/student/<{if $vo.picture==''}>0/1.jpg<{else}><{$vo.no}>/<{$vo.picture}><{/if}>">
+                </dd>
+            </dl>
+            <dl>
+                <dt>备注:</dt>
+                <dd><input type="text" style="width:100%" name="note"
+                           value="<{$vo.note}>"/></dd>
+            </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">提交</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">取消</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>

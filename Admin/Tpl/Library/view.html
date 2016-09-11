@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<{if $vo.type == 'pdf'}>
+
+
+<script type="text/javascript" src="__PUBLIC__/FlexPaper/js/flexpaper_flash.js"></script>
+<script type="text/javascript" src="__PUBLIC__/FlexPaper/js/flexpaper_flash_debug.js"></script>
+<div id="viewerPlaceHolder" swfname="<{$vo.name_swf}>" style="width:790px;height:580px;display:block;"></div>
+<script type="text/javascript">
+    //===================================================
+    //在线预览文档的js代码
+    var swfname = $("#viewerPlaceHolder").attr("swfname");
+    var fp = new FlexPaperViewer(
+            '__PUBLIC__/FlexPaper/swf/FlexPaperViewer',
+            'viewerPlaceHolder',     //对应于a 标签的id
+            {
+                config: {
+                    SwfFile: escape('__PUBLIC__/Uploads/library_swf/' + swfname), //这句是关键: SwfFile: 指示导入的.swf的路径
+                    Scale: 0.6,
+                    ZoomTransition: 'easeOut',
+                    ZoomTime: 0.5,
+                    ZoomInterval: 0.4,
+                    FitPageOnLoad: true,
+                    FitWidthOnLoad: true,
+                    PrintEnabled: true,
+                    FullScreenAsMaxWindow: false,
+                    ProgressiveLoading: false,
+                    MinZoomSize: 0.5,
+                    MaxZoomSize: 2,
+                    SearchMatchAll: true,
+                    InitViewMode: 'Portrait',
+
+                    ViewModeToolsVisible: true,
+                    ZoomToolsVisible: true,
+                    NavToolsVisible: true,
+                    CursorToolsVisible: true,
+                    SearchToolsVisible: true,
+                    localeChain: 'en_US'
+                }
+            });
+    //===================================================
+</script>
+
+<{else}>
+
+<div id="vedio"></div>
+<script type="text/javascript" src="__PUBLIC__/ckplayer6.8/ckplayer.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var flashvars = {
+        p: 0,
+        e: 1,
+        i: '',
+        f:'__PUBLIC__/Uploads/library/<{$vo.name}>',
+        c:0
+    };
+    var video = ['__PUBLIC__/Uploads/library/<{$vo.name}>->video/mp4'];
+    CKobject.embed('__PUBLIC__/ckplayer6.8/ckplayer.swf','vedio','ckplayer_vedio','790','565',false,flashvars,video);
+    //var support = ['all'];
+    //CKobject.embedHTML5('vedio', 'ckplayer_vedio', 790, 565, video, flashvars, support);
+</script>
+
+<{/if}>
+</body>
+</html>

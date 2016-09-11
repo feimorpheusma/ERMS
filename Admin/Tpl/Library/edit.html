@@ -1,0 +1,77 @@
+<div class="pageContent">
+    <form method="post" action="__URL__/update/navTabId/listlib/callbackType/closeCurrent"
+          enctype="multipart/form-data"
+          onsubmit="return iframeCallback(this, dialogAjaxDone);">
+        <input type="hidden" name="id" value="<{$vo.id}>">
+        <div class="pageFormContent" layoutH="60">
+            <dl>
+                <dt>文档名：</dt>
+                <dd><input type="text" class="required" style="width:100%" name="title" value="<{$vo.title}>"/></dd>
+            </dl>
+            <dl>
+                <dt>课程：</dt>
+                <dd><{html_options name='cid' options=$Courses selected=$vo.cid}></dd>
+            </dl>
+
+            <dl>
+                <dt>开启浏览:</dt>
+                <{if $vo.canview=='1'}>
+                <dd>是<input type="radio" name="canview" value='1' checked/>
+                    否<input type="radio" name="canview" value='0'/></dd>
+                <{elseif $vo.canview==0}>
+                <dd>是<input type="radio" name="canview" value='1'/>
+                    否<input type="radio" name="canview" value='0' checked/></dd>
+                <{else}>
+                <dd>是<input type="radio" name="canview" value='1'/>
+                    否<input type="radio" name="canview" value='0'/></dd>
+                <{/if}>
+            </dl>
+            <dl>
+                <dt>开启下载:</dt>
+                <{if $vo.candownload=='1'}>
+                <dd>是<input type="radio" name="candownload" value='1' checked/>
+                    否<input type="radio" name="candownload" value='0'/></dd>
+                <{elseif $vo.candownload==0}>
+                <dd>是<input type="radio" name="candownload" value='1'/>
+                    否<input type="radio" name="candownload" value='0' checked/></dd>
+                <{else}>
+                <dd>是<input type="radio" name="candownload" value='1'/>
+                    否<input type="radio" name="candownload" value='0'/></dd>
+                <{/if}>
+            </dl>
+            <dl>
+                <dt>描述：</dt>
+                <dd><input type="text" style="width:100%" name="note" value="<{$vo.note}>"/></dd>
+            </dl>
+            <dl>
+                <dt>选择文档：</dt>
+                <dd><input type="file" style="width:100%" name="lib"/>
+                    <br/>
+                    注意:文档请上传pdf格式（word ppt可另存为pdf格式）
+                    <br/>
+                    视频请上传mp4、flv、rmvb、avi、wmv、mkv格式
+                </dd>
+            </dl>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">保存</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">取消</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+

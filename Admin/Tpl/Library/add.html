@@ -1,0 +1,61 @@
+<div class="pageContent">
+    <form method="post" action="__URL__/insert/navTabId/listlib/callbackType/closeCurrent"
+          enctype="multipart/form-data"
+          onsubmit="return iframeCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layoutH="60">
+            <dl>
+                <dt>文档名：</dt>
+                <dd><input type="text" class="required" style="width:100%" name="title"/></dd>
+            </dl>
+            <dl>
+                <dt>课程：</dt>
+                <dd><{html_options name='cid' options=$Courses selected=$CourseId}></dd>
+            </dl>
+            <dl>
+                <dt>开启浏览:</dt>
+                <dd>是<input type="radio" name="canview" value='1' checked/>
+                    否<input type="radio" name="canview" value='0'/></dd>
+
+            </dl>
+            <dl>
+                <dt>开启下载:</dt>
+                <dd>是<input type="radio" name="candownload" value='1' checked/>
+                    否<input type="radio" name="candownload" value='0'/></dd>
+
+            </dl>
+            <dl>
+                <dt>描述：</dt>
+                <dd><input type="text" style="width:100%" name="note"/></dd>
+            </dl>
+            <dl>
+                <dt>选择文档：</dt>
+                <dd><input type="file" style="width:100%" name="lib"/>
+                    <br/>
+                    注意:文档请上传pdf格式（word ppt可另存为pdf格式）
+                    <br/>
+                    视频请上传mp4、flv、rmvb、avi、wmv、mkv格式
+                </dd>
+            </dl>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">保存</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">取消</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+

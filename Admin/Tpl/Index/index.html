@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7"/>
+    <title>教育资源管理系统</title>
+
+    <link href="__PUBLIC__/dwz/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="__PUBLIC__/dwz/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="__PUBLIC__/dwz/themes/css/print.css" rel="stylesheet" type="text/css" media="print"/>
+    <link href="__PUBLIC__/dwz/uploadify/css/uploadify.css" rel="stylesheet" type="text/css" media="screen"/>
+
+    <link href="__PUBLIC__/after/css/css.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/after/css/main.css" rel="stylesheet" type="text/css"/>
+    <!--[if IE]>
+    <link href="__PUBLIC__/dwz/themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
+    <![endif]-->
+
+    <script src="__PUBLIC__/dwz/js/speedup.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/dwz/js/jquery-1.7.1.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/dwz/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/dwz/js/jquery.validate.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/dwz/js/jquery.bgiframe.js" type="text/javascript"></script>
+
+    <script src="__PUBLIC__/dwz/xheditor/xheditor-1.1.12-zh-cn.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/dwz/uploadify/scripts/swfobject.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/dwz/uploadify/scripts/jquery.uploadify.v2.1.0.js" type="text/javascript"></script>
+
+
+    <script src="__PUBLIC__/dwz/js/dwz.min.js" type="text/javascript"></script>
+    <script src="__PUBLIC__/dwz/js/dwz.regional.zh.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            DWZ.init("__PUBLIC__/dwz/dwz.frag.xml", {
+                //loginUrl:"login_dialog.html", loginTitle:"登录",	// 弹出登录对话框
+                //loginUrl:"login.html",	// 跳到登录页面
+                statusCode: {
+                    ok: 200, error: 300, timeout: 301
+                }, //【可选】
+                pageInfo: {
+                    pageNum: "pageNum", numPerPage: "numPerPage", orderField: "_order", orderDirection: "_sort"
+                }, //【可选】
+                debug: false,	// 调试模式 【true|false】
+                callback: function () {
+                    initEnv();
+                    $("#themeList").theme({
+                        themeBase: "__PUBLIC__/dwz/themes"
+                    }); // themeBase 相对于index页面的主题base路径
+                }
+            });
+        });
+
+
+    </script>
+    <style type="text/css">
+        #webtable tr {
+            height: 35px
+        }
+
+    </style>
+</head>
+
+<body scroll="no">
+<div id="layout">
+    <div id="header">
+        <div class="headerNav">
+            <a class="logo" href="#">标志</a>
+            <ul class="nav">
+                <li class="first">欢迎您：<{$smarty.session.adminuser.username}></li>
+                <li><a href="__APP__/Public/password" target="dialog">修改密码</a></li>
+                <li><a href="__APP__/Public/logout">退出</a></li>
+            </ul>
+
+            <ul class="themeList" id="themeList">
+                <li theme="default">
+                    <div class="selected">蓝色</div>
+                </li>
+                <li theme="green">
+                    <div>绿色</div>
+                </li>
+                <li theme="purple">
+                    <div>紫色</div>
+                </li>
+                <li theme="silver">
+                    <div>银色</div>
+                </li>
+                <li theme="azure">
+                    <div>天蓝</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="leftside">
+        <div id="sidebar_s">
+            <div class="collapse">
+                <div class="toggleCollapse">
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div id="sidebar">
+            <div class="toggleCollapse"><h2>主菜单</h2>
+                <div>收缩</div>
+            </div>
+            <div class="accordion" fillSpace="sidebar">
+
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>人员管理</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Users/index" target="navTab" rel="listusers" title="用户列表">用户列表</a></li>
+                        <li><a href="__APP__/Student/index" target="navTab" rel="liststudent" title="学生列表">学生列表</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>权限管理</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Roles/index" target="navTab" rel="listrole" title="角色信息">角色列表</a></li>
+                        <li><a href="__APP__/Node/index" target="navTab" rel="listnode" title="节点信息">权限列表</a></li>
+                        <!--<li><a>用户角色</a>
+                            <ul>
+                                <li><a href="__APP__/Limit/index" target="navTab" rel="listlib" title="权限信息">用户角色</a>
+                                </li>
+                            </ul>
+
+
+                        <li><a>系统角色</a>
+                            <ul>
+                                <li><a href="__APP__/Roles/add" target="dialog" width="600" height="300">角色添加</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a>系统权限</a>
+                            <ul>
+                                </li>
+                                <li><a href="__APP__/Node/add" target="dialog" width="600" height="300">权限添加</a></li>
+                            </ul>
+                        </li>-->
+                    </ul>
+                </div>
+
+
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>资源管理</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Library/index" target="navTab" rel="listlib"
+                               title="资源列表">资源列表</a></li>
+                        <!--<li><a>文档资源</a>
+                            <ul>
+
+                                <li><a href="__APP__/Libcom/index" target="navTab" rel="listlibcom"
+                                       title="文库评论">文档评论</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a>视频资源</a>
+                            <ul>
+                                <li><a href="__APP__/Video/index" target="navTab" rel="listvideo"
+                                       title="视频信息">视频列表</a></li>
+                                <li><a href="__APP__/Videocom/index" target="navTab" rel="listvideocom" title="视频评论">视频评论</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li><a>资源手记</a>
+                             <ul>
+                                 <li><a href="__APP__/Note/index" target="navTab" rel="listnote" title="视频笔记">浏览视频手记</a>
+                                 </li>
+                                 <li><a href="__APP__/Notecom/index" target="navTab" rel="listnotecom" title="手记评论">浏览手记评论</a>
+                                 </li>
+
+                             </ul>
+                         </li>
+                        <li><a>资源分类</a>
+
+                            <ul>
+                                <li><a href="__APP__/Cat/index" target="navTab" rel="listcat" title="分类列表">分类列表</a></li>
+                                <li><a href="__APP__/Cat/add" target="dialog" width="600" height="300">分类添加</a></li>
+                            </ul>
+                        </li>-->
+                    </ul>
+                </div>
+
+
+                <!-- <div class="accordionHeader">
+                     <h2><span>Folder</span>资源分类管理</h2>
+                 </div>
+                 <div class="accordionContent">
+                     <ul class="tree treeFolder">
+                         <li><a href="__APP__/Cat/index" target="navTab" rel="listcat" title="分类信息">浏览分类列表</a></li>
+                         <li><a href="__APP__/Cat/add" target="dialog" width="600" height="300">添加分类</a></li>
+                     </ul>
+                 </div>-->
+
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>试题管理</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Test/index" target="navTab" rel="listtest" title="选择题列表">选择题列表</a></li>
+                        <li><a href="__APP__/Test/index" target="navTab" rel="listtest" title="判断题列表">判断题列表</a></li>
+                        <li><a href="__APP__/Test/index" target="navTab" rel="listtest" title="填空题列表">填空题列表</a></li>
+                        <li><a href="__APP__/Test/index" target="navTab" rel="listtest" title="试题导入">试题导入</a></li>
+                    </ul>
+                </div>
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>自测管理</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Test/index" target="navTab" rel="listtest" title="自测列表">自测列表</a></li>
+                        <li><a href="__APP__/Test/index" target="navTab" rel="listtest" title="自测打分">自测打分</a></li>
+                        <li><a href="__APP__/Test/index" target="navTab" rel="listtest" title="自测统计">自测统计</a></li>
+                    </ul>
+                </div>
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>考试管理</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Test/index" target="navTab" rel="listtest" title="考试列表">考试列表</a></li>
+                        <li><a href="__APP__/Test/add" target="dialog" width="600" height="300">考试发布</a></li>
+                    </ul>
+                </div>
+                <!--<div class="accordionHeader">
+                    <h2><span>Folder</span>贴吧信息管理</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Message/index" target="navTab" rel="listmessage" title="帖子信息">浏览帖子信息</a>
+                        </li>
+                        <li><a href="__APP__/Comm/index" target="navTab" rel="listcomm" title="帖子评论信息">浏览帖子评论</a></li>
+                    </ul>
+                </div>
+
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>提问信息管理</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Question/index" target="navTab" rel="listquestion" title="提问信息">浏览问题信息</a>
+                        </li>
+                    </ul>
+                </div>-->
+
+
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>公告管理</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Notice/index" target="navTab" rel="listnotice" title="公告列表">公告列表</a></li>
+                        <li><a href="__APP__/Notice/add" target="dialog" width="700" height="500">公告添加</a></li>
+                    </ul>
+                </div>
+
+                <!-- <div class="accordionHeader">
+                     <h2><span>Folder</span>友情链接管理</h2>
+                 </div>
+                 <div class="accordionContent">
+                     <ul class="tree treeFolder">
+                         <li><a href="__APP__/Flink/index" target="navTab" rel="listflink" title="友情链接">友情链接管理</a></li>
+                         <li><a href="__APP__/Flink/add" target="dialog" width="600" height="300">添加友情链接</a></li>
+                     </ul>
+                 </div>-->
+
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>基础数据</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/College/index" target="navTab" rel="listcollege" title="学院列表">学院列表</a></li>
+                        <li><a href="__APP__/Major/index" target="navTab" rel="listmajor" title="专业列表">专业列表</a></li>
+                        <li><a href="__APP__/Class/index" target="navTab" rel="listclass" title="班级列表">班级列表</a></li>
+                        <li><a href="__APP__/Course/index" target="navTab" rel="listcourse" title="课程列表">课程列表</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container">
+        <div id="navTab" class="tabsPage">
+            <div class="tabsPageHeader">
+                <div class="tabsPageHeaderContent"><!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
+                    <ul class="navTab-tab">
+                        <li tabid="main" class="main"><a href="javascript:;"><span><span
+                                class="home_icon">我的主页</span></span></a></li>
+                    </ul>
+                </div>
+                <div class="tabsLeft">left</div><!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
+                <div class="tabsRight">right</div><!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
+                <div class="tabsMore">more</div>
+            </div>
+            <ul class="tabsMoreList">
+                <li><a href="javascript:;">主页</a></li>
+            </ul>
+            <div class="navTab-panel tabsPageContent layoutBox">
+                <div class="page unitBox">
+
+                    <div class="pageFormContent" layoutH="80" style="margin-right:230px;width:100%">
+                        <table cellSpacing=0 cellPadding=0 style="width:100%" align=center border=0>
+                            <td bgColor=#b1ceef height=1></td>
+                            </tr>
+                            <tr height=20>
+                                <td background="__PUBLIC__/after/images/shadow_bg.jpg"></td>
+                            </tr>
+                        </table>
+                        <table cellSpacing=0 cellPadding=0 width="90%" align=center border=0>
+                            <tr height=100>
+                                <td align=middle width=100><IMG height=100 src="__PUBLIC__/after/images/admin_p.gif"
+                                                                width=90></td>
+                                <td width=60>&nbsp;</td>
+                                <td>
+                                    <table height="80" cellSpacing=0 cellPadding=0 width="100%" border=0>
+                                        <tr>
+                                            <td>
+                                                当前时间： <{$smarty.now|date_format:'%Y-%m-%d %H:%M:%S'}>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>欢迎进入教育资源管理系统！</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan=3 height=10></td>
+                            </tr>
+                        </table>
+                        <table cellSpacing=0 cellPadding=0 width="95%" align=center border=0>
+                            <tr height=20>
+                                <td></td>
+                            </tr>
+                            <tr height=22>
+                                <td style="margin-left:20px;padding-left:30px;font-weight:bold;color:#ffffff;"
+                                    align=middle background="__PUBLIC__/after/images/login-top-bg.gif">信息统计一览
+                                </td>
+                            </tr>
+                            <tr bgColor=#ecf4fc height=12>
+                                <td></td>
+                            </tr>
+                            <tr height=20>
+                                <td></td>
+                            </tr>
+                        </table>
+
+                        <table id="webtable" cellSpacing=0 cellPadding=2 width="95%" align=center border=0>
+                            <tr>
+                                <td align='right' width=100>登陆帐号：</td>
+                                <td style="COLOR: #880000"><{$smarty.session.adminuser.username}></td>
+                                <td align='center' colspan=2>数据统计</td>
+                            </tr>
+
+                            <tr>
+                                <td align='right'>注册时间：</td>
+                                <td style="COLOR: #880000"><{$addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+                                <td align='right' width='30%'>新增会员数：</td>
+
+                                <td align='left' width='30%'>&nbsp;&nbsp;&nbsp;<a href="__APP__/Users/index"
+                                                                                  target="navTab" rel="listlib"
+                                                                                  title="用户信息"><{$adduser}></a></td>
+                            </tr>
+                            <tr>
+                                <td align='right'>登陆次数：</td>
+                                <td style="COLOR: #880000"><{$loginnum}></td>
+                                <td align='right' width='30%'>未审核视频数：</td>
+
+                                <td align='left' width='30%'>&nbsp;&nbsp;&nbsp;<a href="__APP__/Video/index/status/1"
+                                                                                  target="navTab" rel="listvideo"
+                                                                                  title="视频信息"><{$notvideo}></a></td>
+                            </tr>
+                            <tr>
+                                <td align='right'>上线时间：</td>
+                                <td style="COLOR: #880000"><{$smarty.session.adminuser.logintime|date_format:'%Y-%m-%d
+                                    %H:%M:%S'}>
+                                </td>
+                                <td align='right' width='30%'>未审核文档数：</td>
+
+                                <td align='left' width='30%'>&nbsp;&nbsp;&nbsp;<a href="__APP__/Library/index/status/1"
+                                                                                  target="navTab" rel="listlib"
+                                                                                  title="资源信息"><{$notlib}></a></td>
+                            </tr>
+                            <tr>
+                                <td align='right'>上次登录时间：</td>
+                                <td style="COLOR: #880000"><{$logintime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+                                <td align='right' width='30%'>网站总访问量：</td>
+
+                                <td align='left' width='30%' style="COLOR: #880000">　<{$clicknum}></td>
+                            </tr>
+                            <tr>
+                                <td align='right'>身份过期：</td>
+                                <td style="COLOR: #880000"><{$timecha}></td>
+                                <td align='right' width='30%'>最近一次访问时间：</td>
+
+                                <td align='left' width='30%' style="color:blue">　<{$clicktime|date_format:'%Y-%m-%d
+                                    %H:%M:%S'}>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="footer">Copyright &copy; 2016 <a href="" target="dialog"></a><!-- Tel：--></div>
+</body>
+</html>
