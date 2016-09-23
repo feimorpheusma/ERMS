@@ -65,13 +65,31 @@ class TestAction extends CommonAction
     //重载父类中编辑的方法
     public function score()
     {
-        //查询需要编辑的信息
-        $model = M("test_question");
+        $questions = M("test_question t")->field("t.id,q.content,t.answer")->join("edu_question q on t.qid = q.id")->where("q.type=5 and t.tid={$_GET['tid']} and t.status=0")->select();
+        if ($questions) {
+            $this->assign("list", $questions);
+            $this->display();
+        } else {
+            $this->error("该自测没有客观题或已经打分完毕！");
+        }
+    }
 
-        $questions = M("test_question t")->join("edu_question q on t.qid = q.id")->field("t.id,q.name,t.answer")->where("q.type=5 and t.tid={$_GET['id']}")->select();
+    //执行试题的添加
+    public function savescore()
+    {
+        //删除当前角色的所有节点信息
+        $m = M("Test_question");
 
-        $this->assign("vo", $questions);
-        $this->display();
+        //将当前选择的节点信息添加上去
+        if (!empty($_POST['id'])) {
+            for ($i = 0; $i < sizeof($_POST['id']); $i++) {
+                $data["score"] = $_POST['score'][$i];
+                $data["status"] = 1;
+
+                $m->where("id = {$_POST['id'][$i]}")->save($data);
+            }
+        }
+        $this->success("修改成功！");
     }
 
     //重载父类中编辑的方法

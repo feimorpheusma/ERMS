@@ -1,5 +1,5 @@
 <{include file="Public/pagerForm.html"}>
-<form method="post" action="__URL__/score/navTabId/listtest/callbackType/closeCurrent"
+<form method="post" action="__URL__/savescore/navTabId/listtest/callbackType/closeCurrent"
       class="pageForm required-validate"
       onsubmit="return validateCallback(this,dialogAjaxDone);">
     <div class="pageContent">
@@ -7,7 +7,7 @@
             <{foreach $list as $vo}>
             <dl>
                 <dt>题目：</dt>
-                <dd><{$vo.title}></dd>
+                <dd><{$vo.name}></dd>
             </dl>
             <dl>
                 <dt>答案：</dt>
@@ -15,7 +15,10 @@
             </dl>
             <dl>
                 <dt>得分：</dt>
-                <dd><input type="text" class="required number" style="width:100%" name="score"/></dd>
+                <dd>
+                    <input type="text" class="required number" style="width:100%" name="score[]"/>
+                    <input type="hidden" name="id[]" value="<{$vo.id}>"/>
+                </dd>
             </dl>
             <{/foreach}>
         </div>
