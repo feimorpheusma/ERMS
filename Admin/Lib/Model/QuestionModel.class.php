@@ -7,7 +7,7 @@ class QuestionModel extends Model{
     );
 	
 	
-	protected $trueTableName = 'bbs_question';
+	protected $trueTableName = 'edu_question';
 	
 }
 
