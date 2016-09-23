@@ -63,6 +63,18 @@ class TestAction extends CommonAction
     }
 
     //重载父类中编辑的方法
+    public function score()
+    {
+        //查询需要编辑的信息
+        $model = M("test_question");
+
+        $questions = M("test_question t")->join("edu_question q on t.qid = q.id")->field("t.id,q.name,t.answer")->where("q.type=5 and t.tid={$_GET['id']}")->select();
+
+        $this->assign("vo", $questions);
+        $this->display();
+    }
+
+    //重载父类中编辑的方法
     public function edit()
     {
         //查询需要编辑的信息
