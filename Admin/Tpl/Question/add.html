@@ -1,23 +1,63 @@
-
 <div class="pageContent">
-	<form method="post" action="__URL__/insert/navTabId/listtest/callbackType/closeCurrent"  class="pageForm required-validate" 
-		onsubmit="return validateCallback(this,dialogAjaxDone);"><?php  //窗体组件采用这个 iframeCallback(this, navTabAjaxDone); ?>
+    <form method="post" action="__URL__/insert/navTabId/listquestion/callbackType/closeCurrent"
+          enctype="multipart/form-data"
+          onsubmit="return iframeCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="60">
             <dl>
-                <dt>试卷类型:</dt>
-                <dd><{html_options name='tid' options=$myOptions selected=$mySelect}></dd>
+                <dt>课程：</dt>
+                <dd><{html_options name='cid' options=$Courses selected=$CourseId}></dd>
             </dl>
-			<dl>
-				<dt>试卷名:</dt>
-				<dd><input type="text" class="required"  style="width:100%" name="title"/></dd>
-			</dl>
-		</div>
-		<div class="formBar">
-			<ul>
-				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
-				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
-			</ul>
-		</div>
-	</form>
+            <dl style='height:130px'>
+                <dt>题目：</dt>
+                <dd><textarea class='editor' rows='8' cols='50' name="content" tools='simple'
+                              upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'></textarea></dd>
+            </dl>
+            <dl>
+                <dt>分数:</dt>
+                <dd><input type="text" style="width:100%" name="score"/></dd>
+            </dl>
+            <dl>
+                <dt>答案A:</dt>
+                <dd><input type="text" style="width:100%" name="aA"/></dd>
+            </dl>
+            <dl>
+                <dt>答案B:</dt>
+                <dd><input type="text" style="width:100%" name="aB"/></dd>
+            </dl>
+            <dl>
+                <dt>答案C:</dt>
+                <dd><input type="text" style="width:100%" name="aC"/></dd>
+            </dl>
+            <dl>
+                <dt>答案D:</dt>
+                <dd><input type="text" style="width:100%" name="aD"/></dd>
+            </dl>
+            <dl>
+                <dt>正确答案:</dt>
+                <dd><input type="radio" name="answer" value='A'/>A
+                    <input type="radio" name="answer" value='B'/>B
+                    <input type="radio" name="answer" value='C'/>C
+                    <input type="radio" name="answer" value='D'/>D
+                </dd>
+            </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">提交</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">取消</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
 </div>
-

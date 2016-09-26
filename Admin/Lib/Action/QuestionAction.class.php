@@ -41,24 +41,7 @@ class QuestionAction extends CommonAction
         $this->assign('vo', $vo);
         $this->display('replay');
     }
-    //自定义魔术方法，对当前模块中查询出的数据，做其他关联数据的追加
-    /*  public function _tigger_list(&$list){
-          $mod=M("Users");    //获取users表的操作对象
-          foreach($list as &$v){
-              $ob1=$mod->field('username')->find($v['uid']);
-              $v['username']=$ob1['username'];
-              $ob2=$mod->field('username')->find($v['tid']);
-              $v['tname']=$ob2['username'];
-              //获取标签名
-              $arr=explode(',',$v['keyword']);
-              $str='';
-              foreach($arr as $ll){
-                  $ob3=M("Cat")->find($ll);
-                  $str.=$ob3['name'].',';
-              }
-              $v['key']=rtrim($str,',');
-          }
-      }*/
+
     public function _tigger_list(&$list)
     {
         //实例化表对象
@@ -74,6 +57,7 @@ class QuestionAction extends CommonAction
             $v['coursename'] = $cname['name'];
         }
     }
+
     //定义封装搜索条件的方法
     public function _filter(&$map)
     {
@@ -98,6 +82,26 @@ class QuestionAction extends CommonAction
             $map['cid'] = array("egt", "0");
         }
     }
+
+
+    //重载父类中的数据添加的方法
+    public function insert()
+    {
+        //实例化表对象
+        $model = D("Question");
+
+        if (false === $model->create()) {
+            $this->error($model->getError());
+        }
+        $model->uid = $_SESSION[C("USER_AUTH_KEY")]['id'];//取得上传者的id
+        $model->type = 1;
+        if ($model->add()) {
+            $this->success(L("新增成功"));
+        } else {
+            $this->error(L("新增失败！") . $model->getLastSql());
+        }
+    }
+
     //添加搜索方法
     /*public function _filter1(&$map){
         //判断是否有搜索条件
@@ -191,7 +195,5 @@ class QuestionAction extends CommonAction
         //把所有类别信息的关联数组赋给模板
         $this->assign('Courses', $courses);
         $this->assign('CourseId', $cid);//设置默认选中的option的下标值id
-
-
     }
 }

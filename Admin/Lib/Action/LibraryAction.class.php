@@ -107,22 +107,6 @@ class LibraryAction extends CommonAction
         }
     }
 
-    public function approval()
-    {
-        $id = $_GET['id'];
-        $data['status'] = 1;
-        M("Library")->where("id={$id}")->save($data);
-        $this->success(L("审核成功"));
-    }
-
-    public function deny()
-    {
-        $id = $_GET['id'];
-        $data['status'] = 2;
-        M("Library")->where("id={$id}")->save($data);
-        $this->success(L("审核成功"));
-    }
-
     public function update()
     {
         //实例化表对象
