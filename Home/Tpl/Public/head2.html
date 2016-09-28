@@ -86,14 +86,13 @@
 
                         <ul class="nav navbar-nav g_nav">
 
-                            <li><a href="__APP__/Video/index" class="animated">视频</a></li>
-                            <li><a href="__APP__/Note/index" class="animated">手记</a></li>
-                            <li><a href="__APP__/Library/index" class="animated">文库</a></li>
-                            <li><a href="__APP__/Message/index" class="animated">贴吧</a></li>
+                            <li><a href="__APP__/Video/index">教学视频</a></li>
+                            <li><a href="__APP__/Library/index">教学资料</a></li>
+                            <li><a href="__APP__/Test/index">自测练习</a></li>
                             <{if $smarty.session.user}>
-                            <li><a href="__APP__/Test/index" class="animated">考试</a></li>
+                            <li><a href="__APP__/Test/index">在线考试</a></li>
                             <{else}>
-                            <li><a href="javascript:alert('请先登录！')" class="animated">考试</a></li>
+                            <li><a href="javascript:alert('请先登录！')">在线考试</a></li>
                             <{/if}>
                         </ul>
 

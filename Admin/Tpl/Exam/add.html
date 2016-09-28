@@ -1,23 +1,44 @@
-
 <div class="pageContent">
-	<form method="post" action="__URL__/insert/navTabId/listtest/callbackType/closeCurrent"  class="pageForm required-validate" 
-		onsubmit="return validateCallback(this,dialogAjaxDone);"><?php  //窗体组件采用这个 iframeCallback(this, navTabAjaxDone); ?>
+    <form method="post" action="__URL__/insert/navTabId/listexam/callbackType/closeCurrent"
+          enctype="multipart/form-data"
+          onsubmit="return iframeCallback(this, dialogAjaxDone);">
         <div class="pageFormContent" layoutH="60">
             <dl>
-                <dt>试卷类型:</dt>
-                <dd><{html_options name='tid' options=$myOptions selected=$mySelect}></dd>
+                <dt>课程：</dt>
+                <dd><{html_options name='cid' options=$Courses selected=$CourseId}></dd>
             </dl>
-			<dl>
-				<dt>试卷名:</dt>
-				<dd><input type="text" class="required"  style="width:100%" name="title"/></dd>
-			</dl>
-		</div>
-		<div class="formBar">
-			<ul>
-				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
-				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
-			</ul>
-		</div>
-	</form>
+            <dl>
+                <dt>考试名称:</dt>
+                <dd><input type="text" style="width:100%" name="title"/></dd>
+            </dl>
+            <dl>
+                <dt>开始时间:</dt>
+                <dd><input type="text" class="date" datefmt="yyyy-MM-dd"
+                           readonly="true" style="width:100%" name="starttime"/></dd>
+            </dl>
+            <dl>
+                <dt>结束时间:</dt>
+                <dd><input type="text" class="date" datefmt="yyyy-MM-dd"
+                           readonly="true" style="width:100%" name="endtime"/></dd>
+            </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">提交</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">取消</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
 </div>
-

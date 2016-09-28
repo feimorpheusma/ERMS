@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.6, created on 2016-09-11 16:35:51
+<?php /* Smarty version Smarty-3.1.6, created on 2016-09-29 01:06:46
          compiled from "./Home/Tpl\Users\login.html" */ ?>
 <?php /*%%SmartyHeaderCode:939457d51767876af9-63950255%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '5eb86b5f52faad6893408a91f10736e2d8252303' => 
     array (
       0 => './Home/Tpl\\Users\\login.html',
-      1 => 1393439744,
+      1 => 1475082394,
       2 => 'file',
     ),
   ),
@@ -15,9 +15,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
-  'has_nocache_code' => false,
   'version' => 'Smarty-3.1.6',
   'unifunc' => 'content_57d51767de94c',
+  'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_57d51767de94c')) {function content_57d51767de94c($_smarty_tpl) {?><!DOCTYPE html>
 <html>
@@ -65,10 +65,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     <div class="collapse navbar-collapse navbar-ex1-collapse" style="height:50px;line-height:50px">
 
                         <ul class="nav navbar-nav g_nav" style="margin-top:15px">
-                            <li><a href="__APP__/Video/index">视频</a></li>
-                            <li><a href="__APP__/Note/index">手记</a></li>
-                            <li><a href="__APP__/Library/index">军火库</a></li>
-                            <li><a href="__APP__/Message/index">贴吧</a></li>
+                            <li><a href="__APP__/Video/index">教学视频</a></li>
+                            <li><a href="__APP__/Library/index">教学资料</a></li>
+                            <li><a href="__APP__/Test/index">自测练习</a></li>
+                            <?php if ($_SESSION['user']){?>
+                            <li><a href="__APP__/Test/index">在线考试</a></li>
+                            <?php }else{ ?>
+                            <li><a href="javascript:alert('请先登录！')">在线考试</a></li>
+                            <?php }?>
                             <?php if ($_SESSION['user']){?>
                             <li><a href="__APP__/Test/index">考试</a></li>
                             <?php }else{ ?>

@@ -23,13 +23,20 @@
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
-             <li><a class="add" href="__URL__/detail/id/{sid_user}/navTabId/listtest" target="navTab" width="830" height="500" title="查看试题详情"><span>查看</span></a></li>
-			<li><a class="delete" href="__URL__/delete/id/{sid_user}/navTabId/listtest" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
-            <li><a class="edit" href="__URL__/edit/id/{sid_user}/navTabId/listtest" target="dialog"><span>修改</span></a></li>
-           <li><a class="add" href="__URL__/addquest/tid/{sid_user}/navTabId/listtest" target="dialog" width="800" height="500" title="添加试题"><span>添加试题</span></a></li>
-            <li class="line">line</li>
-            <li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
-            <!--<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>-->
+			<li><a class="add" href="__URL__/add/navTabId/listexam" target="dialog" height="400"><span>添加</span></a>
+			</li>
+			<li><a class="edit" href="__URL__/edit/id/{sid_user}/navTabId/listexam" target="dialog"
+				   height="400"><span>修改</span></a></li>
+			<li><a class="delete" href="__URL__/detail/id/{sid_user}/navTabId/listexam"  target="dialog" max="true" mask="true"><span>试题列表</span></a></li>
+			<li class="line">line</li>
+			<li><a class="edit" href="__URL__/approval/id/{sid_user}/navTabId/listexam" target="ajaxTodo"
+				   title="确定要审核通过吗?"><span>审核通过</span></a>
+			</li>
+			<li><a class="edit" href="__URL__/deny/id/{sid_user}/navTabId/listexam" target="ajaxTodo"
+				   title="确定要审核不通过吗?"><span>不通过</span></a>
+			</li>
+			<li class="line">line</li>
+			<li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
 		</ul>
 	</div>
 	<table class="table" width="100%" layoutH="138">
@@ -37,10 +44,12 @@
 			<tr>
                 <th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
                 <th width="200">名称</th>
-				<th width="150">学生</th>
 				<th width="150">课程</th>
-				<th width="150">自测时间</th>
-				<th width="150">得分</th>
+				<th width="150">开始时间</th>
+				<th width="150">结束时间</th>
+				<th width="150">发布时间</th>
+				<th width="150">发布人</th>
+				<th width="150">审核状态</th>
 			</tr>
 		</thead>
         <tbody>
@@ -48,10 +57,14 @@
             <tr target="sid_user" rel="<{$vo.id}>">
                 <td><{$vo.id}></td>
 				<td><{$vo.title}></td>
-				<td><{$vo.username}></td>
 				<td><{$vo.coursename}></td>
-                <td><{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
-				<td><{$vo.score}></td>
+				<td><{$vo.starttime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+				<td><{$vo.endtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+				<td><{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+				<td><{$vo.username}></td>
+				<td>
+					<{if $vo.status == 0}>未审核<{else if $vo.status == 1}>通过<{else}>未通过<{/if}>
+				</td>
             </tr>
             <{/foreach}>
 			

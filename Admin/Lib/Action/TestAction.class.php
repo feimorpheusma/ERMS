@@ -148,7 +148,6 @@ class TestAction extends CommonAction
 
     public function detail()
     {
-        $where['tid'] = array("eq", $_GET['id']);
         $vo = M("Test t")->field("t.title,s.name as studentname,c.name as coursename,t.addtime")->join("edu_student s on t.sid=s.id")->join("edu_course c on t.cid=c.id")->where("t.id={$_GET['id']}")->find();
         $list = M("Test_question t")->field("content,aA,aB,aC,aD,q.answer,t.answer as studentanswer,t.score as studentscore")->join("edu_question q on t.qid=q.id")->where("t.tid={$_GET['id']}")->select();
         $this->assign("list", $list);

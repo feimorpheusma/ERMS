@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.6, created on 2016-09-11 16:35:12
+<?php /* Smarty version Smarty-3.1.6, created on 2016-09-29 01:03:25
          compiled from "./Home/Tpl\Library\index.html" */ ?>
 <?php /*%%SmartyHeaderCode:1678257d51740baa250-92901918%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '1047c039db239818cd39e9b24ff213b65eb3cdba' => 
     array (
       0 => './Home/Tpl\\Library\\index.html',
-      1 => 1446612540,
+      1 => 1475082172,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.6',
+  'unifunc' => 'content_57d517411e251',
   'variables' => 
   array (
     'title' => 0,
@@ -27,10 +29,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'new' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.6',
-  'unifunc' => 'content_57d517411e251',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_57d517411e251')) {function content_57d517411e251($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'D:\\Projects\\ERMS\\ThinkPHP\\Extend\\Vendor\\Smarty\\plugins\\modifier.date_format.php';
+<?php if ($_valid && !is_callable('content_57d517411e251')) {function content_57d517411e251($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'D:\\Projects\\ERMS_GIT\\ThinkPHP\\Extend\\Vendor\\Smarty\\plugins\\modifier.date_format.php';
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
@@ -127,7 +127,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 <div class="col-md-8">
 
                     <div class="m_r_list g_t_list mt5">
-                        <div class="tt"><h3><?php echo (($tmp = @$_smarty_tpl->tpl_vars['title']->value)===null||$tmp==='' ? "军火总览" : $tmp);?>
+                        <div class="tt"><h3><?php echo (($tmp = @$_smarty_tpl->tpl_vars['title']->value)===null||$tmp==='' ? "资源总览" : $tmp);?>
 </h3></div>
                         <div class="m_n_item_info f12 c999">
                             <span class="g_reply_n">浏览量&nbsp;&nbsp;|&nbsp;&nbsp;被赞量</span>
