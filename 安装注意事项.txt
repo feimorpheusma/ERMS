@@ -2,3 +2,4 @@
 upload_max_filesize = 1000M
 post_max_size = 1000M
 2.iis Ìí¼ÓMP4 MIME
+3.É¾³ý phpini always_populate_raw_post_data

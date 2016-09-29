@@ -30,10 +30,12 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="__URL__/add/navTabId/listquestion" target="dialog" height="400"><span>添加</span></a>
+            <li><a class="add" href="__URL__/add/navTabId/listquestion/type/<{$vo.type}>" target="dialog"
+                   height="600"><span>添加</span></a>
             </li>
-            <li><a class="edit" href="__URL__/edit/id/{sid_user}/navTabId/listquestion" target="dialog"
-                   height="400"><span>修改</span></a></li>
+            <li><a class="edit" href="__URL__/edit/id/{sid_user}/navTabId/listquestion/type/<{$vo.type}>"
+                   target="dialog"
+                   height="600"><span>修改</span></a></li>
             <li><a class="delete" href="__URL__/delete/id/{sid_user}/navTabId/listquestion" target="ajaxTodo"
                    title="确定要删除吗?"><span>删除</span></a></li>
             <li class="line">line</li>
@@ -54,16 +56,18 @@
             <th align="center" width="50" orderField="id"
             <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
             <th width="80">课程</th>
-            <th width="230">试题内容</th>
+            <th>试题内容</th>
             <th width="70">试题分数</th>
+            <{if $vo.type == 1 || $vo.type == 2}>
             <th width="90">答案A</th>
             <th width="90">答案B</th>
             <th width="90">答案C</th>
             <th width="90">答案D</th>
+            <{/if}>
             <th width="90">正确答案</th>
             <th width="90">上传者</th>
             <th width="150">上传时间</th>
-            <th width="150">审核状态</th>
+            <th width="90">审核状态</th>
         </tr>
         </thead>
         <tbody>
@@ -73,10 +77,13 @@
             <td><{$vo.coursename}></td>
             <td><{$vo.content}></td>
             <td><{$vo.score}></td>
+
+            <{if $vo.type == 1 || $vo.type == 2}>
             <td><{$vo.aA}></td>
             <td><{$vo.aB}></td>
             <td><{$vo.aC}></td>
             <td><{$vo.aD}></td>
+            <{/if}>
             <td><{$vo.answer}></td>
             <td><{$vo.username}></td>
             <td><{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>

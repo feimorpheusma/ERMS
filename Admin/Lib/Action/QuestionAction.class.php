@@ -4,35 +4,6 @@
 class QuestionAction extends CommonAction
 {
 
-    public function update()
-    {
-        $_POST['rtime'] = time();
-        $model = D($this->getActionName());
-        /*
-        //用于事件处理
-        if(in_array($this->getActionName(),$this->eventlist)){
-            //保留一下原始数据
-            $_POST["jsoninfo"]=$model->where("id=".$_POST['id'])->find();
-            $_POST["jsoninfo"]["actionname"]=$this->getActionName();
-        }
-        */
-        if (false === $model->create()) {
-            $this->error($model->getError());
-        }
-        // 更新数据
-        if (false !== $model->save()) {
-            // 回调接口
-            if (method_exists($this, '_tigger_update')) {
-                $this->_tigger_update($model);
-            }
-            //成功提示
-            $this->success(L('更新成功'));
-        } else {
-            //错误提示
-            $this->error(L('更新失败'));
-        }
-    }
-
     public function replay()
     {
         $model = D($this->getActionName());
@@ -56,6 +27,8 @@ class QuestionAction extends CommonAction
             $cname = $course->field("name")->find($v['cid']);
             $v['coursename'] = $cname['name'];
         }
+        $vo['type'] = $_REQUEST['type'];
+        $this->assign('vo', $vo);
     }
 
     //定义封装搜索条件的方法
@@ -63,6 +36,10 @@ class QuestionAction extends CommonAction
     {
         //判断是否存在搜索条件
         //执行资源名的搜索
+
+        if (!empty($_REQUEST['type'])) {
+            $map['type'] = array("eq", $_REQUEST['type']);
+        }
         if (!empty($_REQUEST['content'])) {
             $map['content'] = array("like", "%{$_REQUEST['content']}%");
         }
@@ -84,6 +61,17 @@ class QuestionAction extends CommonAction
     }
 
 
+    public function add()
+    {
+        $this->typeSelect();
+
+        $vo['type'] = $_REQUEST['type'];
+        $this->assign('vo', $vo);
+
+        //把资源的类别信息赋值到模板中
+        $this->display('add');
+    }
+
     //重载父类中的数据添加的方法
     public function insert()
     {
@@ -93,8 +81,11 @@ class QuestionAction extends CommonAction
         if (false === $model->create()) {
             $this->error($model->getError());
         }
+
+        if (is_array($model->answer)) {
+            $model->answer = implode($model->answer);
+        }
         $model->uid = $_SESSION[C("USER_AUTH_KEY")]['id'];//取得上传者的id
-        $model->type = 1;
         if ($model->add()) {
             $this->success(L("新增成功"));
         } else {
@@ -102,6 +93,26 @@ class QuestionAction extends CommonAction
         }
     }
 
+    public function update()
+    {
+        $model = D($this->getActionName());
+
+        if (false === $model->create()) {
+            $this->error($model->getError());
+        }
+
+        if (is_array($model->answer)) {
+            $model->answer = implode($model->answer);
+        }
+        // 更新数据
+        if (false !== $model->save()) {
+            //成功提示
+            $this->success(L('更新成功'));
+        } else {
+            //错误提示
+            $this->error(L('更新失败'));
+        }
+    }
     //添加搜索方法
     /*public function _filter1(&$map){
         //判断是否有搜索条件
