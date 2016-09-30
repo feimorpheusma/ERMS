@@ -9,6 +9,12 @@ class StudentAction extends CommonAction
             $map['cid'] = array("egt", "0");
         }
 
+        if (!empty($_REQUEST['no'])) {
+            $map['no'] = array("like", "%{$_REQUEST['no']}%");
+        }
+        if (!empty($_REQUEST['name'])) {
+            $map['name'] = array("like", "%{$_REQUEST['name']}%");
+        }
     }
 
     //自定义魔术方法 对当前模块中查询出的数据 做其他关联数据的追加

@@ -3,7 +3,7 @@
 class UsersAction extends CommonAction
 {
     //添加搜索方法
-    public function _filter(&$map)
+    /*public function _filter(&$map)
     {
         //判断是否有搜索条件
         if (!empty($_REQUEST['username'])) {
@@ -18,6 +18,15 @@ class UsersAction extends CommonAction
             }
         }
 
+
+    }*/
+
+    //定义封装搜索条件的方法
+    public function _filter(&$map)
+    {
+        if (!empty($_REQUEST['username'])) {
+            $map['username'] = array("like", "%{$_REQUEST['username']}%");
+        }
     }
 
     //自定义魔术方法 对当前模块中查询出的数据 做其他关联数据的追加

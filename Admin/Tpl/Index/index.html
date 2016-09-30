@@ -356,7 +356,7 @@
 
                         <table id="webtable" cellSpacing=0 cellPadding=2 width="95%" align=center border=0>
                             <tr>
-                                <td align='right' width=100>登陆帐号：</td>
+                                <td align='right' width=200>登陆帐号：</td>
                                 <td style="COLOR: #880000"><{$smarty.session.adminuser.username}></td>
                                 <td align='center' colspan=2>数据统计</td>
                             </tr>
@@ -398,13 +398,13 @@
                                 <td align='left' width='30%' style="COLOR: #880000">　<{$clicknum}></td>
                             </tr>
                             <tr>
-                                <td align='right'>身份过期：</td>
-                                <td style="COLOR: #880000"><{$timecha}></td>
-                                <td align='right' width='30%'>最近一次访问时间：</td>
+                                <td align='right'>最近一次访问时间：</td>
 
-                                <td align='left' width='30%' style="color:blue">　<{$clicktime|date_format:'%Y-%m-%d
+                                <td align='left' style="color:880000"><{$clicktime|date_format:'%Y-%m-%d
                                     %H:%M:%S'}>
                                 </td>
+                                <td align='right'><!--身份过期：--></td>
+                                <td style="COLOR: #880000"><!--<{$timecha}>--></td>
                             </tr>
 
                         </table>
