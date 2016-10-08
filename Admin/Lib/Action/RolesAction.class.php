@@ -3,7 +3,6 @@
 
 class RolesAction extends CommonAction{
 
-
 	//浏览当前角色的节点信息
 	public function nodelist(){
 		//1. 获取当前角色信息

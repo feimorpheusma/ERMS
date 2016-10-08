@@ -3,6 +3,7 @@
           class="pageForm required-validate"
           onsubmit="return validateCallback(this,dialogAjaxDone);"><?php  //窗体组件采用这个 iframeCallback(this, navTabAjaxDone); ?>
         <input type="hidden" name="id" value="<{$vo.id}>"/>
+        <input type="hidden" name="type" value="<{$vo.type}>"/>
         <input type="hidden" name="rtime" value="1"/>
         <div class="pageFormContent" layoutH="60">
             <dl>
@@ -18,6 +19,7 @@
                 <dt>分数:</dt>
                 <dd><input type="text" style="width:100%" name="score" value="<{$vo.score}>"/></dd>
             </dl>
+            <{if $vo.type == 1}>
             <dl>
                 <dt>答案A:</dt>
                 <dd><input type="text" style="width:100%" name="aA" value="<{$vo.aA}>"/></dd>
@@ -42,6 +44,47 @@
                     <input type="radio" name="answer" value='D'<{if $vo.answer=='D'}>checked<{/if}>/>D
                 </dd>
             </dl>
+
+            <{else if $vo.type == 2}>
+
+            <dl>
+                <dt>答案A:</dt>
+                <dd><input type="text" style="width:100%" name="aA" value="<{$vo.aA}>"/></dd>
+            </dl>
+            <dl>
+                <dt>答案B:</dt>
+                <dd><input type="text" style="width:100%" name="aB" value="<{$vo.aB}>"/></dd>
+            </dl>
+            <dl>
+                <dt>答案C:</dt>
+                <dd><input type="text" style="width:100%" name="aC" value="<{$vo.aC}>"/></dd>
+            </dl>
+            <dl>
+                <dt>答案D:</dt>
+                <dd><input type="text" style="width:100%" name="aD" value="<{$vo.aD}>"/></dd>
+            </dl>
+            <dl>
+                <dt>正确答案:</dt>
+                <dd>
+                    <input type="checkbox" name="answer[]" value='A'<{if strpos($vo.answer,'A')}>checked<{/if}>/>A
+                    <input type="checkbox" name="answer[]" value='B'<{if strpos($vo.answer,'B')}>checked<{/if}>/>B
+                    <input type="checkbox" name="answer[]" value='C'<{if strpos($vo.answer,'C')}>checked<{/if}>/>C
+                    <input type="checkbox" name="answer[]" value='D'<{if strpos($vo.answer,'D')}>checked<{/if}>/>D
+                </dd>
+            </dl>
+            <{else if $vo.type == 3}>
+            <dl>
+                <dt>正确答案:</dt>
+                <dd><input type="radio" name="answer" value='对'<{if $vo.answer=='对'}>checked<{/if}>/>对
+                    <input type="radio" name="answer" value='错'<{if $vo.answer=='错'}>checked<{/if}>/>错
+                </dd>
+            </dl>
+            <{else if $vo.type == 4 || $vo.type == 5}>
+            <dl>
+                <dt>正确答案:</dt>
+                <dd><input type="text" style="width:100%" name="answer" value="<{$vo.answer}>"/></dd>
+            </dl>
+            <{/if}>
         </div>
 
         <div class="formBar">
