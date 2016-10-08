@@ -5,7 +5,13 @@
         <input type="hidden" name="id" value="<{$vo.id}>">
         <div class="pageFormContent" layoutH="60">
             <dl>
-                <dt>文档名：</dt>
+                <dt>资源类型：</dt>
+                <dd>
+                    <{if ($vo.type == 0)}>视频<{else}>文档<{/if}>
+                </dd>
+            </dl>
+            <dl>
+                <dt>资源名称：</dt>
                 <dd><input type="text" class="required" style="width:100%" name="title" value="<{$vo.title}>"/></dd>
             </dl>
             <dl>
