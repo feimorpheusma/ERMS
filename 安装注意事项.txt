@@ -1,5 +1,6 @@
 1.php.ini 
 upload_max_filesize = 1000M
 post_max_size = 1000M
-2.iis 添加MP4 MIME
+2.iis 添加MP4 MIME 文件扩展名填写.mp4，MIME类型填写video/mp4
 3.删除 phpini always_populate_raw_post_data
+4.IIS里选择对应的站点, 进入[请求筛选]功能, 选择[查询字符串]选项卡, 点击右侧[编辑功能设置]进行设置

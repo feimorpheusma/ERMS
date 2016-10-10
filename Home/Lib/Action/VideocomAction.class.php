@@ -51,8 +51,6 @@ class VideocomAction extends Action{
         }
     }
 
-    
-
     //定义评论回复的方法
     public function commentReply(){
         $model = D("Commentreply");

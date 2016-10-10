@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.6, created on 2016-09-11 21:29:32
+<?php /* Smarty version Smarty-3.1.6, created on 2016-10-10 10:51:36
          compiled from "./Home/Tpl\Video\detail.html" */ ?>
 <?php /*%%SmartyHeaderCode:1786957d55c3c351ac2-03680878%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '20d29faa3b6a1b7d0bec869ae93da2c35f43fa92' => 
     array (
       0 => './Home/Tpl\\Video\\detail.html',
-      1 => 1414747506,
+      1 => 1473643198,
       2 => 'file',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.6',
+  'unifunc' => 'content_57d55c3d14a55',
   'variables' => 
   array (
     'vo' => 0,
@@ -31,10 +33,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'comPage' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.6',
-  'unifunc' => 'content_57d55c3d14a55',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_57d55c3d14a55')) {function content_57d55c3d14a55($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'D:\\Projects\\ERMS\\ThinkPHP\\Extend\\Vendor\\Smarty\\plugins\\modifier.date_format.php';
+<?php if ($_valid && !is_callable('content_57d55c3d14a55')) {function content_57d55c3d14a55($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'E:\\Projects\\ERMS\\ThinkPHP\\Extend\\Vendor\\Smarty\\plugins\\modifier.date_format.php';
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
