@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.6, created on 2016-10-10 17:38:35
+<?php /* Smarty version Smarty-3.1.6, created on 2016-10-10 23:01:55
          compiled from "./Home/Tpl\Video\play.html" */ ?>
 <?php /*%%SmartyHeaderCode:283957d51664cb5698-04181807%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '7a0f92b3b2b4bf52cf22b5aec149172bb99f5c62' => 
     array (
       0 => './Home/Tpl\\Video\\play.html',
-      1 => 1476092313,
+      1 => 1476111528,
       2 => 'file',
     ),
   ),
@@ -30,7 +30,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_57d51665a6baa')) {function content_57d51665a6baa($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'E:\\Projects\\ERMS\\ThinkPHP\\Extend\\Vendor\\Smarty\\plugins\\modifier.date_format.php';
+<?php if ($_valid && !is_callable('content_57d51665a6baa')) {function content_57d51665a6baa($_smarty_tpl) {?><?php if (!is_callable('smarty_modifier_date_format')) include 'D:\\Projects\\ERMS_GIT\\ThinkPHP\\Extend\\Vendor\\Smarty\\plugins\\modifier.date_format.php';
 ?><?php echo $_smarty_tpl->getSubTemplate ('../Public/header.html', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 
 
@@ -76,12 +76,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <div class="col-md-2">
             <ul class="navbar-left">
                 <li>
-                    <?php if ($_SESSION['user']){?>
-                    <a href="__URL__/index/collid/<?php echo $_SESSION['user']['id'];?>
-"><i class="icon-list"></i> 我收藏的</a>
-                    <?php }else{ ?>
-                    <a href="javascript:;" class="please"><i class="icon-list"></i> 我收藏的</a>
-                    <?php }?>
+                    <a href="__URL__/index/collect/<?php echo $_SESSION['user']['id'];?>
+"><i class="icon-list"></i> 我的收藏</a>
                 </li>
             </ul>
         </div>
@@ -93,6 +89,54 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             <div class="container p0">
 
                 <div class="clearfix player_h row">
+
+                    <?php if ($_smarty_tpl->tpl_vars['vo']->value['type']==1){?>
+                    <div class="col-md-9">
+
+
+                        <script type="text/javascript" src="__PUBLIC__/FlexPaper/js/flexpaper_flash.js"></script>
+                        <script type="text/javascript" src="__PUBLIC__/FlexPaper/js/flexpaper_flash_debug.js"></script>
+                        <div id="viewerPlaceHolder" swfname="<?php echo $_smarty_tpl->tpl_vars['vo']->value['name_swf'];?>
+"
+                             style="width:790px;height:580px;display:block;"></div>
+                        <script type="text/javascript">
+                            //===================================================
+                            //在线预览文档的js代码
+                            var swfname = $("#viewerPlaceHolder").attr("swfname");
+                            var fp = new FlexPaperViewer(
+                                    '__PUBLIC__/FlexPaper/swf/FlexPaperViewer',
+                                    'viewerPlaceHolder',     //对应于a 标签的id
+                                    {
+                                        config: {
+                                            SwfFile: escape('__PUBLIC__/Uploads/library_swf/' + swfname), //这句是关键: SwfFile: 指示导入的.swf的路径
+                                            Scale: 0.6,
+                                            ZoomTransition: 'easeOut',
+                                            ZoomTime: 0.5,
+                                            ZoomInterval: 0.4,
+                                            FitPageOnLoad: true,
+                                            FitWidthOnLoad: true,
+                                            PrintEnabled: true,
+                                            FullScreenAsMaxWindow: false,
+                                            ProgressiveLoading: false,
+                                            MinZoomSize: 0.5,
+                                            MaxZoomSize: 2,
+                                            SearchMatchAll: true,
+                                            InitViewMode: 'Portrait',
+
+                                            ViewModeToolsVisible: true,
+                                            ZoomToolsVisible: true,
+                                            NavToolsVisible: true,
+                                            CursorToolsVisible: true,
+                                            SearchToolsVisible: true,
+                                            localeChain: 'en_US'
+                                        }
+                                    });
+                            //===================================================
+                        </script>
+
+
+                    </div>
+                    <?php }else{ ?>
                     <div class="col-md-9">
                         <div id="vedio" style="margin: 20px 50px;"></div>
                         <script type="text/javascript" src="__PUBLIC__/ckplayer6.8/ckplayer.js"
@@ -114,6 +158,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                         </script>
 
                     </div>
+
+                    <?php }?>
                     <div class="col-md-3">
 
                         <span class="f20"> <?php echo $_smarty_tpl->tpl_vars['vo']->value['title'];?>
@@ -133,9 +179,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                                 <?php }?>
                             </i>
                         </button>
-
+                        <a href="__URL__/dwload/id/<?php echo $_smarty_tpl->tpl_vars['vo']->value['id'];?>
+">点击下载</a>
 
                         <br/>
+                        <br/>
+                        <span>教学课程：<?php echo $_smarty_tpl->tpl_vars['vo']->value['course'];?>
+</span>
                         <br/>
                         <span>教学课程：<?php echo $_smarty_tpl->tpl_vars['vo']->value['course'];?>
 </span>

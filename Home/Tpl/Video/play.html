@@ -41,11 +41,7 @@
         <div class="col-md-2">
             <ul class="navbar-left">
                 <li>
-                    <{if $smarty.session.user}>
-                    <a href="__URL__/index/collid/<{$smarty.session.user.id}>"><i class="icon-list"></i> 我收藏的</a>
-                    <{else}>
-                    <a href="javascript:;" class="please"><i class="icon-list"></i> 我收藏的</a>
-                    <{/if}>
+                    <a href="__URL__/index/collect/<{$smarty.session.user.id}>"><i class="icon-list"></i> 我的收藏</a>
                 </li>
             </ul>
         </div>
@@ -57,6 +53,53 @@
             <div class="container p0">
 
                 <div class="clearfix player_h row">
+
+                    <{if $vo.type==1}>
+                    <div class="col-md-9">
+
+
+                        <script type="text/javascript" src="__PUBLIC__/FlexPaper/js/flexpaper_flash.js"></script>
+                        <script type="text/javascript" src="__PUBLIC__/FlexPaper/js/flexpaper_flash_debug.js"></script>
+                        <div id="viewerPlaceHolder" swfname="<{$vo.name_swf}>"
+                             style="width:790px;height:580px;display:block;"></div>
+                        <script type="text/javascript">
+                            //===================================================
+                            //在线预览文档的js代码
+                            var swfname = $("#viewerPlaceHolder").attr("swfname");
+                            var fp = new FlexPaperViewer(
+                                    '__PUBLIC__/FlexPaper/swf/FlexPaperViewer',
+                                    'viewerPlaceHolder',     //对应于a 标签的id
+                                    {
+                                        config: {
+                                            SwfFile: escape('__PUBLIC__/Uploads/library_swf/' + swfname), //这句是关键: SwfFile: 指示导入的.swf的路径
+                                            Scale: 0.6,
+                                            ZoomTransition: 'easeOut',
+                                            ZoomTime: 0.5,
+                                            ZoomInterval: 0.4,
+                                            FitPageOnLoad: true,
+                                            FitWidthOnLoad: true,
+                                            PrintEnabled: true,
+                                            FullScreenAsMaxWindow: false,
+                                            ProgressiveLoading: false,
+                                            MinZoomSize: 0.5,
+                                            MaxZoomSize: 2,
+                                            SearchMatchAll: true,
+                                            InitViewMode: 'Portrait',
+
+                                            ViewModeToolsVisible: true,
+                                            ZoomToolsVisible: true,
+                                            NavToolsVisible: true,
+                                            CursorToolsVisible: true,
+                                            SearchToolsVisible: true,
+                                            localeChain: 'en_US'
+                                        }
+                                    });
+                            //===================================================
+                        </script>
+
+
+                    </div>
+                    <{else}>
                     <div class="col-md-9">
                         <div id="vedio" style="margin: 20px 50px;"></div>
                         <script type="text/javascript" src="__PUBLIC__/ckplayer6.8/ckplayer.js"
@@ -76,6 +119,8 @@
                         </script>
 
                     </div>
+
+                    <{/if}>
                     <div class="col-md-3">
 
                         <span class="f20"> <{$vo.title}></span>
@@ -93,9 +138,11 @@
                                 <{/if}>
                             </i>
                         </button>
-
+                        <a href="__URL__/dwload/id/<{$vo.id}>">点击下载</a>
 
                         <br/>
+                        <br/>
+                        <span>教学课程：<{$vo.course}></span>
                         <br/>
                         <span>教学课程：<{$vo.course}></span>
                         <br/>

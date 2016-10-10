@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.6, created on 2016-10-10 10:39:22
+<?php /* Smarty version Smarty-3.1.6, created on 2016-10-10 21:32:55
          compiled from "./Home/Tpl\Video\index.html" */ ?>
 <?php /*%%SmartyHeaderCode:1363357d51684aff398-82328208%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '96b766e3a87dae98668b126087e13293c9a0b610' => 
     array (
       0 => './Home/Tpl\\Video\\index.html',
-      1 => 1476067160,
+      1 => 1476106359,
       2 => 'file',
     ),
   ),
@@ -34,9 +34,18 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <div class="navbar-header col-sm-offset-1">
             <h1><a href="__APP__/Video/index">教学视频</a></h1>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <ul class="navbar-left">
                 <li id="navbarli" class="active"><a href="javascript:void(0)" class="videolist">视频精选</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-2">
+            <ul class="navbar-left">
+                <li>
+                    <a href="__URL__/index/collect/<?php echo $_SESSION['user']['id'];?>
+"><i class="icon-list"></i> 我的收藏</a>
+                </li>
             </ul>
         </div>
     </div>

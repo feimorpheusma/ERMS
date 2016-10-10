@@ -94,7 +94,7 @@ class LibraryAction extends CommonAction
             $this->error($model->getError());
         }
         $model->uid = $_SESSION[C("USER_AUTH_KEY")]['id'];//取得上传者的id
-        $model->type = $info[0]['extension'];
+        //$model->type = $info[0]['extension'];
         $model->size = $_FILES['lib']['size'];
 
         $model->name = $info[0]['savename'];//取得上传完成保存的文件名
@@ -177,7 +177,7 @@ class LibraryAction extends CommonAction
         $id = $_GET['id'];
         $vo = $model->find($id);
         $vo['name_swf'] = substr($vo['name'], 0, strpos($vo['name'], ".")) . ".swf";
-        if ($vo['type'] == 'pdf' && !file_exists("./Public/Uploads/student/{$vo['name_swf']}")) {
+        if ($vo['type'] == '1' && !file_exists("./Public/Uploads/library_swf/{$vo['name_swf']}")) {
             $filename = $vo['name'];
             
             //==============================执行资源格式的转换==========================================

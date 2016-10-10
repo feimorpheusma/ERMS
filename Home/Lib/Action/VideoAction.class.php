@@ -8,7 +8,6 @@ class VideoAction extends Action
     //加载视频资源浏览页
     public function index()
     {
-
         //实例化表对象
         $model = M("Library");
 
@@ -25,19 +24,19 @@ class VideoAction extends Action
         }
 
         //拼装搜索用户收藏视频的id
-        /*if (!empty($_GET['favorite'])) {
+        if (!empty($_GET['collect'])) {
             //拼装用户收藏视频的条件
-            $coll = M("collect");
-            $vids = $coll->where("uid={$_SESSION[C('USER_AUTH_KEY')]['id']}")->field("vid")->select();
+            $collect = M("collect");
+            $vids = $collect->where("uid={$_SESSION[C('USER_AUTH_KEY')]['id']}")->field("lid")->select();
             $ids = array();
             foreach ($vids as $v) {
-                $ids[] = $v['vid'];
+                $ids[] = $v['lid'];
             }
             $where['id'] = array("in",$ids);
-        }*/
-        //$where['status'] = array("eq","1");
+        }
 
-
+        $where['status'] = array("eq","1");
+        $where['type'] = array("eq","0");
         //设置分页条件
         $total = $model->where($where)->count();//获取总数据条数
         $page = new Page($total, 9);//实例化一个分页对象
@@ -51,7 +50,7 @@ class VideoAction extends Action
         $this->assign("list", $result);
         $this->assign("showPage", $page->show());
 
-        //===============================================
+        
         //执行视频分类的查询
         $type = M("Course")->select();
         $this->assign("typelist", $type);
@@ -131,11 +130,7 @@ class VideoAction extends Action
         $note['content'] = $_POST['content'];
         $note['addtime'] = time();
 
-        if ($model->add($note)) {
-            $this->success("创建成功！", U("Video/detail?{$list['vid']}"));
-        } else {
-            $this->error("创建失败！");
-        }
+        $model->add($note);
     }
 
     //定义Ajax验证视频名是否存在的方法
