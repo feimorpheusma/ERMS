@@ -6,6 +6,7 @@
  */
 class CommonAction extends Action
 {
+    var $uid = 0;
 
     public function _initialize()
     {
@@ -22,6 +23,7 @@ class CommonAction extends Action
             $this->redirect('/Users/login');
             return;
         }
+        $this->uid = $_SESSION[C('USER_AUTH_KEY')]['id'];
     }
 
 }

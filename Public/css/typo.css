@@ -29,6 +29,8 @@ audio, canvas, video {
 
 body, button, input, select, textarea {
 	font:500 14px/1.8 Lucida,Verdana,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;
+
+	font-family: "Microsoft YaHei", "Tahoma", "Arial", '宋体';
 }
 
 
