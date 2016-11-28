@@ -1,0 +1,90 @@
+<{include file='../Public/header.html'}>
+<div id="sub-header" class="group_h">
+    <div class="container">
+        <div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
+            <h1><a href="">自主学习</a></h1>
+        </div>
+        <div class="col-md-6">
+            <ul class="navbar-left">
+                <li class="active"><a href="__URL__/index">自主学习</a></li>
+                <li><a href="__URL__/myscore">难题回看</a></li>
+                <li><a href="__URL__/myscore">错题回看</a></li>
+                <li><a href="__URL__/myscore">组卷测试</a></li>
+                <li><a href="__URL__/myscore">测试记录</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+
+            <ul class="navbar-left">
+
+                <li>
+                    <a href="javascript:;" id="dropdownMenu1" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="true"><i class="icon-list"></i>
+                        选择课程</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                        <{foreach $courses as $ty }>
+                        <li><a href="__APP__/Test/index/cid/<{$ty.id}>"><{$ty.name}></a></li>
+                        <{/foreach}>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<{if empty($_GET['cid'])}>
+<div class="container">
+    <div class="home_module row">
+        <div class="container">
+            <!--试题列表块开始-->
+            <div class="col-md-12 m_cats">
+                <div class="tt">
+                    <h3>请先选择一门课程</h3>
+                </div>
+                <ul class="list_ib">
+                    <{foreach $courses as $ty }>
+                    <li><a href="__APP__/Test/question/cid/<{$ty.id}>"><{$ty.name}></a></li>
+                    <{/foreach}>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<{else}>
+<div id="main">
+    <div class="container">
+        <div class="home_module row">
+            <div class="container">
+                <!--试题列表块开始-->
+                <div class="col-md-12">
+                    <div class="m_r_list g_t_list mt5">
+                        <div class="c999 m_n_item_info">
+                            <span id="alist"><{$title|default:"全部"}>试题列表</span>
+                        </div>
+                        <ul class="list_pb20">
+                            <{if $list}>
+                            <{foreach $list as $vo}>
+                            <li class="testlist">
+                                <em><a class="title" href="__APP__/Test/detail/id/<{$vo.id}>"><{$vo.title}></a></em>
+                                <small style="float:right">添加时间:<{$vo.addtime|date_format:"%Y-%m-%d %H:%M"}></small>
+                            </li>
+                            <{/foreach}>
+                            <{else}>
+                            <li style="font-size:15px; color:red">试题列表暂为空~</li>
+                            <{/if}>
+                        </ul>
+                    </div>
+                    <div class="tc">
+                        <ul class="pagination">
+                            <{$showPage}>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<{/if}>
+<{include file="../Public/footer.html"}>
+         

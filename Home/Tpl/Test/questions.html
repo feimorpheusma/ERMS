@@ -1,0 +1,124 @@
+<{include file='../Public/header.html'}>
+<div id="sub-header" class="group_h">
+    <div class="container">
+        <div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
+            <h1><a href="">自主学习</a></h1>
+        </div>
+        <div class="col-md-6">
+            <ul class="navbar-left">
+                <li><a href="__URL__/index">自主学习</a></li>
+                <{if $type == 1}>
+                <li><a href="__URL__/questions/type/2">难题回看</a></li>
+                <li class="active"><a href="__URL__/questions/type/1">错题回看</a></li>
+                <{else}>
+                <li class="active"><a href="__URL__/questions/type/2">难题回看</a></li>
+                <li><a href="__URL__/questions/type/1">错题回看</a></li>
+                <{/if}>
+                <li><a href="__URL__/test">组卷测试</a></li>
+                <li><a href="__URL__/result">测试记录</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+
+            <ul class="navbar-left">
+
+                <li>
+                    <a href="javascript:;" id="dropdownMenu1" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="true"><i class="icon-list"></i>
+                        课程：<{$course.name}></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<{if !$course}>
+<div class="container">
+    <div class="home_module row">
+        <div class="container">
+            <!--试题列表块开始-->
+            <div class="col-md-12 m_cats">
+                <div class="tt">
+                    <h3>请先选择一门课程</h3>
+                </div>
+                <ul class="list_ib">
+                    <{foreach $courses as $ty }>
+                    <li><a href="__URL__/questions/type/<{$type}>/cid/<{$ty.id}>"><{$_GET['type']}><{$ty.name}></a></li>
+                    <{/foreach}>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<{else}>
+<div id="main" class="bg_f2 ">
+    <div class="container">
+        <div class="home_module row">
+            <div class="container">
+                <div class="p30" style="background: white;border-radius: 10px;">
+                    <{if !$list}>
+
+                    <div class="null">该课程暂时没有试题,请换个课程试试</div>
+
+                    <{else}>
+
+                    <{foreach $list as $question}>
+                    <div id="content">
+
+
+                        <{if $question.type==1}>
+                        <h4>单选题：<{$question.content}></h4>
+                        <br/>
+
+                        <input type="radio" name="answer" value="A"> A.<{$question.aA}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="answer" value="B"> B.<{$question.aB}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="answer" value="C"> C.<{$question.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="answer" value="D"> D.<{$question.aD}>
+
+                        <{else if $question.type == 2}>
+                        <h4>多选题：<{$question.content}></h4>
+                        <br/>
+
+                        <input type="checkbox" name="answer" value="A"> A.<{$question.aA}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" name="answer" value="B"> B.<{$question.aB}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" name="answer" value="C"> C.<{$question.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" name="answer" value="D"> D.<{$question.aD}>
+
+                        <{else if $question.type == 3}>
+                        <h4>判断题：<{$question.content}></h4>
+                        <br/>
+
+                        <input type="radio" name="answer" value="对"> 对&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="answer" value="错"> 错<{$question.aB}>
+                        <{else if $question.type == 4}>
+                        <h4>填空题：<{$question.content}></h4>
+                        <br/>
+                        请输入答案：<input type="text" name="answer"/>
+                        <{else if $question.type == 5}>
+                        <h4>主观题：<{$question.content}></h4>
+                        <br/>
+                        请输入答案：<input type="text" name="answer"/>
+                        <{/if}>
+
+                    <span id="answer_wrong"
+                          style="color: red;font-weight: bold;">正确答案：<{$question.answer}></span>
+
+                    </div>
+                    <hr style="margin: 20px 0;"/>
+
+                    <{/foreach}>
+
+                    <div class="tc">
+                        <{$showPage}>
+                    </div>
+
+                    <{/if}>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<{/if}>
+<{include file="../Public/footer.html"}>
+         

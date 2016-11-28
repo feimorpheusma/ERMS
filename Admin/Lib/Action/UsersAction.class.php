@@ -38,13 +38,13 @@ class UsersAction extends CommonAction
 
         //遍历查询出数据
         foreach ($list as &$v) {
-            $rname = $role->join("edu_userrole ur on r.id = ur.rid")->field('roletype')->where("ur.uid = {$v['id']}")->select();
+            $rname = $role->join("edu_userrole ur on r.id = ur.rid")->field('remark')->where("ur.uid = {$v['id']}")->select();
             $cname = $course->join("edu_user_course uc on c.id = uc.coid")->field('name')->where("uc.uid = {$v['id']}")->select();
             foreach ($cname as $c) {
                 $v['coursename'] = $v['coursename'] . $c['name'] . '  ';
             }
             foreach ($rname as $r) {
-                $v['rolename'] = $v['rolename'] . $r['roletype'] . '  ';
+                $v['rolename'] = $v['rolename'] . $r['remark'] . '  ';
             }
         }
     }

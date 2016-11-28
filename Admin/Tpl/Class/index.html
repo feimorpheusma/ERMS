@@ -41,9 +41,9 @@
 		<thead>
 			<tr>
 				<th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
+                <th align="center" width="180">名称</th>
                 <th align="center" width="80">学院</th>
                 <th align="center" width="80">专业</th>
-                <th align="center" width="80">名称</th>
                 <th align="center">课程</th>
 			</tr>
 		</thead>
@@ -51,9 +51,9 @@
             <{foreach $list as $vo}>
             <tr target="sid_user" rel="<{$vo.id}>">
                 <td><{$vo.id}></td>
+                <td><{$vo.name}></td>
                 <td><{$vo.collegename}></td>
                 <td><{$vo.majorname}></td>
-                <td><{$vo.name}></td>
                 <td><{$vo.coursename}></td>
             </tr>
             <{/foreach}>

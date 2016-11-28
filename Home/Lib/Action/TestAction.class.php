@@ -3,7 +3,7 @@
 class TestAction extends CommonAction
 {
     //自定义显示试题列表页的方法
-    public function index()
+    public function index1()
     {
         //实例化试题库对象
         $model = M("Test");
@@ -46,27 +46,142 @@ class TestAction extends CommonAction
 
     }
 
-    public function question()
+    public function index()
     {
         if (!empty($_GET['cid'])) {
             $course = M("course")->find($_GET['cid']);
             $this->assign("course", $course);
+
+            $where['cid'] = array("eq", $_GET['cid']);
+            $where['id'] = array("not in", explode('_', $_GET['qid']));
+            $question = M("question")->where($where)->order("rand()")->find();
+
+            $hard_question = M("user_question")->where("uid={$this->uid} and qid={$question['id']} and type=2")->select();
+            $wrong_question = M("user_question")->where("uid={$this->uid} and qid={$question['id']} and type=1")->select();
+
+            $this->assign("past_qid", $_GET['qid'] . '_' . $question['id']);
+            $this->assign("question", $question);
+            $this->assign("hard_question", $hard_question);
+            $this->assign("wrong_question", $wrong_question);
         } else {
             $courses = M("Course")->select();
             $this->assign("courses", $courses);
         }
 
-        $where['cid'] = array("eq", $_GET['cid']);
-        $where['id'] = array("not in", explode('_', $_GET['qid']));
-        $question = M("question")->where($where)->order("rand()")->find();
+        $this->display();
+    }
 
-        $hard_question = M("user_question")->where("uid={$this->uid} and qid={$question['id']} and type=2")->select();
-        $wrong_question = M("user_question")->where("uid={$this->uid} and qid={$question['id']} and type=1")->select();
+    public function questions()
+    {
+        if (!empty($_GET['type']) && ($_GET['type'] == 1 || $_GET['type'] == 2)) {
+            $this->assign("type", $_GET['type']);
+            if (!empty($_GET['cid'])) {
+                $course = M("course")->find($_GET['cid']);
+                $this->assign("course", $course);
 
-        $this->assign("past_qid", $_GET['qid'] . '_' . $question['id']);
-        $this->assign("question", $question);
-        $this->assign("hard_question", $hard_question);
-        $this->assign("wrong_question", $wrong_question);
+                $where['u.uid'] = array("eq", $this->uid);
+                $where['cid'] = array("eq", $_GET['cid']);
+                $where['u.type'] = array("eq", $_GET['type']);
+                //$questions = M("question q")->join('edu_user_question u on q.id = u.qid')->where($where)->select();
+
+                //$this->assign("questions", $questions);
+
+                import("ORG.Util.Page");
+                $count = M("question q")->join('edu_user_question u on q.id = u.qid')->where($where)->count();//获取总数据条数
+                $page = new Page($count, 2);//创建分页对象
+
+                $list = M("question q")->field('q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD')->join('edu_user_question u on q.id = u.qid')->where($where)->limit($page->firstRow . "," . $page->listRows)->select();
+
+
+                $this->assign("list", $list);
+                $this->assign("showPage", $page->show());
+
+            } else {
+                $courses = M("Course")->select();
+                $this->assign("courses", $courses);
+            }
+        } else {
+            $this->redirect("Test/questions", array('type' => 2));
+        }
+        $this->display();
+    }
+
+
+    public function save()
+    {
+        if (!empty($_POST['tqid'])) {
+            $total_score = 0;
+            $has_subjective = false;
+
+            foreach ($_POST['tqid'] as $tqid) {
+                $answer = implode('', $_POST['answer' . $tqid]);
+                $question = M('question q')->field("q.type,q.answer,q.score")->join('edu_test_question t on q.id = t.qid')->where("t.id = {$tqid}")->find();
+                $score = 0;
+                if ($question['type'] == 5) {
+                    $has_subjective = true;
+                    $tq['status'] = 1;
+                } else {
+                    if ($answer == $question['answer']) {
+                        $score = $question['score'];
+                    }
+                    $tq['status'] = 2;
+                }
+                $tq['answer'] = $answer;
+                $tq['score'] = $score;
+                M('test_question')->where("id={$tqid}")->save($tq);
+
+                $total_score += $score;
+            }
+            $test['endtime'] = time();
+            if ($has_subjective) {
+                $test['status'] = 1;
+            } else {
+                $test['status'] = 2;
+            }
+            $test['score'] = $total_score;
+
+            M('test')->where("id={$_POST['tid']}")->save($test);
+
+            $this->success("提交成功，请在测试记录中查看结果",U("Test/result"));
+        }
+    }
+
+    public function test()
+    {
+        if (!empty($_GET['cid'])) {
+            $course = M("course")->find($_GET['cid']);
+            $this->assign("course", $course);
+
+
+            $where['cid'] = array("eq", $_GET['cid']);
+            $list = M("question")->where($where)->limit(3)->order("rand()")->select();
+
+
+            $test['cid'] = $_GET['cid'];
+            $test['sid'] = $this->uid;
+            $test['title'] = $course['name'] . '自主测试' . date('y-m-d h:i:s', time());
+            $test['addtime'] = time();
+            $test['status'] = 0;
+
+            $tid = M("test")->add($test);
+
+            foreach ($list as $key => $vo) {
+                $tq['tid'] = $tid;
+                $tq['qid'] = $vo['id'];
+                $tq['status'] = 0;
+                $tq['addtime'] = time();
+                $tqid = M('test_question')->add($tq);
+                $list[$key]['tqid'] = $tqid;
+            }
+
+            $this->assign("list", $list);
+
+            $this->assign("tid", $tid);
+
+        } else {
+            $courses = M("Course")->select();
+            $this->assign("courses", $courses);
+        }
 
         $this->display();
     }
