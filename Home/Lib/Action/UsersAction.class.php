@@ -3,7 +3,7 @@ session_start();
 
 //自定义用户操作模块Action类
 
-class UsersAction extends Action
+class UsersAction extends CommonAction
 {
 
     public function login()
@@ -13,14 +13,11 @@ class UsersAction extends Action
 
     public function dologin()
     {
-        $model = D('Users');
-        $where['username'] = $_POST['email'];
-        $where['email'] = $_POST['email'];
-        $where['_logic'] = "OR";
-        $list = $model->where($where)->select();
-        if ($list) {
-            if ($list[0]['userpass'] == md5($_POST['password'])) {
-                $_SESSION[C('USER_AUTH_KEY')] = $list[0];
+        $where['no'] = $_POST['email'];
+        $model = M("student")->where($where)->find();
+        if ($model) {
+            if ($model['pass'] == md5($_POST['password'])) {
+                $_SESSION[C('USER_AUTH_KEY')] = $model;
                 //R("Message/hfnum");
                 //$this->success("登陆成功！",U("Index/index"));
                 $this->redirect("Index/index");
@@ -28,7 +25,7 @@ class UsersAction extends Action
                 $this->error("密码错误！");
             }
         } else {
-            $this->error("用户不存在，请联系管理人员！");
+            $this->error("学号不存在，请联系管理员！");
         }
     }
 

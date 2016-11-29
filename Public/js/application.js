@@ -23,13 +23,13 @@ $(function () {
     })
 
     // 导航搜索框
-    $('#header .navbar-form input').focus(function () {
-        $(this).attr('placeholder', '视频、资源、手记、帖子')
+   /* $('#header .navbar-form input').focus(function () {
+        $(this).attr('placeholder', '5视频、资料')
         $(this).parents('.navbar-form').eq(0).addClass('search_opend')
     }).blur(function () {
         $(this).attr('placeholder', '搜索')
         $(this).parents('.navbar-form').eq(0).removeClass('search_opend')
-    })
+    })*/
 
     // 回应 删除 举报 显示隐藏
     $('.review_reply li').hover(function () {

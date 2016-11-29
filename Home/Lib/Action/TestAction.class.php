@@ -106,6 +106,23 @@ class TestAction extends CommonAction
         $this->display();
     }
 
+    public function result()
+    {
+        $where['t.sid'] = array("eq", $this->uid);
+
+        import("ORG.Util.Page");
+        $count = M("test t")->join('edu_course c on t.cid = c.id')->where($where)->count();//获取总数据条数
+        $page = new Page($count, 10);//创建分页对象
+
+        $list = M("test t")->field('t.id,c.name,addtime,endtime,score,status')->join('edu_course c on t.cid = c.id')->where($where)->order('t.id desc')->limit($page->firstRow . "," . $page->listRows)->select();
+
+
+        $this->assign("list", $list);
+        $this->assign("showPage", $page->show());
+
+        $this->display();
+    }
+
 
     public function save()
     {
@@ -142,7 +159,7 @@ class TestAction extends CommonAction
 
             M('test')->where("id={$_POST['tid']}")->save($test);
 
-            $this->success("提交成功，请在测试记录中查看结果",U("Test/result"));
+            $this->success("提交成功，请在测试记录中查看结果", U("Test/result"));
         }
     }
 
@@ -154,7 +171,8 @@ class TestAction extends CommonAction
 
 
             $where['cid'] = array("eq", $_GET['cid']);
-            $list = M("question")->where($where)->limit(3)->order("rand()")->select();
+            $where['type'] = array("lt", 6);
+            $list = M("question")->where($where)->limit(10)->order("rand()")->select();
 
 
             $test['cid'] = $_GET['cid'];
@@ -186,6 +204,28 @@ class TestAction extends CommonAction
         $this->display();
     }
 
+    public function detail()
+    {
+        if (!empty($_GET['tid'])) {
+            $cid = M("test")->getField("cid", $_GET['tid']);
+            $course = M("course")->find($cid);
+            $this->assign("course", $course);
+
+            $status = M("test")->getField("status", $_GET['tid']);
+            $this->assign("status", $status);
+
+            $where['t.tid'] = array("eq", $_GET['tid']);
+            $list = M("test_question t")->field("q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD,q.score,t.answer as tanswer,t.score as tscore")->join("edu_question q on t.qid = q.id")->where($where)->order("type")->select();
+            $a = strpos('AB', 'D');
+            $this->assign("list", $list);
+
+            $this->display();
+
+        } else {
+            $this->redirect("Test/result");
+        }
+
+    }
 
     //定义视频被收藏的方法
     public function mark()
@@ -215,7 +255,7 @@ class TestAction extends CommonAction
     }
 
     //自定义显示试题详情的方法
-    public function detail()
+    public function detail1()
     {
         $mod = M("Test");
         $data = $mod->find($_GET['id']);

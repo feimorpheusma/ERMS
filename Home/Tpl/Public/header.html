@@ -90,19 +90,32 @@
             </div>
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
-
+                <{if $smarty.session.user}>
                 <ul class="nav navbar-nav g_nav">
-
                     <li><a href="__APP__/Library/index">教学视频</a></li>
                     <li><a href="__APP__/Library/index/type/1">教学资料</a></li>
                     <li><a href="__APP__/Test/index">自主学习</a></li>
-                    <{if $smarty.session.user}>
                     <li><a href="__APP__/Test/index">在线考试</a></li>
-                    <{else}>
-                    <li><a href="javascript:alert('请先登录！')">在线考试</a></li>
-                    <{/if}>
                 </ul>
+                <ul class="nav navbar-nav navbar-right" id="userinfo">
 
+
+                    <!--<li><a href="__APP__/Message/mynews">提醒(<{if
+                        $smarty.session.user.hfnum}><{$smarty.session.user.hfnum}><{else}>0<{/if}>)</a></li>-->
+                    <li class="navbar-nav-user">
+                        <a class="user-avatar" href="__APP__/Users/settings">
+                            <img <{if
+                            $smarty.session.user.picture==''}>src="__PUBLIC__/Uploads/student/0/0.jpg"<{else}>src="__PUBLIC__/Uploads/student/<{$smarty.session.user.no}>/<{$smarty.session.user.picture}>"<{/if}>
+                            class="avatar_sm">　<{$smarty.session.user.name}></a>
+                        </a>
+                        <div class="dropdown">
+                            <!--<a href="__APP__/Users/settings"><i class="icon-wrench"></i> 设置</a>-->
+                            <a href="__APP__/Users/loginout"><i class="icon-signout"></i> 退出</a>
+                        </div>
+                    </li>
+
+
+                </ul>
                 <form class="navbar-form navbar-right" role="search" action="__APP__/Cat/show" method="GET"
                       autocompelte="off">
                     <div class="form-group">
@@ -111,25 +124,7 @@
                     <button type="submit" class="btn btn-default"><i class="icon-search"></i></button>
                 </form>
 
-                <ul class="nav navbar-nav navbar-right" id="userinfo">
-
-
-                    <li><a href="__APP__/Message/mynews">提醒(<{if
-                        $smarty.session.user.hfnum}><{$smarty.session.user.hfnum}><{else}>0<{/if}>)</a></li>
-                    <li class="navbar-nav-user">
-                        <a class="user-avatar" href="__APP__/Users/myedu">
-                            <img alt="<{$smarty.session.user.username}>" title="<{$smarty.session.user.username}>" <{if
-                            $smarty.session.user.picture=='1.jpg'}>src="__PUBLIC__/Uploads/users/0/0.jpg"<{else}>src="__PUBLIC__/Uploads/users/<{$smarty.session.user.username}>/s_<{$smarty.session.user.picture}>"<{/if}>
-                            class="avatar_sm">　<{$smarty.session.user.username}></a>
-                        </a>
-                        <div class="dropdown">
-                            <a href="__APP__/Users/settings"><i class="icon-wrench"></i> 设置</a>
-                            <a href="__APP__/Users/loginout"><i class="icon-signout"></i> 退出</a>
-                        </div>
-                    </li>
-
-
-                </ul>
+                <{/if}>
             </div>
         </div>
     </div>
@@ -138,15 +133,15 @@
     $(function () {
         // 导航搜索框
         $('#header .navbar-form input').focus(function () {
-            $(this).attr('placeholder', '视频、资源')
+            $(this).attr('placeholder', '请输入视频或资料名称')
             //$(this).parents('.navbar-form').eq(0).addClass('search_opend')
-            $(this).animate({width: '+250px'}, "fast");
-            $("#userinfo").fadeOut("fast");
+            $(this).animate({width: '+200px'}, "fast");
+            //$("#userinfo").fadeOut("fast");
         }).blur(function () {
             $(this).attr('placeholder', '搜索')
             //$(this).parents('.navbar-form').eq(0).removeClass('search_opend')
-            $(this).animate({width: '70px'}, "fast");
-            $("#userinfo").show(1000);
+            $(this).animate({width: '100px'}, "fast");
+            //$("#userinfo").show(500);
         })
         //设置头部的图片滚动
 

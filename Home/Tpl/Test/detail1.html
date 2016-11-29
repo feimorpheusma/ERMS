@@ -1,32 +1,4 @@
-<?php /* Smarty version Smarty-3.1.6, created on 2016-09-11 16:35:58
-         compiled from "./Home/Tpl\Test\detail.html" */ ?>
-<?php /*%%SmartyHeaderCode:3212457d5176e0e6a30-81629321%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
-$_valid = $_smarty_tpl->decodeProperties(array (
-  'file_dependency' => 
-  array (
-    '7bb7dcc6f09e4a8c1b1da88b62fe0abdfb8939fd' => 
-    array (
-      0 => './Home/Tpl\\Test\\detail.html',
-      1 => 1393232820,
-      2 => 'file',
-    ),
-  ),
-  'nocache_hash' => '3212457d5176e0e6a30-81629321',
-  'function' => 
-  array (
-  ),
-  'variables' => 
-  array (
-    'title' => 0,
-    'tid' => 0,
-    'list' => 0,
-    'vo' => 0,
-  ),
-  'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.6',
-  'unifunc' => 'content_57d5176e55384',
-),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_57d5176e55384')) {function content_57d5176e55384($_smarty_tpl) {?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>试题详情页</title>
@@ -44,8 +16,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     </head>
     <body>
     <div id="browser"></div>
-        <?php echo $_smarty_tpl->getSubTemplate ("../Public/head.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
-
+        <{include file="../Public/head.html"}>
         
 <div id="sub-header" class="group_h">
     <div class="container">
@@ -133,8 +104,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             <div class="container">
                     <div class="m_r_list g_t_list mt5">
                         <div id="dada" style="width:100%">
-                            <span><font id="title">☻__<?php echo $_smarty_tpl->tpl_vars['title']->value;?>
-__☻</font></span>
+                            <span><font id="title">☻__<{$title}>__☻</font></span>
                         </div>
                          <div id="time" style="width:100%">
                              <span>
@@ -148,37 +118,19 @@ __☻</font></span>
                          <div id="content">
                             <h4 class="quest">单选题:本套题共二十题,每题五分,总分100分</h4>
                             <form id="form" method="post" action="__APP__/Test/score">
-                            <input type="hidden" name="tid" value="<?php echo $_smarty_tpl->tpl_vars['tid']->value;?>
-">
-                            <input type="hidden" name="uid" value="<?php echo $_SESSION['user']['id'];?>
-">
+                            <input type="hidden" name="tid" value="<{$tid}>">
+                            <input type="hidden" name="uid" value="<{$smarty.session.user.id}>">
                             <ul class="quest">
-                            <?php  $_smarty_tpl->tpl_vars['vo'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['vo']->_loop = false;
- $_from = $_smarty_tpl->tpl_vars['list']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
- $_smarty_tpl->tpl_vars['vo']->iteration=0;
-foreach ($_from as $_smarty_tpl->tpl_vars['vo']->key => $_smarty_tpl->tpl_vars['vo']->value){
-$_smarty_tpl->tpl_vars['vo']->_loop = true;
- $_smarty_tpl->tpl_vars['vo']->iteration++;
-?>
-                                <li id="cont"><?php echo $_smarty_tpl->tpl_vars['vo']->iteration;?>
-.<?php echo $_smarty_tpl->tpl_vars['vo']->value['content'];?>
-</br></br>
+                            <{foreach $list as $vo}>
+                                <li id="cont"><{$vo@iteration}>.<{$vo.content}></br></br>
                                 <p id="radio">
-                                    <input type="radio" name="test[<?php echo $_smarty_tpl->tpl_vars['vo']->value['id'];?>
-]" value="A"> A.<?php echo $_smarty_tpl->tpl_vars['vo']->value['aA'];?>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="test[<?php echo $_smarty_tpl->tpl_vars['vo']->value['id'];?>
-]" value="B"> B.<?php echo $_smarty_tpl->tpl_vars['vo']->value['aB'];?>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="test[<?php echo $_smarty_tpl->tpl_vars['vo']->value['id'];?>
-]" value="C"> C.<?php echo $_smarty_tpl->tpl_vars['vo']->value['aC'];?>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="test[<?php echo $_smarty_tpl->tpl_vars['vo']->value['id'];?>
-]" value="D"> D.<?php echo $_smarty_tpl->tpl_vars['vo']->value['aD'];?>
-
+                                    <input type="radio" name="test[<{$vo.id}>]" value="A"> A.<{$vo.aA}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="test[<{$vo.id}>]" value="B"> B.<{$vo.aB}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="test[<{$vo.id}>]" value="C"> C.<{$vo.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="test[<{$vo.id}>]" value="D"> D.<{$vo.aD}>
                                 </p>
                                 </li>
-                            <?php } ?>
+                            <{/foreach}>
                         </ul>
                         </div>
                             <ul>
@@ -198,8 +150,6 @@ $_smarty_tpl->tpl_vars['vo']->_loop = true;
     </div>
 </div>
 
-    <?php echo $_smarty_tpl->getSubTemplate ("../Public/foot.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
-
+    <{include file="../Public/foot.html"}>
 
   </body></html>
-<?php }} ?>
