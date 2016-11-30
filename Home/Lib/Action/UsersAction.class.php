@@ -17,6 +17,8 @@ class UsersAction extends CommonAction
         $model = M("student")->where($where)->find();
         if ($model) {
             if ($model['pass'] == md5($_POST['password'])) {
+                $class = M("class")->getFieldById($model['cid'], "name");
+                $model['class'] = $class;
                 $_SESSION[C('USER_AUTH_KEY')] = $model;
                 //R("Message/hfnum");
                 //$this->success("登陆成功！",U("Index/index"));
@@ -148,6 +150,10 @@ class UsersAction extends CommonAction
         $this->display('myedu');
     }
 
+    public function info()
+    {
+        $this->display();
+    }
 
     public function settings()
     {
@@ -158,7 +164,6 @@ class UsersAction extends CommonAction
 
     public function avatar()
     {
-        $this->assign("title", "个人中心___修改头像");
         $this->display('avatar');
     }
 
@@ -237,35 +242,22 @@ class UsersAction extends CommonAction
     }
 
     //定义更新数据的方法
-    public function update()
+    public function updateavatar()
     {
-        $date['upicname'] = $_POST["picture"];
-        $date1['vpicname'] = $_POST["picture"];
+        $data['picture'] = $_POST["picture"];
         $id = $_POST['id'];
-        $model = D("Users");
-        if ($vo = $model->create()) {
-            $res = $model->save();
-            if ($res != false) {
-                $model1 = M("Uservisit");
-                $model1->where("uid='{$id}'")->save($date);
-                $model1->where("vid='{$id}'")->save($date1);
-                //修改成功以后，删除原头像
-                unlink("./Public/Uploads/users/{$_SESSION[C('USER_AUTH_KEY')]['username']}/{$_SESSION[C('USER_AUTH_KEY')]['picture']}");
-                unlink("./Public/Uploads/users/{$_SESSION[C('USER_AUTH_KEY')]['username']}/s_{$_SESSION[C('USER_AUTH_KEY')]['picture']}");
-                $_SESSION[C('USER_AUTH_KEY')]['picture'] = $_POST["picture"];
-                //$this->success("修改成功！",U("Users/settings"),3);
-                $this->redirect("Users/settings");
-            } else {
-                unlink("./Public/Uploads/users/{$_SESSION[C('USER_AUTH_KEY')]['username']}/{$_POST['picture']}");
-                unlink("./Public/Uploads/users/{$_SESSION[C('USER_AUTH_KEY')]['username']}/s_{$_POST['picture']}");
-                $this->error("没有更新任何数据！");
-            }
-        } else {
-            unlink("./Public/Uploads/users/{$_SESSION[C('USER_AUTH_KEY')]['username']}/{$_POST['picture']}");
-            unlink("./Public/Uploads/users/{$_SESSION[C('USER_AUTH_KEY')]['username']}/s_{$_POST['picture']}");
-            $this->error($model->getError());
 
+        $res = M("student")->where("id={$id}")->save($data);
+        if ($res) {
+            //修改成功以后，删除原头像
+            unlink("./Public/Uploads/student/{$_SESSION[C('USER_AUTH_KEY')]['no']}/{$_SESSION[C('USER_AUTH_KEY')]['picture']}");
+            $_SESSION[C('USER_AUTH_KEY')]['picture'] = $_POST["picture"];
+            $this->success("修改成功！", U("Users/avatar"));
+        } else {
+            unlink("./Public/Uploads/student/{$_SESSION[C('USER_AUTH_KEY')]['no']}/{$_POST['picture']}");
+            $this->error("修改失败！");
         }
+
     }
 
 //图片上传显示裁剪
@@ -276,17 +268,17 @@ class UsersAction extends CommonAction
         $upload = new UploadFile();
         $upload->maxSize = 3145728;// 设置附件上传大小
         $upload->allowExts = array('jpg', 'gif', 'bmp', 'png', 'jpeg');// 设置附件上传类型
-        $upload->savePath = "./Public/Uploads/users/$picfile/";// 设置附件上传目录
+        $upload->savePath = "./Public/Uploads/student/$picfile/";// 设置附件上传目录
         if (!$upload->upload()) {
             die("上传文件失败" . $upload->getErrorMsg());
         } else {
             $info = $upload->getUploadFileInfo();
         }
         $picsrc = $info[0]['savename'];
-        $path = "./Public/Uploads/users/$picfile/";
+        $path = "./Public/Uploads/student/$picfile/";
         //调用图片缩放
-        $this->updateImage($picsrc, $path, "", 140, '');
-        $this->updateImage($picsrc, $path, "s_", 50, 50);
+        $this->updateImage($picsrc, $path, "", 400, '');
+        //$this->updateImage($picsrc, $path, "s_", 140, '');
 
         die("<script>window.parent.showpic('{$info[0]['savename']}');</script>");
         //echo "<script>showpic();</script>";
@@ -295,12 +287,13 @@ class UsersAction extends CommonAction
 
     public function doJcrop()
     {
+        $percent = 400 / 140;
         $picname = $_POST['pic'];
-        $sx = $_POST['x'];
-        $sy = $_POST['y'];
-        $sw = $_POST['w'];
-        $sh = $_POST['h'];
-        $path = "./Public/Uploads/users/{$_SESSION[C('USER_AUTH_KEY')]['username']}";
+        $sx = $_POST['x'] * $percent;
+        $sy = $_POST['y'] * $percent;
+        $sw = $_POST['w'] * $percent;
+        $sh = $_POST['h'] * $percent;
+        $path = "./Public/Uploads/student/{$_SESSION[C('USER_AUTH_KEY')]['no']}";
         cropImage($picname, $path, $sx, $sy, $sw, $sh, $prix = "");
         die('ok');
     }
@@ -838,20 +831,20 @@ class UsersAction extends CommonAction
 //用户密码修改
     public function updatepassword()
     {
-        if ($_SESSION[C('USER_AUTH_KEY')]['userpass'] == md5($_POST['password'])) {
-            $model = D("Users");
-            $date['userpass'] = md5($_POST['new_password']);
-            $date['id'] = $_SESSION[C('USER_AUTH_KEY')]['id'];
-            $model->create($date);
-            $res = $model->save();
-            if ($res != false) {
-                $id = $_SESSION[C('USER_AUTH_KEY')]['id'];
-                $aa = $model->find($id);
-                $_SESSION[C('USER_AUTH_KEY')] = $aa;
-                //$this->success("修改成功！",U("Users/settings"),3);
-                $this->redirect("Users/settings");
+        $id = $_SESSION[C('USER_AUTH_KEY')]['id'];
+        $password = M('student')->getFieldById($id, 'pass');
+        if ($password == md5($_POST['password'])) {
+            if ($password == md5($_POST['new_password'])) {
+                $this->error("原密码与新密码相同！");
             } else {
-                $this->error("没有更新任何数据！");
+                $data['pass'] = md5($_POST['new_password']);
+                $res = M('student')->where("id={$id}")->save($data);
+
+                if ($res) {
+                    $this->success("修改成功！", U("Users/password"), 3);
+                } else {
+                    $this->error("修改失败！");
+                }
             }
         } else {
             $this->error("原密码输入错误！");

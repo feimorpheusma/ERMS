@@ -207,11 +207,11 @@ class TestAction extends CommonAction
     public function detail()
     {
         if (!empty($_GET['tid'])) {
-            $cid = M("test")->getField("cid", $_GET['tid']);
+            $cid = M("test")->getFieldById($_GET['tid'], "cid");
             $course = M("course")->find($cid);
             $this->assign("course", $course);
 
-            $status = M("test")->getField("status", $_GET['tid']);
+            $status = M("test")->getFieldById($_GET['tid'], "status");
             $this->assign("status", $status);
 
             $where['t.tid'] = array("eq", $_GET['tid']);

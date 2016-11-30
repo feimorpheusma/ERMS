@@ -7,9 +7,8 @@
         </div>
         <div class="col-md-6">
             <ul class="navbar-left">
-                <li class="active"><span id="mysetting"><a href="javascript:void(0)">资料设置</a></span></li>
+                <li class="active"><span id="mysetting"><a href="javascript:void(0)">个人信息</a></span></li>
                 <li><span id="setpass"><a href="javascript:void(0)">密码设置</a></span></li>
-                <li><a href="__APP__/Users/myedu">返回</a></span></li>
             </ul>
         </div>
     </div>
@@ -41,7 +40,7 @@
                 <div class="col-md-7" id="setting" style="display:block;">
 
                     <div class="tt">
-                        <h3>资料设置</h3>
+                        <h3>个人信息</h3>
                     </div>
                     <hr>
                     <form id="profile-form" name="myform" class="mt30 form-horizontal" autocomplete="off"
@@ -50,7 +49,7 @@
                         <input type="hidden" name="id" value="<{$smarty.session.user.id}>">
 
                         <div class="form-group clearfix">
-                            <div style="margin-left:-10px;"><label class="control-label col-md-2">头像设置</label></div>
+                            <div style="margin-left:-10px;"><label class="control-label col-md-2">头像</label></div>
                             <div class="col-md-6 settings_avatar">
                                 <div class="clearfix mb10">
                                     <div class="pull-left">
@@ -58,27 +57,57 @@
                                              src="<{if $smarty.session.user.picture==''}>__PUBLIC__/uploads/student/0/1.jpg<{else}>__PUBLIC__/uploads/student/<{$smarty.session.user.no}>/<{$smarty.session.user.picture}><{/if}>"
                                              class="avatar_bg">
                                     </div>
-                                    <div class="t_ml_190">
-                                        <img height='50' width='50'
-                                             src="<{if $smarty.session.user.picture==''}>__PUBLIC__/uploads/student/0/1.jpg<{else}>__PUBLIC__/uploads/student/<{$smarty.session.user.no}>/<{$smarty.session.user.picture}><{/if}>"
-                                             class="avatar_md">
-                                    </div>
                                 </div>
                                 <a href="__APP__/Users/avatar" class="btn btn-default">更新头像</a>
                             </div>
                         </div>
                         <div class="form-group clearfix">
-                            <div style="margin-left:-10px;"><label class="control-label col-md-2">姓名</label></div>
-                            <span id="tishi1" style="margin-top:50px;" class="Validform_checktip"></span>
-
-                            <div class="col-md-6">
-                                <input class="form-control input-lg" id="name" name="name" size="30"
-                                       style="background:#fff;" type="text" onblur="checkName()"
-                                       value="<{$smarty.session.user.name}>">
+                            <div class="col-md-2 text-right"><label>学号</label></div>
+                            <div class="col-md-10"><{$smarty.session.user.no}>
                             </div>
-                            <div class="col-md-4 f12"></div>
                         </div>
                         <div class="form-group clearfix">
+                            <div class="col-md-2 text-right"><label>班级</label></div>
+                            <div class="col-md-10"><{$smarty.session.user.class}>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-md-2 text-right"><label>姓名</label></div>
+                            <div class="col-md-10"><{$smarty.session.user.name }>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-md-2 text-right"><label>性别</label></div>
+                            <div class="col-md-10">
+                                <{if $smarty.session.user.sex=='1'}>
+                                男
+                                <{else}>
+                                女
+                                <{/if}>
+                            </div>
+                        </div>
+
+                        <div class="form-group clearfix">
+                            <div class="col-md-2 text-right"><label>出生年月</label></div>
+                            <div class="col-md-10"><{$smarty.session.user.birthday }>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-md-2 text-right"><label>籍贯</label></div>
+                            <div class="col-md-10"><{$smarty.session.user.birthplace }>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-md-2 text-right"><label>民族</label></div>
+                            <div class="col-md-10"><{$smarty.session.user.nation }>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="col-md-2 text-right"><label>身份证号</label></div>
+                            <div class="col-md-10"><{$smarty.session.user.idcard }>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix hidden">
                             <div style="margin-left:-10px;"><label class="control-label col-md-2">性别</label></div>
 
                             <div class="col-md-6">
@@ -102,20 +131,20 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group clearfix">
+                        <div class="form-group clearfix hidden">
                             <div style="margin-left:-10px;"><label class="control-label col-md-2">出生年月</label></div>
                             <div class="col-md-6">
                                 <input class="form-control input-lg" id="birthday" name="birthday" class="birthday"
                                        style="background:#fff;" size="30" type="text"
-                                       value="<{$smarty.session.user.birthday}>" onblur="checkAge()" errormsg="1-100的整数">
+                                       value="<{$smarty.session.user.birthday}>" onblur="checkAge()"
+                                       errormsg="1-100的整数">
                                 <span id="tishi2" class="Validform_checktip">1-100的整数</span>
 
                             </div>
                             <div class="col-md-4 f12"></div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group hidden">
                             <div class="col-md-6  col-md-offset-2">
                                 <button id="sub2" class="btn btn-primary btn-lg">保存</button>
                             </div>
@@ -134,13 +163,13 @@
                         <form id="password-from" class="mt30 form-horizontal" autocomplete="off"
                               action="__APP__/Users/updatepassword" method="POST" onsubmit="return checkPass();">
                             <div class="form-group">
-                                <label class="control-label col-md-2">旧密码</label>
+                                <label class="control-label col-md-2">原密码</label>
 
                                 <div class="col-md-6">
                                     <input class="form-control col-md-3 input-lg" id="pass" onblur="checkPass()"
-                                           name="password" size="30" type="password" placeholder="旧密码" datatype="*6-16"
+                                           name="password" size="30" type="password" placeholder="原密码" datatype="*6-16"
                                            nullmsg="请填写密码" errormsg="密码范围在6~16位之间" plugin="passwordStrength">
-                                    <span id="tishi6" class="Validform_checktip">请输入原密码</span>
+                                    <span id="tishi6" class="Validform_checktip"></span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -184,6 +213,7 @@
 
 </div>
 
+<!--
 
 <script type="text/javascript">
     //表单验证函数
@@ -232,6 +262,7 @@
     }
 </script>
 
+-->
 
 <script type="text/javascript">
     //密码表单验证函数
@@ -351,6 +382,6 @@
 </script>
 
 
-<{include file="../Public/foot2.html"}>
+<{include file="../Public/footer.html"}>
 		
 		
