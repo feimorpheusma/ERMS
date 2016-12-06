@@ -44,26 +44,32 @@
                                     可以上传JPG、JPEG、GIF、PNG或BMP类型文件，
                                     <br/>
                                     上传后可选择图片区域进行裁剪
+                                    <br/>
                                 </p>
                                 <input type="file" accept="image/jpg, image/jpeg, image/gif, image/png, image/bmp"
                                        name="uploadImg" id="uploadImg" onchange="form.submit();">
                             </div>
+
                         </div>
                     </form>
+                    <div class="t_ml_190">
+                        <button style="float:left;margin-top:-590px;margin-left:270px;"
+                                class="btn btn-default mt10" onclick="doJcrop()">
+                            确定裁剪
+                        </button>
+                        <form action="__APP__/Users/updateavatar" method="post">
+                            <input type="hidden" value="" name="picture" id="picid">
+                            <input type="hidden" value="<{$smarty.session.user.id}>" name="id">
+                            <input style="float:left;margin-top:-290px;margin-left:50px;" type="submit"
+                                   value="保存头像"
+                                   class="btn btn-default mt10">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <button style="float:left;margin-top:-590px;margin-left:270px;" class="btn btn-default mt10" onclick="doJcrop()">
-        确定裁剪
-    </button>
 
-    <form action="__APP__/Users/updateavatar" method="post">
-        <input type="hidden" value="" name="picture" id="picid">
-        <input type="hidden" value="<{$smarty.session.user.id}>" name="id">
-        <input style="float:left;margin-top:-290px;margin-left:50px;" type="submit" value="保存头像"
-               class="btn btn-default mt10">
-    </form>
 </div>
 
 

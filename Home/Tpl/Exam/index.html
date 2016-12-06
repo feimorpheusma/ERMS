@@ -1,0 +1,84 @@
+<{include file='../Public/header.html'}>
+<div id="sub-header" class="group_h">
+    <div class="container">
+        <div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
+            <h1><a href="__URL__/index">在线考试</a></h1>
+        </div>
+        <div class="col-md-6">
+            <ul class="navbar-left">
+
+            </ul>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+</div>
+
+
+<div id="main" class="bg_f2 ">
+    <div class="container">
+        <div class="home_module row">
+            <div class="container">
+                <div class="p30" style="background: white;border-radius: 10px;">
+
+                    <{if !$list}>
+
+                    <div class="null">暂时没有考试记录</div>
+
+                    <{else}>
+
+                    <table style="width: 100%; line-height: 40px;">
+                        <tr>
+                            <td width="150">课程</td>
+                            <td width="150">考试状态</td>
+                            <td width="200">开始时间</td>
+                            <td width="200">结束时间</td>
+                            <td></td>
+                        </tr>
+
+                        <{foreach $list as $test}>
+                        <tr style="border-top: 1px gainsboro dotted">
+                            <td><{$test.name}></td>
+                            <td>
+                                <{if $test.starttime > time()}>未开始
+                                <{elseif $test.endtime< time()}>已结束
+                                <{else}>进行中
+                                <{/if}>
+                            </td>
+                            <td><{$test.starttime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+                            <td><{$test.endtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+                            <td>
+                            <td>
+                                <{if $test.starttime > time()}>
+                                <{elseif $test.endtime< time()}>
+                                <a href="__URL__/detail/eid/<{$test.id}>">查看结果</a>
+                                <{else}>
+                                <{if $test.status==''}>
+                                <a href="__URL__/exam/eid/<{$test.id}>">开始考试</a>
+                                <{elseif $test.status ==0}>
+                                <a href="__URL__/exam/eid/<{$test.id}>">继续考试</a>
+                                <{else}>
+                                <a href="__URL__/detail/eid/<{$test.id}>">查看结果</a>
+                                <{/if}>
+                                <{/if}>
+                            </td>
+                            </td>
+                        </tr>
+
+                        <{/foreach}>
+
+                    </table>
+                    <div class="tc">
+                        <{$showPage}>
+                    </div>
+
+                    <{/if}>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<{include file="../Public/footer.html"}>
+         

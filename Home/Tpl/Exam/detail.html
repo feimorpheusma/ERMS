@@ -1,0 +1,199 @@
+<{include file='../Public/header.html'}>
+<div id="sub-header" class="group_h">
+    <div class="container">
+        <div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
+            <h1><a href="__URL__/index">在线考试</a></h1>
+        </div>
+        <div class="col-md-6">
+            <ul class="navbar-left">
+
+            </ul>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        window.onscroll = function () {
+            //获取窗口的scrollTop
+            var bodyScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+            if (bodyScrollTop > 120) {
+                $("#exam_info").css("position", "fixed");
+                $("#exam_info").css("top", "0px");
+            } else {
+                $("#exam_info").css("position", "static");
+            }
+        }
+
+    });
+</script>
+<style type="text/css">
+    .question-no li {
+        margin: 2px;
+        float: left;
+    }
+
+    .question-no li a {
+        border: 1px solid red;
+        color: red;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        display: block;
+    }
+
+    .question-no li a.answered {
+        border: 1px solid #99E600;
+        color: #99E600;
+    }
+
+    .question-no li a:hover {
+        text-decoration: none;
+    }
+</style>
+<div id="main" class="bg_f2 ">
+    <div class="container">
+        <div class="home_module row">
+            <div class="container"><{if !$list}>
+
+                <div class="p30 " style="background: white;border-radius: 10px;float:left;">
+                    <div class="null">该考试暂时没有试题,请联系管理员</div>
+                </div>
+                <{else}>
+                <div class=" col-md-3" style=" float:right;">
+                    <input id="end_time" type="hidden" value="<{$exam.endtime}>">
+                    <div id="exam_info" class="p30 ml20" style="background: white;border-radius: 10px; width: 240px;">
+                        试卷状态：
+                        <{if $exam_student.status == 1}>
+                        <span style="color: orange;font-weight: bold;">打分未完成</span>
+                        <{elseif $exam_student.status == 2}>
+                        <span style="color: green;font-weight: bold;">打分完成</span>
+                        <{/if}>
+                        <br/><br/>
+                        考试得分：
+                        <span style="color: red;font-weight: bold; font-size: 24px;"><{$exam_student.score}></span>
+                        <br/><br/>
+                        考试课程：<{$exam.coursename}>
+                        <br/><br/>
+                        开始时间：<{$exam.starttime|date_format:"%Y-%m-%d"}>
+                        <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <{$exam.starttime|date_format:"%H:%M:%S"}>
+                        <br/><br/>
+                        结束时间：<{$exam.endtime|date_format:"%Y-%m-%d"}>
+                        <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <{$exam.endtime|date_format:"%H:%M:%S"}>
+                        <br/><br/>
+                        考试结果：
+                        <br/>
+                        <ul class="question-no">
+                            <{foreach $list as $question}>
+                            <li><a href="#question_<{$question@index+1}>" id="question_flag_<{$question.eqid}>" <{if
+                                $question.answer == $question.correctanswer}>
+                                class="answered"<{/if}>><{$question@index+1}></a>
+                            </li>
+                            <{/foreach}>
+                            <div style="clear: both;"></div>
+                        </ul>
+                        <br/>
+                        <a href="__URL__/index" class="btn btn-primary btn-lg">
+                            返回
+                        </a>
+                    </div>
+
+                </div>
+                <div class="p30 col-md-9" style="background: white;border-radius: 10px;float:left;">
+
+                    <input type="hidden" id="exam_id" name="eid" value="<{$exam.id}>">
+                    <input type="hidden" id="exam_student_id" value="<{$esid}>">
+
+                    <{foreach $list as $question}>
+                    <a name="question_<{$question@index+1}>"></a>
+                    <div id="content">
+                        <input type="hidden" id="exam_question_id" value="<{$question.eqid}>">
+                        <input type="hidden" id="question_id" value="<{$question.qid}>">
+                        <{if $question.type==1}>
+                        <h4><{$question@index+1}>. 单选题：<{$question.content}></h4>
+                        <br/>
+
+                        <input type="radio" disabled="disabled" name="answer<{$question.qid}>[]" value="A" <{if
+                        $question.answer=='A'}>
+                        checked="checked"<{/if}>> A.<{$question.aA}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" disabled="disabled" name="answer<{$question.qid}>[]" value="B" <{if
+                        $question.answer=='B'}>
+                        checked="checked"<{/if}>> B.<{$question.aB}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" disabled="disabled" name="answer<{$question.qid}>[]" value="C" <{if
+                        $question.answer=='C'}>
+                        checked="checked"<{/if}>> C.<{$question.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" disabled="disabled" name="answer<{$question.qid}>[]" value="D" <{if
+                        $question.answer=='D'}>
+                        checked="checked"<{/if}>> D.<{$question.aD}>
+
+                        <{else if $question.type == 2}>
+                        <h4><{$question@index+1}>. 多选题：<{$question.content}></h4>
+                        <br/>
+
+                        <input type="checkbox" disabled="disabled" name="answer<{$question.qid}>[]" value="A"<{if !(
+                        strpos($question.answer,'A') === false)}>
+                        checked="checked"<{/if}>> A.<{$question.aA}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" disabled="disabled" name="answer<{$question.qid}>[]" value="B"<{if !(
+                        strpos($question.answer,'B') === false)}>
+                        checked="checked"<{/if}>> B.<{$question.aB}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" disabled="disabled" name="answer<{$question.qid}>[]" value="C"<{if !(
+                        strpos($question.answer,'C') === false)}>
+                        checked="checked"<{/if}>> C.<{$question.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" disabled="disabled" name="answer<{$question.qid}>[]" value="D"<{if !(
+                        strpos($question.answer,'D') === false)}>
+                        checked="checked"<{/if}>> D.<{$question.aD}>
+
+                        <{else if $question.type == 3}>
+                        <h4><{$question@index+1}>. 判断题：<{$question.content}></h4>
+                        <br/>
+
+                        <input type="radio" disabled="disabled" name="answer<{$question.qid}>[]" value="对"<{if
+                        $question.answer=='对'}>
+                        checked="checked"<{/if}>> 对&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" disabled="disabled" name="answer<{$question.qid}>[]" value="错"<{if
+                        $question.answer=='错'}>
+                        checked="checked"<{/if}>> 错
+                        <{else if $question.type == 4}>
+                        <h4><{$question@index+1}>. 填空题：<{$question.content}></h4>
+                        <br/>
+                        请输入答案：<input type="text" disabled="disabled" name="answer<{$question.qid}>[]"
+                                     value="<{$question.answer}>"/>
+                        <{else if $question.type == 5}>
+                        <h4><{$question@index+1}>. 主观题：<{$question.content}></h4>
+                        <br/>
+                        请输入答案：<input type="text" disabled="disabled" name="answer<{$question.qid}>[]"
+                                     value="<{$question.answer}>"/>
+                        <{/if}>
+                        <br/>
+                        <{if $question.type != 5}>
+                        <{if $question.answer == $question.correctanswer}>
+                        <span id="answer_right" style="color: green;font-weight: bold; ">正确</span>
+                        <{else}>
+                        <span id="answer_wrong"
+                              style="color: red;font-weight: bold;">错误 正确答案：<{$question.correctanswer}></span>
+                        <{/if}>
+                        <{else}>
+                        <span id="answer_right"
+                              style="color: orange;font-weight: bold;"><{if $status== 2}>得分<{$question.score}><{else}>还未打分<{/if}> 正确答案：<{$question.correctanswer}></span>
+                        <{/if}>
+                    </div>
+                    <hr style="margin: 20px 0;"/>
+
+                    <{/foreach}>
+                </div>
+                <{/if}>
+            </div>
+        </div>
+    </div>
+</div>
+
+<{include file="../Public/footer.html"}>
