@@ -1,0 +1,39 @@
+<div class="pageContent">
+    <form method="post" action="__URL__/importquestion/navTabId/listquestion/callbackType/closeCurrent"
+          enctype="multipart/form-data"
+          onsubmit="return iframeCallback(this, dialogAjaxDone);">
+        <div class="pageFormContent" layoutH="60">
+            <dl>
+                <dt>导入模版:</dt>
+                <dd><a href="/public/uploads/question/试题导入模版.csv" target="_blank">点击下载</a> </dd>
+            </dl>
+            <dl>
+                <dt>选择文档：</dt>
+                <dd><input type="file" style="width:100%" name="question"/>
+                    <br/>
+                    注意:请以模版的格式上传
+                </dd>
+            </dl>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">保存</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">取消</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
+

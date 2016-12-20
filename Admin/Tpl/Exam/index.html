@@ -29,6 +29,7 @@
 				   height="400"><span>修改</span></a></li>
 			<li><a class="delete" href="__URL__/detail/id/{sid_user}/navTabId/listexam"  target="dialog" max="true" mask="true"><span>考试选题</span></a></li>
 			<li class="line">line</li>
+			<{if in_array('audit', $permission['exam'])}>
 			<li><a class="edit" href="__URL__/approval/id/{sid_user}/navTabId/listexam" target="ajaxTodo"
 				   title="确定要审核通过吗?"><span>审核通过</span></a>
 			</li>
@@ -36,6 +37,7 @@
 				   title="确定要审核不通过吗?"><span>不通过</span></a>
 			</li>
 			<li class="line">line</li>
+			<{/if}>
 			<li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
 		</ul>
 	</div>

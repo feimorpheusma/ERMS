@@ -26,7 +26,7 @@ class LibraryAction extends CommonAction
         }
 
         if (empty($_REQUEST['cid'])) {
-            $map['cid'] = array("egt", "0");
+            $map['cid'] = array('in', $_SESSION[C('USER_AUTH_KEY')]["courselist"]);
         }
     }
 
@@ -54,10 +54,10 @@ class LibraryAction extends CommonAction
         } else {
             $cid = '0';
         }
-
+        $map['id'] = array('in', $_SESSION[C('USER_AUTH_KEY')]["courselist"]);
         $course = M('Course');
         //查询数据库表中所有类型 order by concat(path,id) 按照类别的层次进行查询
-        $res = $course->field('id,name')->order("name")->select();
+        $res = $course->field('id,name')->where($map)->order("name")->select();
         //定义存放类别信息的数组
         $courses[] = '全部';
         foreach ($res as $vo) {
@@ -179,7 +179,7 @@ class LibraryAction extends CommonAction
         $vo['name_swf'] = substr($vo['name'], 0, strpos($vo['name'], ".")) . ".swf";
         if ($vo['type'] == '1' && !file_exists("./Public/Uploads/library_swf/{$vo['name_swf']}")) {
             $filename = $vo['name'];
-            
+
             //==============================执行资源格式的转换==========================================
             //执行上传资源的类型转换 pdf转为swf格式
             //首先获取上传资源所在目录的绝对路径

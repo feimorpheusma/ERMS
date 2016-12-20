@@ -29,15 +29,26 @@ class CommonAction extends Action
             return;
         }
         //权限过滤
-        if ($_SESSION[C('USER_AUTH_KEY')]['username'] != C('SUPERMAN')) {
-            $mname = strtolower(MODULE_NAME); //获取模块名
-            $aname = strtolower(ACTION_NAME); //获取方法名
-            $nodelist = $_SESSION[C('USER_AUTH_KEY')]['nodelist']; //获取权限列表
-            if (empty($nodelist[$mname]) || !in_array($aname, $nodelist[$mname])) {
-                $this->error("抱歉！没有操作权限！");
-                return;
-            }
+        //if ($_SESSION[C('USER_AUTH_KEY')]['username'] != C('SUPERMAN')) {
+        $mname = strtolower(MODULE_NAME); //获取模块名
+        $aname = strtolower(ACTION_NAME); //获取方法名
+        /*if (in_array($aname, array('add', 'edit', 'delete', 'detail', 'view', 'rolelist', 'courselist', 'saverole', 'savecourse', 'nodelist', 'savenode', 'insert', 'update', 'operatequestion'))) {
+            $aname = 'index';
+        }*/
+        if (in_array($aname, array('deny', 'approval'))) {
+            $aname = 'audit';
+        } elseif (!in_array($aname, array('import', 'score'))) {
+            $aname = 'index';
         }
+        $nodelist = $_SESSION[C('USER_AUTH_KEY')]['nodelist']; //获取权限列表
+        if (empty($nodelist[$mname]) || !in_array($aname, $nodelist[$mname])) {
+            $this->error("抱歉,您没有操作权限！");
+            return;
+        }
+        //}
+
+        $this->assign('permission', $_SESSION[C('USER_AUTH_KEY')]['nodelist']);
+
         //
         //
         //
@@ -183,6 +194,7 @@ class CommonAction extends Action
         M($this->getActionName())->where("id={$id}")->save($data);
         $this->success(L("审核成功"));
     }
+
     public function delete()
     {
         //删除指定记录

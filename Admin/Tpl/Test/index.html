@@ -29,8 +29,10 @@
         <ul class="toolBar">
             <li><a class="add" href="__URL__/detail/id/{sid_user}/navTabId/listtest" target="dialog" width="830"
                    height="600" title="查看"><span>查看</span></a></li>
+            <{if in_array('score', $permission['test'])}>
             <li><a class="edit" href="__URL__/score/tid/{sid_user}/navTabId/listtest" target="dialog" width="600"
                    height="500" title="客观题打分"><span>客观题打分</span></a></li>
+            <{/if}>
             <li class="line">line</li>
             <li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
             <!--<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>-->

@@ -56,7 +56,7 @@ class QuestionAction extends CommonAction
         }
 
         if (empty($_REQUEST['cid'])) {
-            $map['cid'] = array("egt", "0");
+            $map['cid'] = array('in', $_SESSION[C('USER_AUTH_KEY')]["courselist"]);
         }
     }
 
@@ -194,10 +194,10 @@ class QuestionAction extends CommonAction
         } else {
             $cid = '0';
         }
-
+        $map['id'] = array('in', $_SESSION[C('USER_AUTH_KEY')]["courselist"]);
         $course = M('Course');
         //查询数据库表中所有类型 order by concat(path,id) 按照类别的层次进行查询
-        $res = $course->field('id,name')->order("name")->select();
+        $res = $course->field('id,name')->where($map)->order("name")->select();
         //定义存放类别信息的数组
         $courses[] = '全部';
         foreach ($res as $vo) {
@@ -206,5 +206,103 @@ class QuestionAction extends CommonAction
         //把所有类别信息的关联数组赋给模板
         $this->assign('Courses', $courses);
         $this->assign('CourseId', $cid);//设置默认选中的option的下标值id
+    }
+
+
+    public function import()
+    {
+        $this->display();
+    }
+
+    //重载父类中的数据添加的方法
+    public function importquestion()
+    {
+        $filename = $_FILES['question']['tmp_name'];
+        if (empty ($filename)) {
+            $this->error(L('请选择要导入的csv文件'));
+        }
+        $handle = fopen($filename, 'r');
+        $result = array();
+        $n = 0;
+        while ($data = fgetcsv($handle, 10000)) {
+            $num = count($data);
+            for ($i = 0; $i < $num; $i++) {
+                $result[$n][$i] = $data[$i];
+            }
+            $n++;
+        }
+
+        $len_result = count($result);
+        if ($len_result == 1) {
+            $this->error(L('文件中没有数据'));
+        }
+        $data_list = array();
+        $message = '';
+        for ($i = 1; $i < $len_result; $i++) { //循环获取各字段值
+            $data = array();
+            $type = iconv('gb2312', 'utf-8', $result[$i][0]);
+            switch ($type) {
+                case  '单选题':
+                    $data['type'] = 1;
+                    break;
+                case  '多选题':
+                    $data['type'] = 2;
+                    break;
+                case  '判断题':
+                    $data['type'] = 3;
+                    break;
+                case  '填空题':
+                    $data['type'] = 4;
+                    break;
+                case  '主观题':
+                    $data['type'] = 5;
+                    break;
+                default:
+                    $data['type'] = 0;
+                    break;
+            }
+            if ($data['type'] == 0) {
+                $message .= '第' . $i . '行,试题类型' . $type . "不合法; <br>";
+            }
+            $course_name = iconv('gb2312', 'utf-8', $result[$i][1]);
+            $course = M('course')->where("name='{$course_name}'")->find();
+            if ($course) {
+                if (in_array($course['id'], $_SESSION[C('USER_AUTH_KEY')]["courselist"])) {
+                    $data['cid'] = $course['id'];
+                    $data['uid'] = $_SESSION[C('USER_AUTH_KEY')]['id'];
+                    $data['status'] = 0;
+                    $data['addtime'] = time();
+                    $data['content'] = iconv('gb2312', 'utf-8', $result[$i][2]);
+                    $data['score'] = iconv('gb2312', 'utf-8', $result[$i][3]);
+                    $data['answer'] = iconv('gb2312', 'utf-8', $result[$i][4]);
+                    if ($data['type'] == 1 || $data['type'] == 2) {
+                        $data['aA'] = iconv('gb2312', 'utf-8', $result[$i][5]);
+                        $data['aB'] = iconv('gb2312', 'utf-8', $result[$i][6]);
+                        $data['aC'] = iconv('gb2312', 'utf-8', $result[$i][7]);
+                        $data['aD'] = iconv('gb2312', 'utf-8', $result[$i][8]);
+                    } else {
+                        $data['aA'] = '';
+                        $data['aB'] = '';
+                        $data['aC'] = '';
+                        $data['aD'] = '';
+                    }
+                    $data_list[] = $data;
+                } else {
+                    $message .= '第' . $i . '行,课程' . $course_name . "权限不足;<br>";
+                }
+            } else {
+                $message .= '第' . $i . '行，课程' . $course_name . "不存在;<br>";
+            }
+        }
+        if (!empty($message)) {
+            $this->error($message);
+        } else {
+            $flag = M("Question")->addAll($data_list);
+            if ($flag) {
+                $this->success(L('导入成功'));
+            } else {
+                $this->error(L('导入失败'));
+            }
+        }
     }
 }

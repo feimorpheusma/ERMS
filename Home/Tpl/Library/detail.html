@@ -14,9 +14,9 @@
                 dataType: "text",
                 success: function (data) {
                     if (data == "yes") {
-                        $("#span_collect").html("<i class=\"icon-heart\" style='color: red;'></i>取消收藏").css("color", "red");
+                        $("#span_collect").html("<i class=\"icon-heart\" style='color: red;'></i> 取消收藏").css("color", "red");
                     } else {
-                        $("#span_collect").html("<i class=\"icon-heart\"  style='color: #999;'></i>点击收藏").css("color", "#999");
+                        $("#span_collect").html("<i class=\"icon-heart\"  style='color: #999;'></i> 点击收藏").css("color", "#999");
                     }
                 },
                 error: function () {
@@ -85,20 +85,19 @@
                                         ZoomInterval: 0.4,
                                         FitPageOnLoad: true,
                                         FitWidthOnLoad: true,
-                                        PrintEnabled: true,
+                                        PrintEnabled: false,
                                         FullScreenAsMaxWindow: false,
                                         ProgressiveLoading: false,
                                         MinZoomSize: 0.5,
                                         MaxZoomSize: 2,
                                         SearchMatchAll: true,
                                         InitViewMode: 'Portrait',
-
-                                        ViewModeToolsVisible: true,
-                                        ZoomToolsVisible: true,
-                                        NavToolsVisible: true,
-                                        CursorToolsVisible: true,
-                                        SearchToolsVisible: true,
-                                        localeChain: 'en_US'
+                                        ViewModeToolsVisible: false,
+                                        ZoomToolsVisible: false,
+                                        NavToolsVisible: false,
+                                        CursorToolsVisible: false,
+                                        SearchToolsVisible: false,
+                                        localeChain: 'zh_CN'
                                     }
                                 });
                         //===================================================

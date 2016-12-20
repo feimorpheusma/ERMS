@@ -106,66 +106,65 @@
                 <div>收缩</div>
             </div>
             <div class="accordion" fillSpace="sidebar">
-
+                <{if in_array('index', $permission['college']) || in_array('index', $permission['major']) ||
+                in_array('index', $permission['class']) || in_array('index', $permission['course'])}>
                 <div class="accordionHeader">
                     <h2><span>Folder</span>基础数据</h2>
                 </div>
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
+                        <{if in_array('index', $permission['college'])}>
                         <li><a href="__APP__/College/index" target="navTab" rel="listcollege" title="学院列表">学院列表</a></li>
+                        <{/if}>
+                        <{if in_array('index', $permission['major'])}>
                         <li><a href="__APP__/Major/index" target="navTab" rel="listmajor" title="专业列表">专业列表</a></li>
+                        <{/if}>
+                        <{if in_array('index', $permission['class'])}>
                         <li><a href="__APP__/Class/index" target="navTab" rel="listclass" title="班级列表">班级列表</a></li>
+                        <{/if}>
+                        <{if in_array('index', $permission['course'])}>
                         <li><a href="__APP__/Course/index" target="navTab" rel="listcourse" title="课程列表">课程列表</a></li>
+                        <{/if}>
                     </ul>
                 </div>
+                <{/if}>
+                <{if in_array('index', $permission['users']) || in_array('index', $permission['student']) }>
                 <div class="accordionHeader">
                     <h2><span>Folder</span>人员管理</h2>
                 </div>
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
+                        <{if in_array('index', $permission['users'])}>
                         <li><a href="__APP__/Users/index" target="navTab" rel="listusers" title="用户列表">用户列表</a></li>
+                        <{/if}>
+                        <{if in_array('index', $permission['student'])}>
                         <li><a href="__APP__/Student/index" target="navTab" rel="liststudent" title="学生列表">学生列表</a></li>
+                        <{/if}>
                     </ul>
                 </div>
-
-
+                <{/if}>
+                <{if in_array('index', $permission['roles']) || in_array('index', $permission['node']) }>
                 <div class="accordionHeader">
                     <h2><span>Folder</span>权限管理</h2>
                 </div>
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
+                        <{if in_array('index', $permission['roles'])}>
                         <li><a href="__APP__/Roles/index" target="navTab" rel="listrole" title="角色列表">角色列表</a></li>
+                        <{/if}>
+                        <{if in_array('index', $permission['node'])}>
                         <li><a href="__APP__/Node/index" target="navTab" rel="listnode" title="权限列表">权限列表</a></li>
-                        <!--<li><a>用户角色</a>
-                            <ul>
-                                <li><a href="__APP__/Limit/index" target="navTab" rel="listlib" title="权限信息">用户角色</a>
-                                </li>
-                            </ul>
-
-
-                        <li><a>系统角色</a>
-                            <ul>
-                                <li><a href="__APP__/Roles/add" target="dialog" width="600" height="300">角色添加</a></li>
-                            </ul>
-                        </li>
-
-                        <li><a>系统权限</a>
-                            <ul>
-                                </li>
-                                <li><a href="__APP__/Node/add" target="dialog" width="600" height="300">权限添加</a></li>
-                            </ul>
-                        </li>-->
+                        <{/if}>
                     </ul>
                 </div>
-
-
+                <{/if}>
+                <{if in_array('index', $permission['library']) }>
                 <div class="accordionHeader">
                     <h2><span>Folder</span>资源管理</h2>
                 </div>
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
-                        <li><a href="__APP__/Library/index" target="navTab" rel="listlib"
-                               title="资源列表">资源列表</a></li>
+                        <li><a href="__APP__/Library/index" target="navTab" rel="listlib" title="资源列表">资源列表</a></li>
                         <!--<li><a>文档资源</a>
                             <ul>
 
@@ -202,7 +201,7 @@
                     </ul>
                 </div>
 
-
+                <{/if}>
                 <!-- <div class="accordionHeader">
                      <h2><span>Folder</span>资源分类管理</h2>
                  </div>
@@ -213,19 +212,33 @@
                      </ul>
                  </div>-->
 
+                <{if in_array('index', $permission['question']) || in_array('import', $permission['question']) }>
+
                 <div class="accordionHeader">
                     <h2><span>Folder</span>试题管理</h2>
                 </div>
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
-                        <li><a href="__APP__/Question/index/type/1" target="navTab" rel="listquestion" title="单选题列表">单选题列表</a></li>
-                        <li><a href="__APP__/Question/index/type/2" target="navTab" rel="listquestion" title="多选题列表">多选题列表</a></li>
-                        <li><a href="__APP__/Question/index/type/3" target="navTab" rel="listquestion" title="判断题列表">判断题列表</a></li>
-                        <li><a href="__APP__/Question/index/type/4" target="navTab" rel="listquestion" title="填空题列表">填空题列表</a></li>
-                        <li><a href="__APP__/Question/index/type/5" target="navTab" rel="listquestion" title="主观题列表">主观题列表</a></li>
-                        <li><a href="__APP__/Question/index" target="navTab" rel="listquestion" title="试题导入">试题导入</a></li>
+                        <{if in_array('index', $permission['question'])}>
+                        <li><a href="__APP__/Question/index/type/1" target="navTab" rel="listquestion" title="单选题列表">单选题列表</a>
+                        </li>
+                        <li><a href="__APP__/Question/index/type/2" target="navTab" rel="listquestion" title="多选题列表">多选题列表</a>
+                        </li>
+                        <li><a href="__APP__/Question/index/type/3" target="navTab" rel="listquestion" title="判断题列表">判断题列表</a>
+                        </li>
+                        <li><a href="__APP__/Question/index/type/4" target="navTab" rel="listquestion" title="填空题列表">填空题列表</a>
+                        </li>
+                        <li><a href="__APP__/Question/index/type/5" target="navTab" rel="listquestion" title="主观题列表">主观题列表</a>
+                        </li>
+                        <{/if}>
+                        <{if in_array('import', $permission['question'])}>
+                        <li><a href="__APP__/Question/import" target="dialog" rel="listquestion" title="试题导入">试题导入</a>
+                        </li>
+                        <{/if}>
                     </ul>
                 </div>
+                <{/if}>
+                <{if in_array('index', $permission['test']) }>
                 <div class="accordionHeader">
                     <h2><span>Folder</span>自测管理</h2>
                 </div>
@@ -234,13 +247,14 @@
                         <li><a href="__APP__/Test/index" target="navTab" rel="listtest" title="自测列表">自测列表</a></li>
                     </ul>
                 </div>
+                <{/if}>
+                <{if in_array('index', $permission['exam']) }>
                 <div class="accordionHeader">
                     <h2><span>Folder</span>考试管理</h2>
                 </div>
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
                         <li><a href="__APP__/Exam/index" target="navTab" rel="listexam" title="考试列表">考试列表</a></li>
-                        <!--<li><a href="__APP__/Exam/add" target="dialog" width="600" height="300">考试发布</a></li>-->
                     </ul>
                 </div>
                 <!--<div class="accordionHeader">
@@ -264,17 +278,17 @@
                     </ul>
                 </div>-->
 
-
+                <{/if}>
+                <{if in_array('index', $permission['notice'])}>
                 <div class="accordionHeader">
                     <h2><span>Folder</span>公告管理</h2>
                 </div>
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
                         <li><a href="__APP__/Notice/index" target="navTab" rel="listnotice" title="公告列表">公告列表</a></li>
-                        <!--<li><a href="__APP__/Notice/add" target="dialog" width="700" height="500">公告添加</a></li>-->
                     </ul>
                 </div>
-
+                <{/if}>
                 <!-- <div class="accordionHeader">
                      <h2><span>Folder</span>友情链接管理</h2>
                  </div>
@@ -337,24 +351,48 @@
                                 <td colSpan=3 height=10></td>
                             </tr>
                         </table>
-                        <table cellSpacing=0 cellPadding=0 width="95%" align=center border=0>
-                            <tr height=20>
-                                <td></td>
-                            </tr>
-                            <tr height=22>
-                                <td style="margin-left:20px;padding-left:30px;font-weight:bold;color:#ffffff;"
-                                    align=middle background="__PUBLIC__/after/images/login-top-bg.gif">信息统计一览
+                        <{if in_array('audit', $permission['library']) || in_array('audit', $permission['question']) ||
+                        in_array('audit', $permission['exam']) }>
+                        <table id="webtable" cellSpacing=0 cellPadding=2 width="95%" align=center border=0>
+
+                            <tr>
+                                <td colspan="2"
+                                    style="font-weight:bold;color:#ffffff;"
+                                    background="__PUBLIC__/after/images/login-top-bg.gif">待审核信息
                                 </td>
                             </tr>
-                            <tr bgColor=#ecf4fc height=12>
-                                <td></td>
+                            <{if in_array('audit', $permission['library']) }>
+                            <tr>
+                                <td width="100">待审核资源：</td>
+                                <td>&nbsp;&nbsp;&nbsp;<a href="__APP__/Library/index/status/0"
+                                                         target="navTab" rel="listlib"
+                                                         title="待审核资源信息"><{$audit_count['library']}></a>
+                                </td>
                             </tr>
-                            <tr height=20>
-                                <td></td>
-                            </tr>
-                        </table>
+                            <{/if}>
+                            <{if in_array('audit', $permission['question']) }>
+                            <tr>
+                                <td>待审核试题：</td>
 
-                        <table id="webtable" cellSpacing=0 cellPadding=2 width="95%" align=center border=0>
+                                <td>&nbsp;&nbsp;&nbsp;<a href="__APP__/Question/index/status/0"
+                                                         target="navTab" rel="listquestion"
+                                                         title="待审核试题信息"><{$audit_count['question']}></a>
+                                </td>
+                            </tr>
+                            <{/if}>
+                            <{if in_array('audit', $permission['exam']) }>
+                            <tr>
+                                <td>待审核考试：</td>
+
+                                <td>&nbsp;&nbsp;&nbsp;<a href="__APP__/Exam/index/status/0"
+                                                         target="navTab" rel="listexam"
+                                                         title="待审核考试信息"><{$audit_count['exam']}></a>
+                                </td>
+                            </tr>
+                            <{/if}>
+                        </table>
+                        <{/if}>
+                        <!--<table id="webtable" cellSpacing=0 cellPadding=2 width="95%" align=center border=0>
                             <tr>
                                 <td align='right' width=200>登陆帐号：</td>
                                 <td style="COLOR: #880000"><{$smarty.session.adminuser.username}></td>
@@ -364,27 +402,27 @@
                             <tr>
                                 <td align='right'>注册时间：</td>
                                 <td style="COLOR: #880000"><{$addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
-                                <td align='right' width='30%'>新增会员数：</td>
+                                <td align='right' width='30%'>待审核资源：</td>
 
-                                <td align='left' width='30%'>&nbsp;&nbsp;&nbsp;<a href="__APP__/Users/index"
+                                <td align='left' width='30%'>&nbsp;&nbsp;&nbsp;<a href="__APP__/Library/index/status/1"
                                                                                   target="navTab" rel="listlib"
-                                                                                  title="用户信息"><{$adduser}></a></td>
+                                                                                  title="资源信息"><{$notlib}></a></td>
                             </tr>
                             <tr>
                                 <td align='right'>登陆次数：</td>
                                 <td style="COLOR: #880000"><{$loginnum}></td>
-                                <td align='right' width='30%'>未审核视频数：</td>
+                                <td align='right' width='30%'>待审核试题：</td>
 
-                                <td align='left' width='30%'>&nbsp;&nbsp;&nbsp;<a href="__APP__/Video/index/status/1"
+                                <td align='left' width='30%'>&nbsp;&nbsp;&nbsp;<a href="__APP__/Question/index/status/1"
                                                                                   target="navTab" rel="listvideo"
-                                                                                  title="视频信息"><{$notvideo}></a></td>
+                                                                                  title="试题信息"><{$notvideo}></a></td>
                             </tr>
                             <tr>
                                 <td align='right'>上线时间：</td>
                                 <td style="COLOR: #880000"><{$smarty.session.adminuser.logintime|date_format:'%Y-%m-%d
                                     %H:%M:%S'}>
                                 </td>
-                                <td align='right' width='30%'>未审核文档数：</td>
+                                <td align='right' width='30%'>待审核考试：</td>
 
                                 <td align='left' width='30%'>&nbsp;&nbsp;&nbsp;<a href="__APP__/Library/index/status/1"
                                                                                   target="navTab" rel="listlib"
@@ -403,11 +441,11 @@
                                 <td align='left' style="color:880000"><{$clicktime|date_format:'%Y-%m-%d
                                     %H:%M:%S'}>
                                 </td>
-                                <td align='right'><!--身份过期：--></td>
-                                <td style="COLOR: #880000"><!--<{$timecha}>--></td>
+                                <td align='right'>&lt;!&ndash;身份过期：&ndash;&gt;</td>
+                                <td style="COLOR: #880000">&lt;!&ndash;<{$timecha}>&ndash;&gt;</td>
                             </tr>
 
-                        </table>
+                        </table>-->
                     </div>
                 </div>
 

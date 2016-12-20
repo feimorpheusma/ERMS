@@ -25,13 +25,14 @@ class IndexAction extends CommonAction
         //计算网站的新增会员数
         //查询在管理员本次登录的时间减去上次登出时的时间段内的会员数量
         $where['addtime'] = array("between", "{$list['logouttime']},{$_SESSION[C('USER_AUTH_KEY')]['logintime']}");
-        $adduser = $model->where($where)->count();
-        $this->assign("adduser", $adduser);//新增会员数
 
+        
+
+        $audit_count['library']= M("Library")->where("status=0")->count();
+        $audit_count['question']= M("Question")->where("status=0")->count();
+        $audit_count['exam']= M("Exam")->where("status=0")->count();
         //查询未审核的视频数
-        $this->assign("notvideo", M("Video")->where("status=1")->count());
-        //查询未审核的文档数
-        $this->assign("notlib", M("Library")->where("status=1")->count());
+        $this->assign("audit_count",$audit_count);
 
         //查询网站的访问量
         $clickinfo = M("Clicknum")->find(1);
