@@ -148,5 +148,4 @@ class ExamAction extends CommonAction
         $this->assign("vo", $vo);
         $this->display();
     }
-
 }

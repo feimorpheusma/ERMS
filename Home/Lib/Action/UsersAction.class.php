@@ -19,6 +19,13 @@ class UsersAction extends CommonAction
             if ($model['pass'] == md5($_POST['password'])) {
                 $class = M("class")->getFieldById($model['cid'], "name");
                 $model['class'] = $class;
+                $courses = M('course c')->field('c.id,c.name')->join('edu_class_course cc on c.id = cc.coid')->where("cc.clid ={$model['cid']}")->select();
+                $model['courses'] = $courses;
+
+                foreach ($courses as $v) {
+                    $couselist[] = $v['id'];
+                }
+                $model['courseids'] = $couselist;
                 $_SESSION[C('USER_AUTH_KEY')] = $model;
                 //R("Message/hfnum");
                 //$this->success("登陆成功！",U("Index/index"));

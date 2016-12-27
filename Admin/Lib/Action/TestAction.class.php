@@ -66,12 +66,13 @@ class TestAction extends CommonAction
     //重载父类中编辑的方法
     public function score()
     {
-        $questions = M("test_question t")->field("t.id,q.content,t.answer")->join("edu_question q on t.qid = q.id")->where("q.type=5 and t.tid={$_GET['tid']} and t.status=0")->select();
+        $questions = M("test_question t")->field("t.id,q.content,t.answer as sanswer,q.answer,q.score")->join("edu_question q on t.qid = q.id")->where("q.type=5 and t.tid={$_GET['tid']} and t.status=1")->select();
         if ($questions) {
             $this->assign("list", $questions);
+            $this->assign("tid", $_GET['tid']);
             $this->display();
         } else {
-            $this->error("该自测没有客观题或已经打分完毕！");
+            $this->error("该自测没有主观题或已经打分完毕！");
         }
     }
 
@@ -85,12 +86,18 @@ class TestAction extends CommonAction
         if (!empty($_POST['id'])) {
             for ($i = 0; $i < sizeof($_POST['id']); $i++) {
                 $data["score"] = $_POST['score'][$i];
-                $data["status"] = 1;
+                $data["status"] = 2;
 
                 $m->where("id = {$_POST['id'][$i]}")->save($data);
             }
+
+            $tid = $_POST['tid'];
+
+            $model['score'] = M('test_question')->where("tid={$tid}")->sum('score');
+            $model['status'] = 2;
+            M('test')->where("id={$tid}")->save($model);
         }
-        $this->success("修改成功！");
+        $this->success("打分成功！");
     }
 
     //重载父类中编辑的方法
@@ -150,7 +157,7 @@ class TestAction extends CommonAction
     public function detail()
     {
         $vo = M("Test t")->field("t.title,s.name as studentname,c.name as coursename,t.addtime")->join("edu_student s on t.sid=s.id")->join("edu_course c on t.cid=c.id")->where("t.id={$_GET['id']}")->find();
-        $list = M("Test_question t")->field("content,aA,aB,aC,aD,q.answer,t.answer as studentanswer,t.score as studentscore")->join("edu_question q on t.qid=q.id")->where("t.tid={$_GET['id']}")->select();
+        $list = M("Test_question t")->field("content,aA,aB,aC,aD,q.answer,t.answer as studentanswer,t.score as studentscore,q.type")->join("edu_question q on t.qid=q.id")->where("t.tid={$_GET['id']}")->select();
         $this->assign("list", $list);
         $this->assign("vo", $vo);
         $this->display();

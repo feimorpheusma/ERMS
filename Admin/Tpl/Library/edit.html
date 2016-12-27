@@ -7,11 +7,11 @@
             <dl>
                 <dt>资源类型：</dt>
                 <dd>
-                    <{if ($vo.type == 0)}>视频<{else}>文档<{/if}>
+                    <{if ($vo.type == 1)}>文档<{else}>视频<{/if}>
                 </dd>
             </dl>
             <dl>
-                <dt>资源名称：</dt>
+                <dt>名称：</dt>
                 <dd><input type="text" class="required" style="width:100%" name="title" value="<{$vo.title}>"/></dd>
             </dl>
             <dl>

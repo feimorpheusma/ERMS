@@ -5,6 +5,21 @@
         <thead>
         <tr>
             <th align="center" width="50">
+                已选择
+            </th>
+            <th width="200">单选题：<span id="count1">加载中</span></th>
+            <th width="200">多选题：<span id="count2">加载中</span></th>
+            <th width="200">判断题：<span id="count3">加载中</span></th>
+            <th width="200">填空题：<span id="count4">加载中</span></th>
+            <th width="200">主观题：<span id="count5">加载中</span></th>
+            <th width="200">总分：<span id="score">加载中</span></th>
+        </tr>
+        </thead>
+    </table>
+    <table class="table" width="100%" layoutH="138">
+        <thead>
+        <tr>
+            <th align="center" width="50">
                 选择
             </th>
             <th width="70">试题类型</th>
@@ -24,8 +39,10 @@
                 <input class="select-question" type="checkbox" name="qid" value='<{$vo.qid}>'
                        onclick="operatequestion(this);" <{if
                 $vo.eqid>'0'}>checked<{/if}>/>
+
             </td>
             <td>
+                <input type="hidden" name="type" value="<{$vo.type}>"/>
                 <{if $vo.type == 1}>单选题
                 <{else if $vo.type == 2}>多选题
                 <{else if $vo.type == 3}>判断题
@@ -48,6 +65,9 @@
 
     <script type="text/javascript">
 
+        $(function () {
+            setTimeout(resetTotal, 1000);
+        })
         function operatequestion(obj) {
             var eid = $("input[name='id']").val();
             var qid = $(obj).val();
@@ -61,8 +81,42 @@
                 dataType: 'text',
                 type: 'post',
                 success: function () {
+                    resetTotal();
                 },
             });
+        }
+        function resetTotal() {
+            var count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0, totalscore = 0;
+            $(".gridTbody tr").each(function () {
+                var selected = $(this).children('td').eq(0).find('.select-question').is(':checked');
+                if (selected) {
+                    var type = $(this).children('td').eq(1).find('input[name="type"]').val();
+                    var score = $(this).children('td').eq(3).find('div').html();
+                    if (type == 1) {
+                        count1++;
+                    }
+                    else if (type == 2) {
+                        count2++;
+                    }
+                    else if (type == 3) {
+                        count3++;
+                    }
+                    else if (type == 4) {
+                        count4++;
+                    }
+                    else if (type == 5) {
+                        count5++;
+                    }
+                    totalscore += parseInt(score);
+
+                }
+            });
+            $("#count1").html(count1);
+            $("#count2").html(count2);
+            $("#count3").html(count3);
+            $("#count4").html(count4);
+            $("#count5").html(count5);
+            $("#score").html(totalscore);
         }
     </script>
     <div class="panelBar hidden">

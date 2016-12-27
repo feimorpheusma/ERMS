@@ -11,7 +11,7 @@ class ExamAction extends CommonAction
         $count = M("exam e")->join('edu_class_course c on e.cid = c.coid')->join('edu_student s on c.clid = s.cid')->where($where)->count();//获取总数据条数
         $page = new Page($count, 10);//创建分页对象
 
-        $list = M("exam e")->field('e.id,co.name,e.starttime,e.endtime,es.status')
+        $list = M("exam e")->field('e.id,e.title,co.name,e.starttime,e.endtime,es.status')
             ->join('edu_course co on co.id = e.cid')
             ->join('edu_class_course c on e.cid = c.coid')
             ->join('edu_student s on c.clid = s.cid')
@@ -164,7 +164,7 @@ class ExamAction extends CommonAction
             $where['e.eid'] = array("eq", $_GET['eid']);
 
             $list = M("exam_question e")
-                ->field('content,type,aA,aB,aC,aD,q.id as qid,e.id as eqid,q.answer as correctanswer,s.answer,s.score')
+                ->field('content,type,aA,aB,aC,aD,q.id as qid,e.id as eqid,q.answer as correctanswer,s.answer,s.score,s.status')
                 ->join('edu_question q on e.qid = q.id')
                 ->join("edu_exam_question_student s on e.id = s.eqid and s.sid={$this->uid}")
                 ->where($where)->order("q.type")->select();

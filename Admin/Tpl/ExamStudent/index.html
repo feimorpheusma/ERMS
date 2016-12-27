@@ -1,8 +1,8 @@
 <{include file="Public/pagerForm.html"}>
 
-<div class="pageHeader">
+<!--<div class="pageHeader">
     <form rel="pagerForm" onsubmit="return navTabSearch(this);" method="post">
-    
+
 	<div class="searchBar">
 		<table class="searchContent">
 			<tr>
@@ -19,30 +19,19 @@
 		</table>
 	</div>
 	</form>
-</div>
+</div>-->
 <div class="pageContent">
 	<div class="panelBar">
 		<ul class="toolBar">
-			<li><a class="add" href="__URL__/add/navTabId/listexam" target="dialog" height="400"><span>添加</span></a>
-			</li>
-			<li><a class="edit" href="__URL__/edit/id/{sid_user}/navTabId/listexam" target="dialog"
-				   height="400"><span>修改</span></a></li>
-			<li><a class="delete" href="__URL__/detail/id/{sid_user}/navTabId/listexam"  target="dialog" max="true" mask="true"><span>考试选题</span></a></li>
-			<li class="line">line</li>
-			<{if in_array('index', $permission['examstudent'])}>
-			<li><a class="edit" href="__APP__/ExamStudent/index/eid/{sid_user}" target="navTab" rel="listexamstudent" title="考试记录"><span>考试记录</span></a>
-			</li>
-			<li class="line">line</li>
+			<li><a class="add" href="__URL__/detail/id/{sid_user}/navTabId/listexamstudent" target="dialog" width="830"
+				   height="600" title="查看"><span>查看</span></a></li>
+			<{if in_array('score', $permission['test'])}>
+			<li><a class="edit" href="__URL__/score/id/{sid_user}/navTabId/listexamstudent" target="dialog" width="600"
+				   height="500" title="主观题打分"><span>主观题打分</span></a></li>
 			<{/if}>
-			<{if in_array('audit', $permission['exam'])}>
-			<li><a class="edit" href="__URL__/approval/id/{sid_user}/navTabId/listexam" target="ajaxTodo"
-				   title="确定要审核通过吗?"><span>审核通过</span></a>
-			</li>
-			<li><a class="edit" href="__URL__/deny/id/{sid_user}/navTabId/listexam" target="ajaxTodo"
-				   title="确定要审核不通过吗?"><span>不通过</span></a>
-			</li>
+
 			<li class="line">line</li>
-			<{/if}>
+
 			<li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
 		</ul>
 	</div>
@@ -50,27 +39,29 @@
 		<thead>
 			<tr>
                 <th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
-                <th width="200">名称</th>
+				<th width="150">学生学号</th>
+				<th width="150">学生姓名</th>
+                <th width="200">考试名称</th>
 				<th width="150">课程</th>
 				<th width="150">开始时间</th>
 				<th width="150">结束时间</th>
-				<th width="150">发布时间</th>
-				<th width="150">发布人</th>
-				<th width="150">审核状态</th>
+				<th width="150">得分</th>
+				<th width="150">状态</th>
 			</tr>
 		</thead>
         <tbody>
             <{foreach $list as $vo}>
             <tr target="sid_user" rel="<{$vo.id}>">
                 <td><{$vo.id}></td>
+				<td><{$vo.studentno}></td>
+				<td><{$vo.studentname}></td>
 				<td><{$vo.title}></td>
 				<td><{$vo.coursename}></td>
 				<td><{$vo.starttime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
 				<td><{$vo.endtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
-				<td><{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
-				<td><{$vo.username}></td>
+				<td><{$vo.score}></td>
 				<td>
-					<{if $vo.status == 0}>未审核<{else if $vo.status == 1}>通过<{else}>未通过<{/if}>
+					<{if $vo.status == 0}>未进行<{else if $vo.status == 1}>打分未完成<{else}>打分完成<{/if}>
 				</td>
             </tr>
             <{/foreach}>

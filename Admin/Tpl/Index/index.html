@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=7"/>
-    <title>ThinkPHP+JUI Demo教育资源管理系统</title>
+    <title>空军勤务学院数学类课程培训考核系统</title>
 
     <link href="__PUBLIC__/dwz/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
     <link href="__PUBLIC__/dwz/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -114,7 +114,7 @@
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
                         <{if in_array('index', $permission['college'])}>
-                        <li><a href="__APP__/College/index" target="navTab" rel="listcollege" title="学院列表">学院列表</a></li>
+                        <li><a href="__APP__/College/index" target="navTab" rel="listcollege" title="院系列表">院系列表</a></li>
                         <{/if}>
                         <{if in_array('index', $permission['major'])}>
                         <li><a href="__APP__/Major/index" target="navTab" rel="listmajor" title="专业列表">专业列表</a></li>
@@ -124,6 +124,10 @@
                         <{/if}>
                         <{if in_array('index', $permission['course'])}>
                         <li><a href="__APP__/Course/index" target="navTab" rel="listcourse" title="课程列表">课程列表</a></li>
+                        <{/if}>
+                        <{if in_array('index', $permission['coursepoint'])}>
+                        <li><a href="__APP__/CoursePoint/index" target="navTab" rel="listcoursepoint" title="知识点列表">知识点列表</a>
+                        </li>
                         <{/if}>
                     </ul>
                 </div>
@@ -255,6 +259,7 @@
                 <div class="accordionContent">
                     <ul class="tree treeFolder">
                         <li><a href="__APP__/Exam/index" target="navTab" rel="listexam" title="考试列表">考试列表</a></li>
+                        <!--<li><a href="__APP__/ExamStudent/index" target="navTab" rel="listexamstudent" title="考试记录">考试记录</a></li>-->
                     </ul>
                 </div>
                 <!--<div class="accordionHeader">
@@ -289,6 +294,18 @@
                     </ul>
                 </div>
                 <{/if}>
+
+                <div class="accordionHeader">
+                    <h2><span>Folder</span>意见反馈</h2>
+                </div>
+                <div class="accordionContent">
+                    <ul class="tree treeFolder">
+                        <li><a href="__APP__/Opinion/add" target="dialog" title="意见反馈">意见反馈</a></li>
+                        <{if in_array('index', $permission['opinion'])}>
+                        <li><a href="__APP__/Opinion/index" target="navTab" rel="listopinion" title="意见列表">意见列表</a></li>
+                        <{/if}>
+                    </ul>
+                </div>
                 <!-- <div class="accordionHeader">
                      <h2><span>Folder</span>友情链接管理</h2>
                  </div>
@@ -342,7 +359,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>欢迎进入教育资源管理系统！</td>
+                                            <td>欢迎进入空军勤务学院数学类课程培训考核系统！</td>
                                         </tr>
                                     </table>
                                 </td>

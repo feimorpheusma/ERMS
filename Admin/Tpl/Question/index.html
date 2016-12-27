@@ -66,6 +66,8 @@
             <th width="90">答案C</th>
             <th width="90">答案D</th>
             <{/if}>-->
+            <th width="90">试题难度</th>
+            <th width="90">知识点</th>
             <th width="90">正确答案</th>
             <th width="90">上传者</th>
             <th width="150">上传时间</th>
@@ -86,6 +88,10 @@
             <td><{$vo.aC}></td>
             <td><{$vo.aD}></td>
             <{/if}>-->
+            <td>
+                <{if $vo.level == 0}>易<{else if $vo.level == 1}>中<{else}>难<{/if}>
+            </td>
+            <td><{$vo.point}></td>
             <td><{$vo.answer}></td>
             <td><{$vo.username}></td>
             <td><{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>

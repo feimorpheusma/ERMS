@@ -2,15 +2,16 @@
 <div class="pageContent">
     <table class="table" width="100%">
         <tr>
-            <td colspan="3" style="text-align: center;font-size: 16px; font-weight: bold;line-height: 30px;">
+            <td colspan="4" style="text-align: center;font-size: 16px; font-weight: bold;line-height: 30px;">
                 <{$vo.title}>
             </td>
 
         </tr>
         <tr>
             <td>学生：<{$vo.studentname}></td>
-            <td>课程：<{$vo.coursename}></td>
-            <td>自测时间：<{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+            <td>学号：<{$vo.studentno}></td>
+            <td>开始时间：<{$vo.starttime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+            <td>结束时间：<{$vo.endtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
         </tr>
     </table>
     <table class="table" width="100%" layoutH="138">
@@ -21,13 +22,11 @@
                 <{$i++}>.<{if $vo.type==1}> 单选题<{else if $vo.type == 2}>多选题 <{else if $vo.type == 3}>判断题 <{else if $vo.type == 4}>填空题<{else}>主观题<{/if}>: <{$vo.content}>
             </td>
         </tr>
-        <{if $vo.type==1||$vo.type==2}>
         <tr>
             <td colspan="3">
                 A.<{$vo.aA}> &nbsp;&nbsp;&nbsp;&nbsp;B.<{$vo.aB}>&nbsp;&nbsp;&nbsp;&nbsp; C.<{$vo.aC}> &nbsp;&nbsp;&nbsp;&nbsp;D.<{$vo.aD}>
             </td>
         </tr>
-        <{/if}>
         <tr>
             <td>
                 正确答案：<{$vo.answer}>

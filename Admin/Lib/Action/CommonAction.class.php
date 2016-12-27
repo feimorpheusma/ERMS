@@ -35,6 +35,9 @@ class CommonAction extends Action
         /*if (in_array($aname, array('add', 'edit', 'delete', 'detail', 'view', 'rolelist', 'courselist', 'saverole', 'savecourse', 'nodelist', 'savenode', 'insert', 'update', 'operatequestion'))) {
             $aname = 'index';
         }*/
+        if ($mname == 'opinion' && ($aname == 'add' || $aname == 'insert')) {
+            $skip_check = true;
+        }
         if (in_array($aname, array('deny', 'approval'))) {
             $aname = 'audit';
         } elseif (!in_array($aname, array('import', 'score'))) {
@@ -42,8 +45,10 @@ class CommonAction extends Action
         }
         $nodelist = $_SESSION[C('USER_AUTH_KEY')]['nodelist']; //获取权限列表
         if (empty($nodelist[$mname]) || !in_array($aname, $nodelist[$mname])) {
-            $this->error("抱歉,您没有操作权限！");
-            return;
+            if (!$skip_check) {
+                $this->error("抱歉,您没有操作权限！");
+                return;
+            }
         }
         //}
 

@@ -242,4 +242,26 @@ class UsersAction extends CommonAction
         $this->success("修改成功！");
     }
 
+    public function setpassword()
+    {
+        $user = M("users")->find($_GET['id']);
+        $this->assign("vo", $user);
+        $this->display();
+    }
+
+    public function updatepassword()
+    {
+        $id = $_POST['id'];
+
+        $data['userpass'] =md5($_POST['userpass']);
+
+        //判断数据是否修改成功
+        if (M("users")->where("id='$id'")->save($data)) {
+            $this->success(L("修改成功"));
+        } else {
+
+            $this->error("修改失败");
+        }
+
+    }
 }

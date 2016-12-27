@@ -31,7 +31,7 @@
                    height="600" title="查看"><span>查看</span></a></li>
             <{if in_array('score', $permission['test'])}>
             <li><a class="edit" href="__URL__/score/tid/{sid_user}/navTabId/listtest" target="dialog" width="600"
-                   height="500" title="客观题打分"><span>客观题打分</span></a></li>
+                   height="500" title="主观题打分"><span>主观题打分</span></a></li>
             <{/if}>
             <li class="line">line</li>
             <li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
@@ -56,7 +56,7 @@
         <tr target="sid_user" rel="<{$vo.id}>">
             <td><{$vo.id}></td>
             <td><{$vo.title}></td>
-            <td><{$vo.username}></td>
+            <td><{$vo.studentname}></td>
             <td><{$vo.coursename}></td>
             <td><{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
             <td><{$vo.score}></td>

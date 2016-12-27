@@ -206,6 +206,10 @@ class QuestionAction extends CommonAction
         //把所有类别信息的关联数组赋给模板
         $this->assign('Courses', $courses);
         $this->assign('CourseId', $cid);//设置默认选中的option的下标值id
+        $level[0] = '易';
+        $level[1] = '中';
+        $level[2] = '难';
+        $this->assign('Levels', $level);
     }
 
 

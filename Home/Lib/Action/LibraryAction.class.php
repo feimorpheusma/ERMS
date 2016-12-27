@@ -2,7 +2,7 @@
 
 //自定义文库模块Action类
 
-class LibraryAction extends Action
+class LibraryAction extends CommonAction
 {
     //加载资源浏览页
     public function index()
@@ -17,22 +17,26 @@ class LibraryAction extends Action
         if (!empty($_GET['q'])) {
             $where['title'] = array("like", "%{$_GET['q']}%");
         }
-
-        //封装视频类型条件
-        if (!empty($_GET['cid'])) {
-            $where['cid'] = array("eq", $_GET['cid']);
-        }
+        $url_params = '';
+        $cid = 0;
         $type = 0;
-        //封装视频类型条件
+
+        if (!empty($_GET['cid'])) {
+            $cid =  $_GET['cid'];
+            $where['cid'] = array("eq",$cid);
+            $url_params = $url_params . "/cid/" .$cid;
+        } else {
+            $where['cid'] = array("in", $this->courseids);
+        }
+
         if (!empty($_GET['type'])) {
             $type = $_GET['type'];
+            $url_params = $url_params . "/type/" . $type;
+            $where['type'] = array("eq", $type);
         }
 
-        $this->assign("type", $type);
-
-        //拼装搜索用户收藏视频的id
         if (!empty($_GET['collect'])) {
-            //拼装用户收藏视频的条件
+            $url_params = $url_params . "/collect/1";
             $collect = M("collect");
             $vids = $collect->where("uid={$_SESSION[C('USER_AUTH_KEY')]['id']}")->field("lid")->select();
             $ids = array();
@@ -45,24 +49,37 @@ class LibraryAction extends Action
         $where['status'] = array("eq", "1");
         $where['canview'] = array("eq", "1");
 
-        $where['type'] = array("eq", $type);
-        //===========================封装搜索条件==================
-        //设置分页条件
-        $total = $model->where($where)->count();//获取总数据条数
-        $page = new Page($total, 5);//实例化一个分页对象
+        if ($type == 0) {
+            $where['type'] = array("eq", 1);
+            $result = $model->field("l.id,l.title,l.addtime,c.name as coursename,l.candownload")->join("edu_course c on l.cid = c.id")->where($where)->order("id desc")->limit(10)->select();
+            $this->assign("llist", $result);
 
-        //调用查询语句
-        $result = $model->field("l.id,l.title,l.addtime,c.name as coursename,l.candownload")->join("edu_course c on l.cid = c.id")->where($where)->order("id desc")->limit($page->firstRow . "," . $page->listRows)->select();
+            $where['type'] = array("eq", 2);
+            $result = $model->field("l.id,l.title,l.addtime,c.name as coursename,l.candownload")->join("edu_course c on l.cid = c.id")->where($where)->order("id desc")->limit(10)->select();
+            $this->assign("vlist", $result);
+        } else {
+            //设置分页条件
+            $total = $model->where($where)->count();//获取总数据条数
+            $page = new Page($total, 2);//实例化一个分页对象
 
-        //向模板中输出查询信息和分页信息
-        //$this->assign("page",$);
-        $this->assign("list", $result);
-        $this->assign("showPage", $page->show());
+            //调用查询语句
+            $result = $model->field("l.id,l.title,l.addtime,c.name as coursename,l.candownload")->join("edu_course c on l.cid = c.id")->where($where)->order("id desc")->limit($page->firstRow . "," . $page->listRows)->select();
 
-        //执行视频分类的查询
-        $courses = M("Course")->select();
-        $this->assign("courses", $courses);
+            //向模板中输出查询信息和分页信息
+            //$this->assign("page",$);
+            if ($type == 1) {
+                $this->assign("llist", $result);
+            }
+            if ($type == 2) {
+                $this->assign("vlist", $result);
+            }
+            $this->assign("showPage", $page->show());
+        }
 
+        $this->assign("courses", $this->courses);
+        $this->assign("type", $type);
+        $this->assign("url_params", $url_params);
+        $this->assign("cid", $cid);
         $this->display();
     }
 

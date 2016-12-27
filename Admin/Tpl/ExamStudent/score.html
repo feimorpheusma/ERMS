@@ -1,8 +1,8 @@
 <{include file="Public/pagerForm.html"}>
-<form method="post" action="__URL__/savescore/navTabId/listtest/callbackType/closeCurrent"
+<form method="post" action="__URL__/savescore/navTabId/listexamstudent/callbackType/closeCurrent"
       class="pageForm required-validate"
       onsubmit="return validateCallback(this,dialogAjaxDone);">
-    <input type="hidden" name="tid" value="<{$tid}>"/>
+    <input type="hidden" name="esid" value="<{$esid}>"/>
     <div class="pageContent">
         <div class="pageFormContent" layoutH="60">
             <{foreach $list as $vo}>
@@ -31,6 +31,7 @@
             </dl>
             <{/foreach}>
         </div>
+
         <div class="formBar">
             <ul>
                 <li>

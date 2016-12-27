@@ -2,72 +2,59 @@
 <div id="sub-header" class="group_h">
     <div class="container">
         <div class="navbar-header" style="width: 16.66666666%;margin: 0;">
-            <{if $type==1}>
-            <h1><a href="__URL__/index/type/1">教学资料</a></h1>
+            <{if !$type}>
+            <h1><a href="__URL__/index/type">教学资料</a></h1>
+            <{elseif $type == 1}>
+            <h1><a href="__URL__/index/type/1">教学课件</a></h1>
             <{else}>
-            <h1><a href="__URL__/index/">教学视频</a></h1>
+            <h1><a href="__URL__/index/type/2">教学视频</a></h1>
             <{/if}>
         </div>
         <div class="col-md-6">
         </div>
         <div class="col-md-2">
             <ul class="navbar-left">
-
                 <li>
-
-                    <{if $type==1}>
-                    <a href="__URL__/index/type/1/collect/<{$smarty.session.user.id}>"><i class="icon-list"></i>
-                        我的收藏</a>
-                    <{else}>
-                    <a href="__URL__/index/collect/<{$smarty.session.user.id}>"><i class="icon-list"></i> 我的收藏</a>
-                    <{/if}>
+                    <a href="__URL__/index<{$url_params}>"><i class="icon-list"></i> 我的收藏</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<div id="main">
+<div id="main" class="bg_f2 ">
     <div class="container">
         <div class="home_module row">
-            <div class="container">
-                <{if $type==1}>
-                <div class="col-md-8">
-
-                    <div class="m_r_list g_t_list mt5">
-                        <!--<div class="tt"><h3><{$title|default:"资源总览"}></h3></div>-->
-
-                        <ul class="list_pb20">
-                            <{if $list}>
-                            <{foreach $list as $vo}>
-                            <li>
-                                <div>
-                                    <h4><a href="__URL__/detail/id/<{$vo.id}>"><{$vo.title}></a></h4>
-                                    <p>
-                                        <span style="float:right;">课程:<{$vo.coursename}> &nbsp;&nbsp;发布时间:
-                                            <{$vo.addtime|date_format:"%Y-%m-%d
-                                            %H:%M:%S"}></span>
-
-                                    </p>
-                                </div>
-                            </li>
-                            <{/foreach}>
-                            <{else}>
-                            <div class="null">教学资源暂无</div>
-                            <{/if}>
+            <div class="col-md-9">
+                <{if $llist && ( empty($type) || $type==1)}>
+                <div class="p20" style="background: white;border-radius: 10px;">
+                    <h4 style="padding-bottom: 10px; border-bottom: 1px solid darkgray;">教学课件</h4>
+                    <ul class="list_pb20">
+                        <{foreach $llist as $vo}>
+                        <li style="padding: 10px 0; border-bottom: 1px dotted darkgray;">
+                            <a href="__URL__/detail/id/<{$vo.id}>"><{$vo.title}></a>
+                            <span style="float:right;">《<{$vo.coursename}>》- <{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></span>
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                    <div class="tc">
+                        <{if empty($type) }>
+                        <br/>
+                        <a href="__URL__/index/type/1">查看更多</a>
+                        <{else}>
+                        <ul class="pagination">
+                            <{$showPage}>
                         </ul>
-                        <div class="tc">
-                            <ul class="pagination">
-                                <{$showPage}>
-                            </ul>
-                        </div>
+                        <{/if}>
                     </div>
                 </div>
-                <{else}>
-                <div class="col-md-8 oh">
-                    <ul class="content_list" style="margin-left:6%">
-                        <{if $list}>
-                        <{foreach $list as $vo}>
-                        <li style="width:160px;margin-left:1px">
+                <{/if}>
+
+                <{if $vlist && (empty($type) || $type==2)}>
+                <div class="p20" style="background: white;border-radius: 10px; margin-top: 10px;">
+                    <h4 style="padding-bottom: 10px; border-bottom: 1px solid darkgray;">教学视频</h4>
+                    <ul class="content_list" style="margin-top: 10px;">
+                        <{foreach $vlist as $vo}>
+                        <li style="width:155px;margin-left:1px">
                             <div class="item_cover" style="width:150px">
                                 <div style="width: 150px ;height:150px; background-color: #ccc;color: #fff;font-size: 30px; line-height: 60px; padding-top: 10px; font-weight: bold;font-family: Microsoft YaHei; overflow:hidden; ">
                                     <{$vo.title}>
@@ -82,32 +69,37 @@
                                  style="font-size:12px;overflow:hidden; text-overflow:ellipsis; height: 30px; line-height: 30px;display:block;white-space:nowrap; ">
                                 <a href="__URL__/detail/id/<{$vo.id}>/tid/<{$vo.tid}>"><{$vo.title}></a>
                             </div>
-
                             <a href="__URL__/detail/id/<{$vo.id}>/tid/<{$vo.tid}>"
                                class="btn btn-primary btn-sm">查看详情</a>
                         </li>
                         <{/foreach}>
-                        <{else}>
-                        <div class="null">暂时没有视频</div>
-                        <{/if}>
                     </ul>
-                    <br>
-                    <div class="" align="center"><{$showPage}></div>
+                    <div class="tc">
+                        <{if empty($type) }>
+                        <a href="__URL__/index/type/2">查看更多</a>
+                        <{else}>
+                        <ul class="pagination">
+                            <{$showPage}>
+                        </ul>
+                        <{/if}>
+                    </div>
                 </div>
                 <{/if}>
+            </div>
+            <div class="col-md-3">
+                    <div class="p20 m_cats" style="background: white;border-radius: 10px; margin-top: 10px;">
 
-                <!-- 右侧 -->
-                <div class="col-md-4">
-                    <div class="mb30 m_cats" style="width:200px">
-                        <div class="tt">
-                            <h3>我的课程</h3>
-                        </div>
-                        <ul class="list_ib">
-                            <{foreach $courses as $ty }>
-                            <li><a href="__APP__/Library/index/pid/<{$ty.id}>"><{$ty.name}></a></li>
-                            <{/foreach}>
-                        </ul>
-                    </div>
+                        <h4 style="padding-bottom: 10px; border-bottom: 1px solid darkgray; margin-bottom: 10px;">我的课程</h4>
+
+                    <ul class="list_ib">
+                        <{foreach $courses as $co }>
+                        <{if $cid == $co.id }>
+                        <li><a href="__APP__/Library/index/cid/<{$co.id}>/type/<{$type}>" style="font-weight: bold;background-color: #10884f"><{$co.name}></a></li>
+                        <{else}>
+                        <li><a href="__APP__/Library/index/cid/<{$co.id}>/type/<{$type}>"><{$co.name}></a></li>
+                        <{/if}>
+                        <{/foreach}>
+                    </ul>
                 </div>
             </div>
         </div>

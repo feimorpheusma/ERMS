@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2016-12-07 02:57:08
+Date: 2016-12-28 01:17:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -344,7 +344,7 @@ CREATE TABLE `edu_clicknum` (
 -- ----------------------------
 -- Records of edu_clicknum
 -- ----------------------------
-INSERT INTO `edu_clicknum` VALUES ('1', '2246', '1481050577');
+INSERT INTO `edu_clicknum` VALUES ('1', '2418', '1482858071');
 
 -- ----------------------------
 -- Table structure for edu_collect
@@ -438,6 +438,24 @@ INSERT INTO `edu_course` VALUES ('5', '离散数学');
 INSERT INTO `edu_course` VALUES ('6', '高等数学');
 
 -- ----------------------------
+-- Table structure for edu_course_point
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_course_point`;
+CREATE TABLE `edu_course_point` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `cid` int(11) DEFAULT NULL,
+  `order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of edu_course_point
+-- ----------------------------
+INSERT INTO `edu_course_point` VALUES ('1', '飒沓发', null, null);
+INSERT INTO `edu_course_point` VALUES ('2', '阿德 ', '4', null);
+
+-- ----------------------------
 -- Table structure for edu_exam
 -- ----------------------------
 DROP TABLE IF EXISTS `edu_exam`;
@@ -451,7 +469,7 @@ CREATE TABLE `edu_exam` (
   `endtime` int(11) DEFAULT NULL,
   `status` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_exam
@@ -460,6 +478,8 @@ INSERT INTO `edu_exam` VALUES ('3', '5', '55', '2016年离散数学期末考试'
 INSERT INTO `edu_exam` VALUES ('4', '3', '55', '2016年概率论期末考试', null, '1481817600', '1481904000', '1');
 INSERT INTO `edu_exam` VALUES ('5', '4', '55', '2016年大学英语期末考试', null, '1481040000', '1481126400', '1');
 INSERT INTO `edu_exam` VALUES ('6', '6', '55', '2016年高等数学期末考试', null, '1480953600', '1481040000', '1');
+INSERT INTO `edu_exam` VALUES ('7', '3', '55', '概率论考试', null, '1481162400', '1481168700', '0');
+INSERT INTO `edu_exam` VALUES ('8', '4', '55', '测试考试', null, '1482853404', '1482939809', '1');
 
 -- ----------------------------
 -- Table structure for edu_exam_question
@@ -471,42 +491,60 @@ CREATE TABLE `edu_exam_question` (
   `qid` int(12) NOT NULL,
   `score` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_exam_question
 -- ----------------------------
 INSERT INTO `edu_exam_question` VALUES ('5', '4', '13', null);
-INSERT INTO `edu_exam_question` VALUES ('6', '5', '53', null);
 INSERT INTO `edu_exam_question` VALUES ('7', '5', '54', null);
 INSERT INTO `edu_exam_question` VALUES ('8', '5', '55', null);
 INSERT INTO `edu_exam_question` VALUES ('9', '5', '56', null);
 INSERT INTO `edu_exam_question` VALUES ('10', '5', '57', null);
-INSERT INTO `edu_exam_question` VALUES ('11', '5', '58', null);
 INSERT INTO `edu_exam_question` VALUES ('12', '5', '59', null);
 INSERT INTO `edu_exam_question` VALUES ('13', '5', '60', null);
 INSERT INTO `edu_exam_question` VALUES ('14', '5', '61', null);
 INSERT INTO `edu_exam_question` VALUES ('15', '5', '62', null);
-INSERT INTO `edu_exam_question` VALUES ('16', '5', '63', null);
-INSERT INTO `edu_exam_question` VALUES ('17', '5', '64', null);
 INSERT INTO `edu_exam_question` VALUES ('18', '5', '65', null);
 INSERT INTO `edu_exam_question` VALUES ('19', '5', '66', null);
 INSERT INTO `edu_exam_question` VALUES ('20', '5', '67', null);
-INSERT INTO `edu_exam_question` VALUES ('21', '5', '68', null);
 INSERT INTO `edu_exam_question` VALUES ('22', '5', '69', null);
 INSERT INTO `edu_exam_question` VALUES ('23', '5', '70', null);
 INSERT INTO `edu_exam_question` VALUES ('24', '5', '71', null);
 INSERT INTO `edu_exam_question` VALUES ('25', '5', '72', null);
-INSERT INTO `edu_exam_question` VALUES ('26', '5', '73', null);
 INSERT INTO `edu_exam_question` VALUES ('27', '5', '74', null);
 INSERT INTO `edu_exam_question` VALUES ('28', '5', '75', null);
 INSERT INTO `edu_exam_question` VALUES ('29', '5', '76', null);
 INSERT INTO `edu_exam_question` VALUES ('30', '5', '77', null);
-INSERT INTO `edu_exam_question` VALUES ('31', '5', '78', null);
-INSERT INTO `edu_exam_question` VALUES ('32', '5', '79', null);
 INSERT INTO `edu_exam_question` VALUES ('33', '5', '80', null);
 INSERT INTO `edu_exam_question` VALUES ('34', '5', '81', null);
 INSERT INTO `edu_exam_question` VALUES ('35', '5', '82', null);
+INSERT INTO `edu_exam_question` VALUES ('36', '8', '78', null);
+INSERT INTO `edu_exam_question` VALUES ('38', '8', '83', null);
+INSERT INTO `edu_exam_question` VALUES ('41', '8', '86', null);
+INSERT INTO `edu_exam_question` VALUES ('42', '8', '71', null);
+INSERT INTO `edu_exam_question` VALUES ('43', '8', '92', null);
+INSERT INTO `edu_exam_question` VALUES ('44', '8', '77', null);
+INSERT INTO `edu_exam_question` VALUES ('45', '5', '83', null);
+INSERT INTO `edu_exam_question` VALUES ('46', '5', '53', null);
+INSERT INTO `edu_exam_question` VALUES ('47', '5', '89', null);
+INSERT INTO `edu_exam_question` VALUES ('48', '5', '68', null);
+INSERT INTO `edu_exam_question` VALUES ('49', '5', '88', null);
+INSERT INTO `edu_exam_question` VALUES ('50', '5', '73', null);
+INSERT INTO `edu_exam_question` VALUES ('52', '8', '53', null);
+INSERT INTO `edu_exam_question` VALUES ('53', '8', '65', null);
+INSERT INTO `edu_exam_question` VALUES ('54', '8', '63', null);
+INSERT INTO `edu_exam_question` VALUES ('55', '8', '57', null);
+INSERT INTO `edu_exam_question` VALUES ('56', '8', '72', null);
+INSERT INTO `edu_exam_question` VALUES ('57', '8', '67', null);
+INSERT INTO `edu_exam_question` VALUES ('58', '8', '82', null);
+INSERT INTO `edu_exam_question` VALUES ('59', '8', '62', null);
+INSERT INTO `edu_exam_question` VALUES ('60', '8', '68', null);
+INSERT INTO `edu_exam_question` VALUES ('61', '8', '88', null);
+INSERT INTO `edu_exam_question` VALUES ('62', '8', '73', null);
+INSERT INTO `edu_exam_question` VALUES ('63', '8', '58', null);
+INSERT INTO `edu_exam_question` VALUES ('64', '8', '79', null);
+INSERT INTO `edu_exam_question` VALUES ('65', '8', '91', null);
 
 -- ----------------------------
 -- Table structure for edu_exam_question_student
@@ -524,7 +562,7 @@ CREATE TABLE `edu_exam_question_student` (
   `status` int(1) DEFAULT NULL,
   `addtime` int(12) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_exam_question_student
@@ -537,8 +575,16 @@ INSERT INTO `edu_exam_question_student` VALUES ('64', '5', '78', '1', '31', '24'
 INSERT INTO `edu_exam_question_student` VALUES ('65', '5', '58', '1', '11', '24', 'B', '2', '2', '1481050559');
 INSERT INTO `edu_exam_question_student` VALUES ('66', '5', '64', '1', '17', '24', 'B', '0', '2', '1481050560');
 INSERT INTO `edu_exam_question_student` VALUES ('67', '5', '79', '1', '32', '24', 'B', '0', '2', '1481050561');
-INSERT INTO `edu_exam_question_student` VALUES ('68', '5', '62', '1', '15', '24', '123123', null, '1', '1481050567');
-INSERT INTO `edu_exam_question_student` VALUES ('69', '5', '77', '1', '30', '24', '111123123', null, '1', '1481050572');
+INSERT INTO `edu_exam_question_student` VALUES ('68', '5', '62', '1', '15', '24', '123123', '2', '2', '1481050567');
+INSERT INTO `edu_exam_question_student` VALUES ('69', '5', '77', '1', '30', '24', '111123123', '5', '2', '1481050572');
+INSERT INTO `edu_exam_question_student` VALUES ('70', '8', '83', '1', '38', '25', 'D', '2', '2', '1482853667');
+INSERT INTO `edu_exam_question_student` VALUES ('71', '8', '78', '1', '36', '25', 'B', '2', '2', '1482853678');
+INSERT INTO `edu_exam_question_student` VALUES ('72', '8', '89', '1', '39', '25', 'AB', '0', '2', '1482853680');
+INSERT INTO `edu_exam_question_student` VALUES ('73', '8', '74', '1', '40', '25', 'ABD', '2', '2', '1482853688');
+INSERT INTO `edu_exam_question_student` VALUES ('74', '8', '86', '1', '41', '25', '啊', '0', '2', '1482853691');
+INSERT INTO `edu_exam_question_student` VALUES ('75', '8', '71', '1', '42', '25', '啊', '0', '2', '1482853692');
+INSERT INTO `edu_exam_question_student` VALUES ('76', '8', '77', '1', '44', '25', '啊', '8', '2', '1482853695');
+INSERT INTO `edu_exam_question_student` VALUES ('77', '8', '92', '1', '43', '25', '啊', '8', '2', '1482853697');
 
 -- ----------------------------
 -- Table structure for edu_exam_student
@@ -553,12 +599,13 @@ CREATE TABLE `edu_exam_student` (
   `starttime` int(12) DEFAULT NULL,
   `endtime` int(12) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_exam_student
 -- ----------------------------
-INSERT INTO `edu_exam_student` VALUES ('24', '5', '1', '12', '1', '1481050547', '1481050574');
+INSERT INTO `edu_exam_student` VALUES ('24', '5', '1', '19', '2', '1481050547', '1481050574');
+INSERT INTO `edu_exam_student` VALUES ('25', '8', '1', '22', '2', '1482853653', '1482853703');
 
 -- ----------------------------
 -- Table structure for edu_flink
@@ -707,17 +754,19 @@ CREATE TABLE `edu_library` (
   `note` varchar(200) DEFAULT NULL,
   `status` smallint(1) DEFAULT '0' COMMENT '上传文档的状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_library
 -- ----------------------------
-INSERT INTO `edu_library` VALUES ('65', '1', '55', '6', '测试 pdf文档', '57fb4b64c27b7.pdf', '493531', '1476086628', '0', '1', '0', '1', '1', '', '1');
-INSERT INTO `edu_library` VALUES ('66', '0', '55', '4', '测试 WMV', '57fb4bd7e2da0.wmv', '26246026', '1476086744', '0', '12', '0', '1', '1', '', '1');
-INSERT INTO `edu_library` VALUES ('67', '0', '55', '0', '测试 MP4', '57fb4d2eb9021.mp4', '104988087', '1476087087', '0', '66', '0', '1', '0', '', '1');
-INSERT INTO `edu_library` VALUES ('68', '1', '55', '0', '测试文档', '57fba4b5eec25.pdf', '1059', '1476109494', '0', '0', '0', '1', '1', '', '1');
-INSERT INTO `edu_library` VALUES ('69', '1', '55', '4', '测试文档2', '57fba71a23a33.pdf', '290879', '1476110106', '0', '8', '0', '1', '1', '1', '1');
-INSERT INTO `edu_library` VALUES ('70', '1', '55', '4', '文档 哈哈哈', '57fba79354eff.pdf', '739781', '1476110230', '0', '28', '0', '1', '1', '', '1');
+INSERT INTO `edu_library` VALUES ('65', '1', '55', '6', '测试 pdf文档', '57fb4b64c27b7.pdf', '493531', '1476086628', '0', '5', '0', '1', '1', '', '1');
+INSERT INTO `edu_library` VALUES ('66', '2', '55', '4', '测试 WMV', '57fb4bd7e2da0.wmv', '26246026', '1476086744', '0', '12', '0', '1', '1', '', '1');
+INSERT INTO `edu_library` VALUES ('67', '2', '55', '4', '测试 MP4', '57fb4d2eb9021.mp4', '104988087', '1476087087', '0', '66', '0', '1', '0', '', '1');
+INSERT INTO `edu_library` VALUES ('68', '1', '55', '4', '测试文档', '57fba4b5eec25.pdf', '1059', '1476109494', '0', '0', '0', '1', '1', '', '1');
+INSERT INTO `edu_library` VALUES ('69', '1', '55', '4', '测试文档2', '57fba71a23a33.pdf', '290879', '1476110106', '0', '10', '0', '1', '1', '1', '1');
+INSERT INTO `edu_library` VALUES ('70', '1', '55', '4', '文档 哈哈哈', '57fba79354eff.pdf', '739781', '1476110230', '0', '37', '0', '1', '1', '', '2');
+INSERT INTO `edu_library` VALUES ('71', '2', '97', '4', '大学英语四级', '58593d4863d00.rmvb', '940380365', '1482243263', '0', '4', '0', '1', '1', '', '1');
+INSERT INTO `edu_library` VALUES ('72', '2', '55', '4', '大学英语四级', '585e62e48d16d.mkv', '486392095', '1482580712', '0', '0', '0', '1', '1', '', '1');
 
 -- ----------------------------
 -- Table structure for edu_like
@@ -819,37 +868,32 @@ CREATE TABLE `edu_node` (
   `status` tinyint(1) DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_node
 -- ----------------------------
-INSERT INTO `edu_node` VALUES ('1', '浏览用户', 'users', 'index', '1');
-INSERT INTO `edu_node` VALUES ('2', '添加用户', 'users', 'add', '1');
-INSERT INTO `edu_node` VALUES ('3', '删除用户', 'users', 'delete', '1');
-INSERT INTO `edu_node` VALUES ('4', '修改用户', 'users', 'edit', '1');
-INSERT INTO `edu_node` VALUES ('5', '浏览角色', 'roles', 'index', '1');
-INSERT INTO `edu_node` VALUES ('6', '添加角色', 'roles', 'add', '1');
-INSERT INTO `edu_node` VALUES ('7', '删除角色', 'roles', 'delete', '1');
-INSERT INTO `edu_node` VALUES ('8', '编辑角色', 'roles', 'edit', '1');
-INSERT INTO `edu_node` VALUES ('9', '浏览节点', 'node', 'index', '1');
-INSERT INTO `edu_node` VALUES ('10', '添加节点', 'node', 'add', '1');
-INSERT INTO `edu_node` VALUES ('11', '删除节点', 'node', 'delete', '1');
-INSERT INTO `edu_node` VALUES ('12', '修改节点', 'node', 'edit', '1');
-INSERT INTO `edu_node` VALUES ('13', '浏览用户分配角色', 'limit', 'index', '0');
-INSERT INTO `edu_node` VALUES ('14', '更改用户分配角色', 'limit', 'edit', '0');
-INSERT INTO `edu_node` VALUES ('15', '浏览角色的操作权限', 'roles', 'nodelist', '1');
-INSERT INTO `edu_node` VALUES ('16', '修改角色中操作权限', 'roles', 'savenode', '1');
-INSERT INTO `edu_node` VALUES ('19', '浏览帖子', 'message', 'index', '1');
-INSERT INTO `edu_node` VALUES ('20', '添加帖子', 'message', 'add', '1');
-INSERT INTO `edu_node` VALUES ('21', '删除帖子', 'message', 'delete', '1');
-INSERT INTO `edu_node` VALUES ('22', '修改帖子', 'message', 'edit', '1');
-INSERT INTO `edu_node` VALUES ('23', '浏览帖子评论', 'comm', 'index', '1');
-INSERT INTO `edu_node` VALUES ('24', '删除评论', 'comm', 'delete', '1');
-INSERT INTO `edu_node` VALUES ('25', '浏览问题', 'question', 'index', '1');
-INSERT INTO `edu_node` VALUES ('26', '修改问题', 'question', 'edit', '1');
-INSERT INTO `edu_node` VALUES ('27', '删除问题', 'question', 'delete', '1');
-INSERT INTO `edu_node` VALUES ('28', '回复问题', 'question', 'replay', '1');
+INSERT INTO `edu_node` VALUES ('1', '院系管理', 'college', 'index', '1');
+INSERT INTO `edu_node` VALUES ('2', '专业管理', 'major', 'index', '1');
+INSERT INTO `edu_node` VALUES ('3', '班级管理', 'class', 'index', '1');
+INSERT INTO `edu_node` VALUES ('4', '课程管理', 'course', 'index', '1');
+INSERT INTO `edu_node` VALUES ('5', '用户管理', 'users', 'index', '1');
+INSERT INTO `edu_node` VALUES ('6', '学生管理', 'student', 'index', '1');
+INSERT INTO `edu_node` VALUES ('7', '角色管理', 'roles', 'index', '1');
+INSERT INTO `edu_node` VALUES ('8', '权限管理', 'node', 'index', '1');
+INSERT INTO `edu_node` VALUES ('9', '资源管理', 'library', 'index', '1');
+INSERT INTO `edu_node` VALUES ('10', '资源审核', 'library', 'audit', '1');
+INSERT INTO `edu_node` VALUES ('11', '试题管理', 'question', 'index', '1');
+INSERT INTO `edu_node` VALUES ('12', '试题审核', 'question', 'audit', '1');
+INSERT INTO `edu_node` VALUES ('13', '试题导入', 'question', 'import', '1');
+INSERT INTO `edu_node` VALUES ('14', '自测管理', 'test', 'index', '1');
+INSERT INTO `edu_node` VALUES ('15', '自测打分', 'test', 'score', '1');
+INSERT INTO `edu_node` VALUES ('16', '考试管理', 'exam', 'index', '1');
+INSERT INTO `edu_node` VALUES ('19', '考试审核', 'exam', 'audit', '1');
+INSERT INTO `edu_node` VALUES ('20', '公告管理', 'notice', 'index', '1');
+INSERT INTO `edu_node` VALUES ('32', '考试打分', 'examstudent', 'score', '1');
+INSERT INTO `edu_node` VALUES ('31', '考试记录', 'examstudent', 'index', '1');
+INSERT INTO `edu_node` VALUES ('30', '意见反馈', 'opinion', 'index', '1');
 
 -- ----------------------------
 -- Table structure for edu_note
@@ -910,6 +954,28 @@ INSERT INTO `edu_notice` VALUES ('37', '教学网上线了', '教学网上线了
 INSERT INTO `edu_notice` VALUES ('38', '最新线下活动', '明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~明天就要项目后考试了，大家抓紧时间复习哈~<br />', '波波', '1393466150');
 
 -- ----------------------------
+-- Table structure for edu_opinion
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_opinion`;
+CREATE TABLE `edu_opinion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公告编号',
+  `title` varchar(32) NOT NULL COMMENT '公告标题',
+  `content` text NOT NULL COMMENT '公告内容',
+  `author` varchar(32) NOT NULL,
+  `addtime` int(11) NOT NULL COMMENT '结束时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of edu_opinion
+-- ----------------------------
+INSERT INTO `edu_opinion` VALUES ('43', '奥德赛', '奥德赛发', 'admin', '0');
+INSERT INTO `edu_opinion` VALUES ('44', '123123', '123', 'teacher', '0');
+INSERT INTO `edu_opinion` VALUES ('41', '第三方奥迪', ' 阿斯蒂芬', 'aaa', '0');
+INSERT INTO `edu_opinion` VALUES ('42', '奥迪f	', '发阿斯蒂芬奥德赛发', 'admin', '0');
+INSERT INTO `edu_opinion` VALUES ('45', '123123', '123', 'teacher', '0');
+
+-- ----------------------------
 -- Table structure for edu_picture
 -- ----------------------------
 DROP TABLE IF EXISTS `edu_picture`;
@@ -957,51 +1023,78 @@ CREATE TABLE `edu_question` (
   `cid` int(12) DEFAULT '0',
   `tid` int(12) DEFAULT '0',
   `uid` int(12) DEFAULT '0',
-  `content` varchar(96) DEFAULT NULL,
-  `aA` varchar(48) DEFAULT NULL,
-  `aB` varchar(48) DEFAULT NULL,
-  `aC` varchar(48) DEFAULT NULL,
-  `aD` varchar(48) DEFAULT NULL,
-  `answer` varchar(48) DEFAULT NULL,
+  `content` varchar(500) DEFAULT NULL,
+  `aA` varchar(200) DEFAULT NULL,
+  `aB` varchar(200) DEFAULT NULL,
+  `aC` varchar(200) DEFAULT NULL,
+  `aD` varchar(200) DEFAULT NULL,
+  `answer` varchar(200) DEFAULT NULL,
   `score` int(12) DEFAULT '0',
   `status` int(12) DEFAULT '0',
+  `level` int(11) DEFAULT '0',
+  `point` varchar(200) DEFAULT NULL,
   `addtime` int(12) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_question
 -- ----------------------------
-INSERT INTO `edu_question` VALUES ('53', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', '1476197658');
-INSERT INTO `edu_question` VALUES ('54', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', '1476197699');
-INSERT INTO `edu_question` VALUES ('55', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', null, null, null, null, '错', '2', '0', '1476197734');
-INSERT INTO `edu_question` VALUES ('56', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', null, null, null, null, 'haha', '2', '0', '1476197757');
-INSERT INTO `edu_question` VALUES ('57', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', null, null, null, null, 'this is a low answer', '10', '0', '1480214743');
-INSERT INTO `edu_question` VALUES ('58', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', '1476197658');
-INSERT INTO `edu_question` VALUES ('59', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', '1476197699');
-INSERT INTO `edu_question` VALUES ('60', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', '1476197734');
-INSERT INTO `edu_question` VALUES ('61', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', '1476197757');
-INSERT INTO `edu_question` VALUES ('62', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', '1480214743');
-INSERT INTO `edu_question` VALUES ('63', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', '1476197658');
-INSERT INTO `edu_question` VALUES ('64', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', '1476197699');
-INSERT INTO `edu_question` VALUES ('65', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', '1476197734');
-INSERT INTO `edu_question` VALUES ('66', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', '1476197757');
-INSERT INTO `edu_question` VALUES ('67', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', '1480214743');
-INSERT INTO `edu_question` VALUES ('68', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', '1476197658');
-INSERT INTO `edu_question` VALUES ('69', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', '1476197699');
-INSERT INTO `edu_question` VALUES ('70', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', '1476197734');
-INSERT INTO `edu_question` VALUES ('71', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', '1476197757');
-INSERT INTO `edu_question` VALUES ('72', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', '1480214743');
-INSERT INTO `edu_question` VALUES ('73', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', '1476197658');
-INSERT INTO `edu_question` VALUES ('74', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', '1476197699');
-INSERT INTO `edu_question` VALUES ('75', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', '1476197734');
-INSERT INTO `edu_question` VALUES ('76', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', '1476197757');
-INSERT INTO `edu_question` VALUES ('77', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', '1480214743');
-INSERT INTO `edu_question` VALUES ('78', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', '1476197658');
-INSERT INTO `edu_question` VALUES ('79', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', '1476197699');
-INSERT INTO `edu_question` VALUES ('80', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', '1476197734');
-INSERT INTO `edu_question` VALUES ('81', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', '1476197757');
-INSERT INTO `edu_question` VALUES ('82', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', '1480214743');
+INSERT INTO `edu_question` VALUES ('53', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', null, null, '1476197658');
+INSERT INTO `edu_question` VALUES ('54', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', null, null, '1476197699');
+INSERT INTO `edu_question` VALUES ('55', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', null, null, null, null, '错', '2', '0', null, null, '1476197734');
+INSERT INTO `edu_question` VALUES ('56', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', null, null, null, null, 'haha', '2', '0', null, null, '1476197757');
+INSERT INTO `edu_question` VALUES ('57', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', null, null, null, null, 'this is a low answer', '10', '0', null, null, '1480214743');
+INSERT INTO `edu_question` VALUES ('58', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', null, null, '1476197658');
+INSERT INTO `edu_question` VALUES ('59', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', null, null, '1476197699');
+INSERT INTO `edu_question` VALUES ('60', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', null, null, '1476197734');
+INSERT INTO `edu_question` VALUES ('61', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', null, null, '1476197757');
+INSERT INTO `edu_question` VALUES ('62', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', null, null, '1480214743');
+INSERT INTO `edu_question` VALUES ('63', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', null, null, '1476197658');
+INSERT INTO `edu_question` VALUES ('64', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', null, null, '1476197699');
+INSERT INTO `edu_question` VALUES ('65', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', null, null, '1476197734');
+INSERT INTO `edu_question` VALUES ('66', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', null, null, '1476197757');
+INSERT INTO `edu_question` VALUES ('67', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', null, null, '1480214743');
+INSERT INTO `edu_question` VALUES ('68', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', null, null, '1476197658');
+INSERT INTO `edu_question` VALUES ('69', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', null, null, '1476197699');
+INSERT INTO `edu_question` VALUES ('70', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', null, null, '1476197734');
+INSERT INTO `edu_question` VALUES ('71', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', null, null, '1476197757');
+INSERT INTO `edu_question` VALUES ('72', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', null, null, '1480214743');
+INSERT INTO `edu_question` VALUES ('73', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '0', null, null, '1476197658');
+INSERT INTO `edu_question` VALUES ('74', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', null, null, '1476197699');
+INSERT INTO `edu_question` VALUES ('75', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', null, null, '1476197734');
+INSERT INTO `edu_question` VALUES ('76', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', null, null, '1476197757');
+INSERT INTO `edu_question` VALUES ('77', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', null, null, '1480214743');
+INSERT INTO `edu_question` VALUES ('78', '1', '4', '0', '55', 'Hello please select the correct answer.', 'incorrect answer', 'correct answer', 'incorrect answer', 'incorrect ansser', 'B', '2', '1', null, null, '1476197658');
+INSERT INTO `edu_question` VALUES ('79', '2', '4', '0', '55', 'please select the correct answers.', 'correct answer', 'correct answer', 'incorrect answer', 'correct answer', 'ABD', '2', '0', null, null, '1476197699');
+INSERT INTO `edu_question` VALUES ('80', '3', '4', '0', '55', 'please judge the right or wrong.<span style=\"white-space:pre\">	</span>', '', '', '', '', '错', '2', '0', null, null, '1476197734');
+INSERT INTO `edu_question` VALUES ('81', '4', '4', '0', '55', 'please fill the blank.<span style=\"white-space:pre\">		</span>', '', '', '', '', 'haha', '2', '0', null, null, '1476197757');
+INSERT INTO `edu_question` VALUES ('82', '5', '4', '0', '55', 'Answer this question<span style=\"white-space:pre\">	</span>', '', '', '', '', 'this is a low answer', '10', '0', null, null, '1480214743');
+INSERT INTO `edu_question` VALUES ('83', '1', '4', '0', '55', '请选择一项正确答案。', '错误答案', '错误答案', '错误答案', '正确答案', 'D', '2', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('84', '2', '4', '0', '55', '请选择多项正确答案。', '正确答案', '正确答案', '正确答案', '错误答案', 'ABC', '3', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('85', '3', '4', '0', '55', '请判断对错。', '', '', '', '', '错', '2', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('86', '4', '4', '0', '55', '请填入正确答案。', '', '', '', '', '23.25', '4', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('87', '5', '4', '0', '55', '请回答问题。', '', '', '', '', '这就是答案，请打分。', '10', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('88', '1', '4', '0', '55', '请选择一项正确答案。', '错误答案', '错误答案', '错误答案', '正确答案', 'D', '2', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('89', '2', '4', '0', '55', '请选择多项正确答案。', '正确答案', '正确答案', '正确答案', '错误答案', 'ABC', '3', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('90', '3', '4', '0', '55', '请判断对错。', '', '', '', '', '错', '2', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('91', '4', '4', '0', '55', '请填入正确答案。', '', '', '', '', '23.25', '4', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('92', '5', '4', '0', '55', '请回答问题。', '', '', '', '', '这就是答案，请打分。', '10', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('93', '1', '6', '0', '55', '请选择一项正确答案。', '错误答案', '错误答案', '错误答案', '正确答案', 'D', '2', '1', null, null, null);
+INSERT INTO `edu_question` VALUES ('94', '2', '6', '0', '55', '请选择多项正确答案。', '正确答案', '正确答案', '正确答案', '错误答案', 'ABC', '3', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('95', '3', '6', '0', '55', '请判断对错。', '', '', '', '', '错', '2', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('96', '4', '6', '0', '55', '请填入正确答案。', '', '', '', '', '23.25', '4', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('97', '5', '6', '0', '55', '请回答问题。', '', '', '', '', '这就是答案，请打分。', '10', '0', null, null, null);
+INSERT INTO `edu_question` VALUES ('98', '1', '6', '0', '55', '请选择一项正确答案。', '错误答案', '错误答案', '错误答案', '正确答案', 'D', '2', '0', '2', null, '1482251563');
+INSERT INTO `edu_question` VALUES ('99', '2', '6', '0', '55', '请选择多项正确答案。', '正确答案', '正确答案', '正确答案', '错误答案', 'ABC', '3', '0', null, null, '1482251563');
+INSERT INTO `edu_question` VALUES ('100', '3', '6', '0', '55', '请判断对错。', '', '', '', '', '错', '2', '0', null, null, '1482251563');
+INSERT INTO `edu_question` VALUES ('101', '4', '6', '0', '55', '请填入正确答案。', '', '', '', '', '23.25', '4', '0', null, null, '1482251563');
+INSERT INTO `edu_question` VALUES ('102', '5', '6', '0', '55', '请回答问题。', '', '', '', '', '这就是答案，请打分。', '10', '0', null, null, '1482251563');
+INSERT INTO `edu_question` VALUES ('103', '1', '6', '0', '55', '请选择一项正确答案。<img src=\"/Public/Uploads/editor/201612/586299a78a532.jpg\" alt=\"\" />', '错误答案', '错误答案', '错误答案', '正确答案', 'D', '2', '0', '1', '啊', '1482251695');
+INSERT INTO `edu_question` VALUES ('104', '2', '6', '0', '55', '请选择多项正确答案。', '正确答案', '正确答案', '正确答案', '错误答案', 'ABC', '3', '0', null, null, '1482251695');
+INSERT INTO `edu_question` VALUES ('105', '3', '6', '0', '55', '请判断对错。', '', '', '', '', '错', '2', '0', null, null, '1482251695');
+INSERT INTO `edu_question` VALUES ('106', '4', '6', '0', '55', '请填入正确答案。', '', '', '', '', '23.25', '4', '0', null, null, '1482251695');
+INSERT INTO `edu_question` VALUES ('107', '5', '6', '0', '55', '请回答问题。', '', '', '', '', '这就是答案，请打分。', '10', '0', null, null, '1482251695');
 
 -- ----------------------------
 -- Table structure for edu_roles
@@ -1018,8 +1111,8 @@ CREATE TABLE `edu_roles` (
 -- ----------------------------
 -- Records of edu_roles
 -- ----------------------------
-INSERT INTO `edu_roles` VALUES ('1', 'administrator', '1', '管理员');
-INSERT INTO `edu_roles` VALUES ('2', 'teacher', '1', '老师');
+INSERT INTO `edu_roles` VALUES ('1', '管理员', '1', '');
+INSERT INTO `edu_roles` VALUES ('2', '教师', '1', '');
 
 -- ----------------------------
 -- Table structure for edu_role_node
@@ -1033,31 +1126,25 @@ CREATE TABLE `edu_role_node` (
 -- ----------------------------
 -- Records of edu_role_node
 -- ----------------------------
-INSERT INTO `edu_role_node` VALUES ('2', '8');
-INSERT INTO `edu_role_node` VALUES ('1', '27');
-INSERT INTO `edu_role_node` VALUES ('1', '26');
-INSERT INTO `edu_role_node` VALUES ('2', '1');
-INSERT INTO `edu_role_node` VALUES ('1', '25');
-INSERT INTO `edu_role_node` VALUES ('1', '24');
-INSERT INTO `edu_role_node` VALUES ('1', '23');
-INSERT INTO `edu_role_node` VALUES ('1', '22');
-INSERT INTO `edu_role_node` VALUES ('1', '21');
+INSERT INTO `edu_role_node` VALUES ('2', '15');
+INSERT INTO `edu_role_node` VALUES ('2', '14');
+INSERT INTO `edu_role_node` VALUES ('2', '11');
+INSERT INTO `edu_role_node` VALUES ('2', '16');
 INSERT INTO `edu_role_node` VALUES ('1', '20');
 INSERT INTO `edu_role_node` VALUES ('1', '19');
+INSERT INTO `edu_role_node` VALUES ('1', '16');
 INSERT INTO `edu_role_node` VALUES ('1', '15');
+INSERT INTO `edu_role_node` VALUES ('1', '14');
 INSERT INTO `edu_role_node` VALUES ('1', '13');
 INSERT INTO `edu_role_node` VALUES ('1', '12');
 INSERT INTO `edu_role_node` VALUES ('1', '11');
+INSERT INTO `edu_role_node` VALUES ('2', '9');
 INSERT INTO `edu_role_node` VALUES ('1', '10');
 INSERT INTO `edu_role_node` VALUES ('1', '9');
+INSERT INTO `edu_role_node` VALUES ('1', '8');
+INSERT INTO `edu_role_node` VALUES ('1', '7');
 INSERT INTO `edu_role_node` VALUES ('1', '6');
-INSERT INTO `edu_role_node` VALUES ('2', '9');
 INSERT INTO `edu_role_node` VALUES ('1', '5');
-INSERT INTO `edu_role_node` VALUES ('1', '4');
-INSERT INTO `edu_role_node` VALUES ('1', '3');
-INSERT INTO `edu_role_node` VALUES ('1', '2');
-INSERT INTO `edu_role_node` VALUES ('1', '1');
-INSERT INTO `edu_role_node` VALUES ('1', '28');
 INSERT INTO `edu_role_node` VALUES ('7', '3');
 INSERT INTO `edu_role_node` VALUES ('7', '6');
 
@@ -1131,13 +1218,13 @@ CREATE TABLE `edu_student` (
 -- ----------------------------
 -- Records of edu_student
 -- ----------------------------
-INSERT INTO `edu_student` VALUES ('1', '201', 'e00cf25ad42683b3df678c61f42c6bda', '丁一', '1', '2016-09-10', '11', '1', null, '4', '5846cb82c185b.jpg', '1', null, '0', '0');
+INSERT INTO `edu_student` VALUES ('1', '201', 'e10adc3949ba59abbe56e057f20f883e', '丁一', '1', '2016-09-10', '11', '1', null, '4', '5846cb82c185b.jpg', '1', null, '0', '0');
 INSERT INTO `edu_student` VALUES ('3', '201600002', '21232f297a57a5a743894a0e4a801fc3', '王二', '1', '', '', '', null, '0', null, '', null, '0', '0');
 INSERT INTO `edu_student` VALUES ('4', '201600003', '21232f297a57a5a743894a0e4a801fc3', '赵三', '1', '', '', '', null, '0', '583a4647685bc.jpg', '', null, '0', '0');
 INSERT INTO `edu_student` VALUES ('5', '201600004', '21232f297a57a5a743894a0e4a801fc3', '李四', '2', '2016-09-06', '', '', null, '4', null, '1', null, '0', '0');
 INSERT INTO `edu_student` VALUES ('6', '201600005', '21232f297a57a5a743894a0e4a801fc3', '刘五', '1', '2016-08-30', '浙江', '汉族', null, '4', null, '123123', null, '0', '0');
 INSERT INTO `edu_student` VALUES ('7', '201600006', '21232f297a57a5a743894a0e4a801fc3', '赵六', '1', '2016-09-06', '江苏', '汉族', '', '3', null, '123123123', '0', '0', '0');
-INSERT INTO `edu_student` VALUES ('8', '201600007', '21232f297a57a5a743894a0e4a801fc3', '孙七', '1', '2016-09-05', '山东', '汉族', '', '1', '583a46a6a3cb4.jpg', '123123', '0', '0', '0');
+INSERT INTO `edu_student` VALUES ('8', '201600007', 'e10adc3949ba59abbe56e057f20f883e', '孙七', '1', '2016-09-05', '山东', '汉族', '', '1', '583a46a6a3cb4.jpg', '123123', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for edu_test
@@ -1154,7 +1241,7 @@ CREATE TABLE `edu_test` (
   `status` int(1) DEFAULT '0',
   `score` int(3) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_test
@@ -1179,6 +1266,7 @@ INSERT INTO `edu_test` VALUES ('40', null, '4', '55', '大学英语自主测试1
 INSERT INTO `edu_test` VALUES ('41', null, '4', '55', '大学英语自主测试16-11-29 10:48:26', '1480430906', '1480430914', '2', '0');
 INSERT INTO `edu_test` VALUES ('42', null, '4', '55', '大学英语自主测试16-11-29 11:08:02', '1480432082', '1480432114', '1', '8');
 INSERT INTO `edu_test` VALUES ('43', null, '4', '1', '大学英语自主测试16-11-30 10:58:46', '1480517926', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('44', null, '4', '1', '大学英语自主测试16-12-28 12:20:44', '1482855644', '1482855665', '2', '10');
 
 -- ----------------------------
 -- Table structure for edu_test_question
@@ -1193,7 +1281,7 @@ CREATE TABLE `edu_test_question` (
   `status` int(1) DEFAULT '0',
   `addtime` int(12) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_test_question
@@ -1229,6 +1317,16 @@ INSERT INTO `edu_test_question` VALUES ('98', '43', '65', null, null, '0', '1480
 INSERT INTO `edu_test_question` VALUES ('99', '43', '54', null, null, '0', '1480517926');
 INSERT INTO `edu_test_question` VALUES ('100', '43', '64', null, null, '0', '1480517926');
 INSERT INTO `edu_test_question` VALUES ('101', '43', '57', null, null, '0', '1480517926');
+INSERT INTO `edu_test_question` VALUES ('102', '44', '91', '123', '0', '2', '1482855644');
+INSERT INTO `edu_test_question` VALUES ('103', '44', '54', 'A', '0', '2', '1482855644');
+INSERT INTO `edu_test_question` VALUES ('104', '44', '83', 'D', '2', '2', '1482855644');
+INSERT INTO `edu_test_question` VALUES ('105', '44', '82', '123123', '7', '2', '1482855644');
+INSERT INTO `edu_test_question` VALUES ('106', '44', '84', 'AB', '0', '2', '1482855644');
+INSERT INTO `edu_test_question` VALUES ('107', '44', '65', '对', '0', '2', '1482855644');
+INSERT INTO `edu_test_question` VALUES ('108', '44', '61', '123', '0', '2', '1482855644');
+INSERT INTO `edu_test_question` VALUES ('109', '44', '66', '123', '0', '2', '1482855644');
+INSERT INTO `edu_test_question` VALUES ('110', '44', '62', '123', '1', '2', '1482855644');
+INSERT INTO `edu_test_question` VALUES ('111', '44', '56', '123', '0', '2', '1482855644');
 
 -- ----------------------------
 -- Table structure for edu_usermessage
@@ -1403,8 +1501,8 @@ CREATE TABLE `edu_userrole` (
 -- ----------------------------
 -- Records of edu_userrole
 -- ----------------------------
-INSERT INTO `edu_userrole` VALUES ('55', '1');
 INSERT INTO `edu_userrole` VALUES ('55', '2');
+INSERT INTO `edu_userrole` VALUES ('55', '1');
 INSERT INTO `edu_userrole` VALUES ('66', '1');
 INSERT INTO `edu_userrole` VALUES ('66', '2');
 INSERT INTO `edu_userrole` VALUES ('64', '2');
@@ -1425,8 +1523,7 @@ INSERT INTO `edu_userrole` VALUES ('68', '2');
 INSERT INTO `edu_userrole` VALUES ('67', '2');
 INSERT INTO `edu_userrole` VALUES ('65', '2');
 INSERT INTO `edu_userrole` VALUES ('63', '2');
-INSERT INTO `edu_userrole` VALUES ('97', '3');
-INSERT INTO `edu_userrole` VALUES ('97', '7');
+INSERT INTO `edu_userrole` VALUES ('97', '2');
 
 -- ----------------------------
 -- Table structure for edu_users
@@ -1457,43 +1554,8 @@ CREATE TABLE `edu_users` (
 -- ----------------------------
 -- Records of edu_users
 -- ----------------------------
-INSERT INTO `edu_users` VALUES ('55', 'admin', '21232f297a57a5a743894a0e4a801fc3', '管理员', '1', '22', 'admin@admin.com', '74', '530e9f9d3b45b.jpg', '10', '999', '1393430863', '无', '0', '1480212409', '57');
-INSERT INTO `edu_users` VALUES ('65', 'zhy1', '96e79218965eb72c92a549dd5a330112', '张洪岩', '1', '22', 'zhy1@zhy1.com', '', '530e8b8abdef3.jpg', '0', '0', '1393434032', '董其贤他二大爷', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('64', 'dong', '96e79218965eb72c92a549dd5a330112', '贤哥', '1', '21', 'dong@qq.com', null, '530eb22363ac2.jpg', null, null, '1393433487', '一位php程序猿~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('63', 'zxbshiwo', '96e79218965eb72c92a549dd5a330112', '波波', '1', '23', 'zxbshiwo@qq.com', null, '530e1b9d1ec75.jpg', null, null, '1393433459', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('62', 'dandan', '96e79218965eb72c92a549dd5a330112', '蛋蛋', '2', '18', 'dandan@dan.com', null, '530e1b771fbdd.jpg', null, null, '1393433437', '小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('61', 'zhy', '96e79218965eb72c92a549dd5a330112', '张洪岩', '1', '22', 'zhy@zhy.com', null, '530e33b3c714c.jpg', null, null, '1393433408', '张大神！！！', '1393472553', '1393472651', '5');
-INSERT INTO `edu_users` VALUES ('66', 'xiaoping', '96e79218965eb72c92a549dd5a330112', '小萍', '2', '18', 'xiao@aa.com', '', '530e1ee51c30f.jpg', '0', '0', '1393434313', '一位php菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('67', 'dong2', '96e79218965eb72c92a549dd5a330112', '贤哥2', '2', '23', 'admin2@qq.com', null, '530e1fc8a05c5.jpg', null, null, '1393434542', '这都不是真的', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('68', 'zhy2', '96e79218965eb72c92a549dd5a330112', '帅哥', '1', '22', 'zhy2@zhy2.com', null, '530e2007de192.jpg', null, null, '1393434583', '一个帅哥 啊', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('69', 'woshizxb', '96e79218965eb72c92a549dd5a330112', '二波', '1', '23', 'woshizxb@qq.com', null, '530e206fc09f9.jpg', null, null, '1393434708', '另一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('70', 'zhy3', '96e79218965eb72c92a549dd5a330112', '天明', '0', '14', 'zhy3@zhy3.com', null, '530e2647a6b54.jpg', null, null, '1393436209', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('71', 'nicai', '96e79218965eb72c92a549dd5a330112', '妹妹', '1', '88', 'cai@qq.com', null, '530e26694c515.jpg', null, null, '1393436242', '一位php程序老太太~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('72', 'dong3', '96e79218965eb72c92a549dd5a330112', '111', '2', '1', 'adminasgfds@qq.com', null, '530e27396867f.jpg', null, null, '1393436435', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('73', 'dong4', '96e79218965eb72c92a549dd5a330112', 'sss', '1', '2', 'admin@nn.com', null, '530e27aa4f65a.jpg', null, null, '1393436571', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('74', 'dong5', '96e79218965eb72c92a549dd5a330112', 'ss', '2', '12', 'admin@mm.com', null, '530e281420056.jpg', null, null, '1393436666', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('75', 'bobo', '96e79218965eb72c92a549dd5a330112', '波哥', '1', '25', 'bobo@qq.com', null, '530e292ce8290.jpg', null, null, '1393436953', '波哥威武。。。', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('76', 'dong6', '96e79218965eb72c92a549dd5a330112', 'sss', '1', '23', 'adminuu@11.com', null, '530e29591a4da.jpg', null, null, '1393437001', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('77', 'dong7', '96e79218965eb72c92a549dd5a330112', 'sdss', '1', '23', 'admin7@qq.com', null, '530e2a9a1ea1c.jpg', null, null, '1393437312', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('78', 'dong8', '96e79218965eb72c92a549dd5a330112', null, null, null, 'admin8@qq.com', null, '530e2b347d3bb.jpg', null, null, '1393437428', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('79', 'dong9', '96e79218965eb72c92a549dd5a330112', null, null, null, 'admin9@qq.com', null, '530e2b762293f.jpg', null, null, '1393437547', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('80', 'dong10', '96e79218965eb72c92a549dd5a330112', null, null, null, 'admin10@qq.com', null, '530e2bacbc6e1.jpg', null, null, '1393437584', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('81', 'dong11', '96e79218965eb72c92a549dd5a330112', null, null, null, 'admin11@qq.com', null, '530e2bd20e15c.jpg', null, null, '1393437635', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('82', 'dong12', '96e79218965eb72c92a549dd5a330112', null, null, null, 'admin12@qq.com', null, '530e2c51625d3.jpg', null, null, '1393437761', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('83', 'haozi', '96e79218965eb72c92a549dd5a330112', '小浩子', '1', '21', 'haozi@qq.com', null, '530e2c88cdec6.jpg', null, null, '1393437795', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('84', 'dong13', '96e79218965eb72c92a549dd5a330112', null, null, null, 'admin13@qq.com', null, '530e2c7a2cd6f.jpg', null, null, '1393437804', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('85', 'dong14', '96e79218965eb72c92a549dd5a330112', null, null, null, 'admin14@qq.com', null, '530e2ca1b70b7.jpg', null, null, '1393437844', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('86', 'dong16', '96e79218965eb72c92a549dd5a330112', null, null, null, 'admin16@qq.com', null, '530e2cd4e2059.jpg', null, null, '1393437885', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('87', 'qing', '96e79218965eb72c92a549dd5a330112', '小晴晴', '2', '20', 'qing@qq.com', null, '530e2cf25d264.jpg', null, null, '1393437910', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('88', 'kaixin', '96e79218965eb72c92a549dd5a330112', '开心ing', '2', '22', 'kaixin@qq.com', null, '530e2d4f4a547.jpg', null, null, '1393438004', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('89', 'dong19', '96e79218965eb72c92a549dd5a330112', null, null, null, 'admin19@qq.com', null, '530e2dcc0be3a.jpg', null, null, '1393438128', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('90', 'danmei', '96e79218965eb72c92a549dd5a330112', '蛋妹子', '2', '15', 'dan@qq.com', null, '530e2dd9cf81b.jpg', null, null, '1393438137', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('91', 'dong20', '96e79218965eb72c92a549dd5a330112', '11', '1', '11', 'admin20@qq.com', '一位php程序小菜鸟~', '1.jpg', '11', '11', '1393438182', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('92', 'dong21', '96e79218965eb72c92a549dd5a330112', '11111', '2', '45', 'admin21@qq.com', '一位php菜鸟~', '1.jpg', '11', '12', '1393438233', '一位php鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('93', '999999', '96e79218965eb72c92a549dd5a330112', 'Hang灬玉', '1', '22', '999@999.com', null, '530e2e5173fae.JPG', null, null, '1393438273', '叫我岩哥~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('94', 'dange', '96e79218965eb72c92a549dd5a330112', '蛋哥', '2', '18', 'da@dan.com', null, '530e2eb170192.jpg', null, null, '1393438336', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('95', 'xiaohaohao', '4d681ba9a8b533dcff082debb01986c3', '小浩', '1', '22', '654602355@qq.com', '', '530ea17eae949.jpg', '1', '0', '1393467722', '一位php程序小菜鸟~', '0', '0', '0');
-INSERT INTO `edu_users` VALUES ('97', 'jiaoshi', '51d9aa337ee87f27b935c027967eb1a8', '教师', '1', '0', 'jiaoshi@163.com', '', '57d1853b29e96.png', '0', '0', '1473348923', '', '0', '0', '13');
+INSERT INTO `edu_users` VALUES ('55', 'admin', '21232f297a57a5a743894a0e4a801fc3', '管理员', '1', '22', 'admin@admin.com', '74', '530e9f9d3b45b.jpg', '10', '999', '1393430863', '无', '1482852001', '1482853874', '94');
+INSERT INTO `edu_users` VALUES ('97', 'teacher', 'e10adc3949ba59abbe56e057f20f883e', '教师', '1', '0', 'jiaoshi@163.com', '', '57d1853b29e96.png', '0', '0', '1473348923', '', '1482844809', '1482844993', '20');
 
 -- ----------------------------
 -- Table structure for edu_users_photoalbum
@@ -1596,33 +1658,12 @@ CREATE TABLE `edu_user_course` (
   `uid` int(12) DEFAULT NULL,
   `coid` int(12) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_user_course
 -- ----------------------------
-INSERT INTO `edu_user_course` VALUES ('1', '0', '2');
-INSERT INTO `edu_user_course` VALUES ('2', '0', '5');
-INSERT INTO `edu_user_course` VALUES ('3', '0', '6');
-INSERT INTO `edu_user_course` VALUES ('4', '0', '3');
-INSERT INTO `edu_user_course` VALUES ('5', '0', '6');
-INSERT INTO `edu_user_course` VALUES ('14', '97', '2');
-INSERT INTO `edu_user_course` VALUES ('15', '97', '3');
-INSERT INTO `edu_user_course` VALUES ('16', '97', '4');
-INSERT INTO `edu_user_course` VALUES ('17', '97', '5');
-INSERT INTO `edu_user_course` VALUES ('18', '97', '6');
-INSERT INTO `edu_user_course` VALUES ('19', '61', '1');
-INSERT INTO `edu_user_course` VALUES ('20', '61', '3');
-INSERT INTO `edu_user_course` VALUES ('21', '61', '5');
-INSERT INTO `edu_user_course` VALUES ('22', '62', '1');
-INSERT INTO `edu_user_course` VALUES ('23', '62', '2');
-INSERT INTO `edu_user_course` VALUES ('24', '62', '3');
-INSERT INTO `edu_user_course` VALUES ('25', '62', '4');
-INSERT INTO `edu_user_course` VALUES ('26', '62', '5');
-INSERT INTO `edu_user_course` VALUES ('27', '62', '6');
-INSERT INTO `edu_user_course` VALUES ('28', '63', '1');
-INSERT INTO `edu_user_course` VALUES ('29', '63', '3');
-INSERT INTO `edu_user_course` VALUES ('30', '63', '5');
+INSERT INTO `edu_user_course` VALUES ('35', '97', '4');
 
 -- ----------------------------
 -- Table structure for edu_user_question

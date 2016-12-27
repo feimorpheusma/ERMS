@@ -68,6 +68,8 @@
                 <div class=" col-md-3" style=" float:right;">
                     <input id="end_time" type="hidden" value="<{$exam.endtime}>">
                     <div id="exam_info" class="p30 ml20" style="background: white;border-radius: 10px; width: 240px;">
+                        <span style="font-size: 16px; font-weight: bold"> <{$exam.title}></span>
+                        <br/><br/>
                         试卷状态：
                         <{if $exam_student.status == 1}>
                         <span style="color: orange;font-weight: bold;">打分未完成</span>
@@ -183,7 +185,7 @@
                         <{/if}>
                         <{else}>
                         <span id="answer_right"
-                              style="color: orange;font-weight: bold;"><{if $status== 2}>得分<{$question.score}><{else}>还未打分<{/if}> 正确答案：<{$question.correctanswer}></span>
+                              style="color: orange;font-weight: bold;"><{if $question.status== 2}>得分 <{$question.score}>分<{else}>还未打分<{/if}> 正确答案：<{$question.correctanswer}></span>
                         <{/if}>
                     </div>
                     <hr style="margin: 20px 0;"/>

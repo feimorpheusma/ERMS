@@ -28,6 +28,14 @@
                 <dt>分数:</dt>
                 <dd><input type="text" style="width:100%" name="score"/></dd>
             </dl>
+            <dl>
+                <dt>难易程度：</dt>
+                <dd><{html_options name='level' options=$Levels selected=$Level}></dd>
+            </dl>
+            <dl>
+                <dt>知识点:</dt>
+                <dd><input type="text" style="width:100%" name="point"/></dd>
+            </dl>
 
             <{if $vo.type == 1}>
             <dl>

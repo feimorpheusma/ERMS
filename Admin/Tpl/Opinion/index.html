@@ -6,9 +6,8 @@
         <div class="searchBar">
             <table class="searchContent">
                 <tr>
-                    <td>搜索：</td>
                     <td>
-                        课程名称：<input type="text" name="name" size="8" value="<{$smarty.post.name}>"/>
+                        <b>搜索</b> &nbsp; 关键字：<input type="text" name="title" value="<{$smarty.post.title}>"/> [标题或内容关键字]
                     </td>
                     <td>
                         <div class="buttonActive">
@@ -25,13 +24,12 @@
 <div class="pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="__URL__/add/navTabId/listcourse/" target="dialog"><span>添加</span></a></li>
-            <li><a class="edit" href="__URL__/edit/id/{sid_user}/navTabId/listcourse"
-                   target="dialog"><span>修改</span></a></li>
-            <li><a class="delete" href="__URL__/delete/id/{sid_user}/navTabId/listcourse" target="ajaxTodo"
+            <!-- <li><a class="add" href="__URL__/add/navTabId/listopinion" target="dialog" width="700" height="500"
+                    title="添加公告"><span>添加</span></a></li>-->
+            <li><a class="edit" href="__URL__/edit/id/{sid_user}/navTabId/listopinion" width="700" height="500"
+                   target="dialog" title="查看意见"><span>查看</span></a></li>
+            <li><a class="delete" href="__URL__/delete/id/{sid_user}/navTabId/listopinion" target="ajaxTodo"
                    title="确定要删除吗?"><span>删除</span></a></li>
-            <li><a class="edit" href="__APP__/CoursePoint/index/cid/{sid_user}" target="navTab" rel="listcourse"
-                   title="知识点"><span>知识点</span></a></li>
             <li class="line">line</li>
             <li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
             <!--<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>-->
@@ -42,14 +40,23 @@
         <tr>
             <th align="center" width="40" orderField="id"
             <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
-            <th align="center" width="60">课程名称</th>
+            <th width="130">意见标题</th>
+            <th width="150">意见内容</th>
+            <th width="150">提交人</th>
+            <th width="150">提交时间</th>
+
         </tr>
         </thead>
+
         <tbody>
         <{foreach $list as $vo}>
         <tr target="sid_user" rel="<{$vo.id}>">
             <td><{$vo.id}></td>
-            <td><{$vo.name}></td>
+            <td><{$vo.title}></td>
+            <td><{$vo.content|strip_tags}></td>
+            <td><{$vo.author}></td>
+            <td><{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+
         </tr>
         <{/foreach}>
 

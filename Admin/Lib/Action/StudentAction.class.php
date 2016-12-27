@@ -162,4 +162,27 @@ class StudentAction extends CommonAction
         }
     }
 
+    public function setpassword()
+    {
+        $user = M("student")->find($_GET['id']);
+        $this->assign("vo", $user);
+        $this->display();
+    }
+
+    public function updatepassword()
+    {
+        $id = $_POST['id'];
+
+        $data['pass'] =md5($_POST['pass']);
+
+        //判断数据是否修改成功
+        if (M("student")->where("id='$id'")->save($data)) {
+            $this->success(L("修改成功"));
+        } else {
+
+            $this->error("修改失败");
+        }
+
+    }
+
 }
