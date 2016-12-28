@@ -17,6 +17,7 @@ class OpinionAction extends CommonAction{
             $this->error($model->getError());
         }
         $model->author = $_SESSION[C('USER_AUTH_KEY')]['username'];
+        $model->addtime = time();
         //保存当前数据对象
         if ($result = $model->add()) { //保存成功
             // 回调接口

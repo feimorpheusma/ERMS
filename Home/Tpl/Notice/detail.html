@@ -1,0 +1,85 @@
+<{include file='../Public/header.html'}>
+<div id="sub-header" class="group_h">
+    <div class="container">
+        <div class="navbar-header" style="width: 16.66666666%;margin: 0;">
+
+            <h1><a href="#">系统公告</a></h1>
+
+        </div>
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-2">
+
+        </div>
+    </div>
+</div>
+
+<div id="main" class="bg_f2 ">
+    <div class="container">
+        <div class="home_module  row">
+            <div class="container">
+                <!-- 左侧 -->
+                <div class="col-md-8">
+                    <div class="p20" style="background: white;border-radius: 10px;">
+                        <!-- 公告内容 -->
+                        <div class="tt">
+                            <h4 class="title"><{$vo.title}></h4>
+                        </div>
+                        <div class="review_content">
+                            <div class="c999 m_n_item_info">
+                                <{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}>
+                            </div>
+                            <p><{$vo.content}></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 右侧 -->
+                <div class="col-md-4" style="height:330px">
+                    <div class="p20" style="background: white;border-radius: 10px;">
+                        <div class="m_pay_list" style="height:330px;width:300px">
+                            <div class="tt">
+                                <h4 class="title">最新公告</h4>
+                            </div>
+                            <div id="scrollDiv" style="height:300px;overflow:hidden">
+                                <ol id="did">
+                                    <{foreach $list as $vo}>
+                                    <li class="cc"><span>新</span><a href="__APP__/Notice/datail/id/<{$vo.id}>"><{$vo.title}></a>
+                                    </li>
+                                    <li><{$vo.addtime|date_format:"%Y-%m-%d %H:%M"}></li>
+                                    <{/foreach}>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script type="text/javascript" src="__PUBLIC__/js/scroll.js"></script>-->
+<!--页脚开始-->
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        /*
+         var mytime=setInterval(function(){
+         $("li.cc:last").hide().prependTo("#did").slideDown(1000);
+         },1400);
+         $(".m_pay_list").mouseover(function(){
+         clearInterval(mytime);
+         mytime=null;
+         });
+         $(".m_pay_list").mouseleave(function(){
+         mytime=setInterval(function(){
+         $("#did li:last").hide().prependTo("#did").slideDown(1000);
+         },800);
+
+         });*/
+
+        //设置最新公告滚动
+        //$("#scrollDiv").Scroll({line: 5, speed: 1000, timer: 2000});
+
+    });
+</script>
+
+<{include file="../Public/footer.html"}>

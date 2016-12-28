@@ -6,13 +6,12 @@ class NoticeAction extends Action{
 		$this->display("Index/index");
     }
 
-    public function datail(){
+    public function detail(){
         $model=D("Notice");
-        $this->assign("notice",$model->order("addtime desc")->limit("10")->select());
-        $list = $model->find($_GET['id']);
-        $this->assign("list",$list);
 
-        
+        $this->assign("list",$model->order("addtime desc")->limit("10")->select());
+
+        $this->assign("vo",$model->find($_GET['id']));
 
         $this->display();
 

@@ -41,14 +41,12 @@
         </div>
         <div class="col-md-2">
             <ul class="navbar-left">
-
                 <li>
-
                     <{if $vo.type==1}>
-                    <a href="__URL__/index/type/1/collect/<{$smarty.session.user.id}>"><i class="icon-list"></i>
+                    <a href="__URL__/index/type/1/collect/1"><i class="icon-list"></i>
                         我的收藏</a>
-                    <{else}>
-                    <a href="__URL__/index/collect/<{$smarty.session.user.id}>"><i class="icon-list"></i> 我的收藏</a>
+                    <{elseif $vo.type==1}>
+                    <a href="__URL__/index/type/2/collect/1"><i class="icon-list"></i> 我的收藏</a>
                     <{/if}>
                 </li>
             </ul>
@@ -63,8 +61,6 @@
 
                 <{if $vo.type==1}>
                 <div class="col-md-9">
-
-
                     <script type="text/javascript" src="__PUBLIC__/FlexPaper/js/flexpaper_flash.js"></script>
                     <script type="text/javascript" src="__PUBLIC__/FlexPaper/js/flexpaper_flash_debug.js"></script>
                     <div id="viewerPlaceHolder" swfname="<{$vo.name_swf}>"
@@ -102,8 +98,6 @@
                                 });
                         //===================================================
                     </script>
-
-
                 </div>
                 <{else}>
                 <div class="col-md-9">
@@ -134,7 +128,7 @@
                     <br/>
                     <span>教学课程：<{$vo.course}></span>
                     <br/>
-                    <span>播放次数：<{$vo.clicknum}></span>
+                    <span>浏览次数：<{$vo.clicknum}></span>
                     <br/>
                     <span>上传时间： <{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></span>
                     <br/>
@@ -154,8 +148,8 @@
                                 <{/if}>
                             </span>
                     </button>
-                    <{if $vo.candownload==0}>
-                    <a href="__URL__/dwload/id/<{$vo.id}>"
+                    <{if $vo.candownload}>
+                    <a href="__URL__/download/id/<{$vo.id}>"
                        class="btn btn-sm btn-info"><i class="icon-download"></i> 点击下载</a>
                     <{/if}>
                     <br/>
@@ -163,7 +157,7 @@
 
             </div>
         </div>
-        <div class="    p30 mt20 " style="background: white;border-radius: 10px;">
+        <div class="hidden    p30 mt20 " style="background: white;border-radius: 10px;">
             <div class="col-md-12">
                 <div class="m_detail_reviews more mb30">
                     <div class="tt">

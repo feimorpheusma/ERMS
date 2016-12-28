@@ -20,11 +20,11 @@ class LibraryAction extends CommonAction
         $url_params = '';
         $cid = 0;
         $type = 0;
-
+        $collectflag = 0;
         if (!empty($_GET['cid'])) {
-            $cid =  $_GET['cid'];
-            $where['cid'] = array("eq",$cid);
-            $url_params = $url_params . "/cid/" .$cid;
+            $cid = $_GET['cid'];
+            $where['cid'] = array("eq", $cid);
+            $url_params = $url_params . "/cid/" . $cid;
         } else {
             $where['cid'] = array("in", $this->courseids);
         }
@@ -43,7 +43,8 @@ class LibraryAction extends CommonAction
             foreach ($vids as $v) {
                 $ids[] = $v['lid'];
             }
-            $where['id'] = array("in", $ids);
+            $where['l.id'] = array("in", $ids);
+            $collectflag = 1;
         }
 
         $where['status'] = array("eq", "1");
@@ -60,7 +61,7 @@ class LibraryAction extends CommonAction
         } else {
             //设置分页条件
             $total = $model->where($where)->count();//获取总数据条数
-            $page = new Page($total, 2);//实例化一个分页对象
+            $page = new Page($total, 8);//实例化一个分页对象
 
             //调用查询语句
             $result = $model->field("l.id,l.title,l.addtime,c.name as coursename,l.candownload")->join("edu_course c on l.cid = c.id")->where($where)->order("id desc")->limit($page->firstRow . "," . $page->listRows)->select();
@@ -78,11 +79,11 @@ class LibraryAction extends CommonAction
 
         $this->assign("courses", $this->courses);
         $this->assign("type", $type);
+        $this->assign("collectflag", $collectflag);
         $this->assign("url_params", $url_params);
         $this->assign("cid", $cid);
         $this->display();
     }
-
 
     //定义资源信息查询方法 详情页
     public function detail()
@@ -187,24 +188,27 @@ class LibraryAction extends CommonAction
 
 
     //资源下载的方法
-    public function dwload()
+    public function download()
     {
         $model = M("Library");
         $res = $model->find($_GET['id']);
 
-        //资源下载量加一
-        $res['dwloadnum'] += 1;
-        $model->save($res);
-        //获取资源的类型
-        $type = $res['type'];
+        if ($res['candownload']) {
+            //资源下载量加一
+            $res['downloadnum'] += 1;
+            $model->save($res);
+            //获取资源的类型
+            $type = $res['type'];
 
-        //执行资源下载
-        header("Content-Type:{$type}");
-        header("Content-Disposition:attachment;filename={$res['name']}");
-        header("Content-Length:{$res['size']}");
+            //执行资源下载
+            header("Content-Type:{$type}");
+            header("Content-Disposition:attachment;filename={$res['name']}");
+            header("Content-Length:{$res['size']}");
 
-        readfile("./Public/Uploads/library/{$res['name']}");
-
+            readfile("./Public/Uploads/library/{$res['name']}");
+        } else {
+            $this->error("非法操作！");
+        }
     }
 
 }

@@ -70,15 +70,18 @@
     </style>
 
 
-
 </head>
 <body>
 <div id="browser"></div>
 
+<div class="titlebar">
+    <div class="container">
+        <img src="/Public/images/logo-bq.png" />
+    </div>
+</div>
 <div id="header">
     <div class="navbar navbar-default" role="navigation">
         <div class="container">
-
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">切换导航</span>
@@ -86,12 +89,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="__APP__/Index/index">E-Sch</a>
+                <!--<a class="navbar-brand" href="__APP__/Index/index">E-Sch</a>-->
             </div>
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <{if $smarty.session.user}>
                 <ul class="nav navbar-nav g_nav">
+                    <li><a href="__APP__">首页</a></li>
                     <li><a href="__APP__/Library/index">教学资料</a></li>
                     <li><a href="__APP__/Test/index">自主学习</a></li>
                     <li><a href="__APP__/Exam/index">在线考试</a></li>
@@ -115,7 +119,7 @@
 
 
                 </ul>
-                <form class="navbar-form navbar-right" role="search" action="__APP__/Cat/show" method="GET"
+                <form class="navbar-form navbar-right" role="search" action="__APP__/Library/index" method="GET"
                       autocompelte="off">
                     <div class="form-group">
                         <input type="text" name="q" class="form-control" placeholder="搜索">

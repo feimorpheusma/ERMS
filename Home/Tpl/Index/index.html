@@ -1,84 +1,95 @@
 <{include file='../Public/header.html'}>
 
 
-<div id="wrapper">
+<div id="wrapper" class="bg_f2 ">
     <div class="home_module m_hot">
         <div class="container">
 
-            <div class="col-md-4">
+            <div class="col-md-4 ">
+                <div class="p20" style="background: white;border-radius: 10px;height:550px;">
 
-                <div class="mb30" style="height:550px">
                     <div class="tt">
-                        <h3 style="color:#6C6767">最新公告</h3>
+                        <h4 style="color:#6C6767">最新公告</h4>
                     </div>
                     <!--遍历出公告信息-->
                     <div>
+                        <{if $notice}>
                         <ul class="hot-activity-list">
                             <{foreach $notice as $vo}>
                             <li>
-                                <a href="__APP__/Notice/datail/id/<{$vo.id}>" style="font-size:15px; color:#FE6C6C">☞<{$vo.title}></a>
+                                <a href="__APP__/Notice/detail/id/<{$vo.id}>" style="font-size:15px; color:#FE6C6C"><{$vo.title}></a>
                                 <br>
                                 <span class="act-time" style="color:#C67676">时间:  <{$vo.addtime|date_format:"%Y-%m-%d %H:%M"}></span>
                             </li>
                             <{/foreach}>
                         </ul>
+                        <{/if}>
                     </div>
                 </div>
+
             </div>
-
-
             <div class="col-md-4">
+                <div class="p20" style="background: white;border-radius: 10px;height:550px;">
 
-                <div class="mb30" style="height:550px">
                     <div class="tt">
-                        <h3 style="color:#6C6767">最新教学资料</h3>
-                        <a href="__APP__/Video/index" class="more">更多 »</a>
+                        <h4 style="color:#6C6767">最新教学资料</h4>
+                        <a href="__APP__/Video/index/type/1" class="more">更多 »</a>
                     </div>
                     <!--遍历出公告信息-->
                     <div>
+                        <{if $documents}>
                         <ul id="did" class="hot-activity-list">
                             <{foreach $documents as $vo}>
                             <li id="notice">
-                                <a href="__APP__/Library/detail/id/<{$vo.id}>" style="font-size:15px; color:#FE6C6C">
-                                   《<{$vo.title}>》</a>
+                                <a href="__APP__/Library/detail/id/<{$vo.id}>"
+                                   style="font-size:15px; color:#FE6C6C">
+                                    《<{$vo.title}>》</a>
                                 <br>
                                 <span class="act-time" style="color:#C67676"><{$vo.addtime|date_format:"%Y-%m-%d %H:%M"}></span>
                             </li>
                             <{/foreach}>
                         </ul>
+                        <{/if}>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="tt">
-                    <h3 style="color:#6C6767">最新教学视频</h3>
-                    <a href="__APP__/Video/index" class="more">更多 »</a>
-                </div>
-                <div class="m_cover_list">
-                    <ul class="list_ib">
+                <div class="p20" style="background: white;border-radius: 10px;height:550px;">
+                    <div class="tt">
+                        <h4 style="color:#6C6767">最新教学视频</h4>
+                        <a href="__APP__/Video/index/type/2" class="more">更多 »</a>
+                    </div>
+                    <div class="m_cover_list">
+                        <{if $videos}>
+                        <ul class="list_ib">
+                            <{foreach $videos as $vi}>
+                            <li style="width:50%;padding: 10px 0;">
 
-                        <{foreach $videos as $vi}>
-                        <li style="width:50%;padding: 0;">
-
-                            <div class="item_cover"style="width:100%;margin-left: 10px;">
-                                <div style="width:100%; height: 150px; background-color: #ccc;color: #fff;font-size: 30px; line-height: 60px; padding-top: 10px; font-weight: bold;font-family: Microsoft YaHei; overflow:hidden; ">
-                                    <{$vi.title}>
+                                <div class="item_cover" style="width:100%;">
+                                    <div style="margin: 10px;">
+                                        <div style="width:100%; height: 150px; background-color: #ccc;color: #fff;font-size: 30px; line-height: 60px; padding-top: 10px; font-weight: bold;font-family: Microsoft YaHei; overflow:hidden; ">
+                                            <{$vi.title}>
+                                        </div>
+                                        <a class="m_cover_item_info" href="__APP__/Library/detail/id/<{$vi.id}>"
+                                           title="点击播放" style="width:100%">
+                                            <span class="play-item"><i class="icon-play"></i></span>
+                                            <em>点击播放</em>
+                                        </a>
+                                    </div>
                                 </div>
-                                <a class="m_cover_item_info" href="__APP__/Library/detail/id/<{$vi.id}>" title="点击播放"
-                                   style="width:100%">
-                                    <span class="play-item"><i class="icon-play"></i></span>
-                                    <em>点击播放</em>
-                                </a>
-                            </div>
-                            <div class="title"
-                                 style="font-size:12px;overflow:hidden; text-overflow:ellipsis;  line-height: 30px;display:block;white-space:nowrap; ">
-                                <a href="__APP__/Video/play/id/<{$vo.id}>/tid/<{$vo.tid}>"><{$vi.title}></a>
-                            </div>
+                                <div class="title"
+                                     style="font-size:12px;overflow:hidden; text-overflow:ellipsis;  line-height: 30px;display:block;white-space:nowrap; ">
+                                    <a href="__APP__/Library/detail/id/<{$vi.id}>"><{$vi.title}></a>
+                                </div>
 
-                        </li>
-                        <{/foreach}>
+                                <a href="__APP__/Library/detail/id/<{$vi.id}>" class="btn btn-primary btn-sm">查看详情</a>
 
-                    </ul>
+                            </li>
+                            <{/foreach}>
+                        </ul>
+                        <{/if}>
+                    </div>
                 </div>
             </div>
         </div>
