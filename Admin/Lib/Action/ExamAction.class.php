@@ -9,7 +9,7 @@ class ExamAction extends CommonAction
         if (!empty($_REQUEST['title'])) {
             $map['title'] = array("like", "%{$_REQUEST['title']}%");
         }
-        
+
         if (empty($_REQUEST['cid'])) {
             $map['cid'] = array('in', $_SESSION[C('USER_AUTH_KEY')]["courselist"]);
         }
@@ -141,11 +141,141 @@ class ExamAction extends CommonAction
 
         //$remain_list = M("question")->where("cid={$cid} and id not in (select qid from edu_exam_question where eid={$_GET['id']})")->select();
 
-        $list = M("question q")->field("ifnull(e.qid,0) as eqid,q.id as qid,content,aA,aB,aC,aD,q.answer,q.score,q.type")->join("edu_exam_question e on e.qid=q.id and e.eid={$_GET['id']}")->where("q.cid={$cid}")->order("q.type")->select();
+        $list = M("question q")->field("ifnull(e.qid,0) as eqid,q.id as qid,content,aA,aB,aC,aD,q.answer,q.score,q.type,q.point")->join("edu_exam_question e on e.qid=q.id and e.eid={$_GET['id']}")->where("q.cid={$cid} and q.status=1")->order("q.type")->select();
         $this->assign("list", $list);
         //$this->assign("remain_list", $remain_list);
         $vo['id'] = $_GET['id'];
         $this->assign("vo", $vo);
         $this->display();
+    }
+
+    public function auto()
+    {
+        $model = M("Exam")->find($_GET['id']);
+        $vo['id'] = $model['id'];
+        $vo['cid'] = $model['cid'];
+        $vo['title'] = $model['title'];
+        $course = M('course')->find($model['cid']);
+        $vo['coursename'] = $course['name'];
+        $this->assign("vo", $vo);
+
+        $list = M('question')->distinct(true)->field('point')->where("cid={$model['cid']} and point is not null")->select();
+        $this->assign("list", $list);
+
+        $this->display();
+    }
+
+    public function generate()
+    {
+        $vo['id'] = $_POST['id'];
+        $vo['cid'] = $_POST['cid'];
+        $vo['score'] = $_POST['score'];
+        $vo['single'] = $_POST['single'];
+        $vo['multiple'] = $_POST['multiple'];
+        $vo['judge'] = $_POST['judge'];
+        $vo['blank'] = $_POST['blank'];
+        $vo['answer'] = $_POST['answer'];
+
+        if (!empty($_POST['point'])) {
+            foreach ($_POST['point'] as $point) {
+                $points[] = $point;
+            }
+        }
+
+        M("exam_question")->where("eid={$vo['id']}")->delete();
+
+        $map['cid'] = array('eq', $vo['cid']);
+        $map['status'] = array('eq', 1);
+        $map['point'] = array('in', $points);
+
+        $map['type'] = 1;
+        $list = M('question')->field('id')->where($map)->select();
+
+        $questions = array_rand($list, $vo['single']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+
+
+        $map['type'] = 2;
+        $list = M('question')->field('id')->where($map)->select();
+        $questions = array_rand($list, $vo['multiple']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+
+        $map['type'] = 3;
+        $list = M('question')->field('id')->where($map)->select();
+        $questions = array_rand($list, $vo['judge']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+
+        $map['type'] = 4;
+        $list = M('question')->field('id')->where($map)->select();
+        $questions = array_rand($list, $vo['blank']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+
+        $map['type'] = 5;
+        $list = M('question')->field('id')->where($map)->select();
+        $questions = array_rand($list, $vo['answer']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+
+
+        $this->success(L('生成成功,请在“考试选题”中进行确认修改！'));
     }
 }

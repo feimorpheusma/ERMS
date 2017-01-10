@@ -1,0 +1,66 @@
+<div class="pageContent">
+    <form method="post" action="__URL__/generate/navTabId/listexam/callbackType/closeCurrent"
+          enctype="multipart/form-data"
+          onsubmit="return iframeCallback(this, dialogAjaxDone);">
+        <input type="hidden" name="id" value="<{$vo.id}>"/>
+        <input type="hidden" name="cid" value="<{$vo.cid}>"/>
+        <div class="pageFormContent" layoutH="60">
+            <dl>
+                <dt>考试名称：</dt>
+                <dd><{$vo.title}></dd>
+            </dl>
+            <dl>
+                <dt>考试课程：</dt>
+                <dd><{$vo.coursename}></dd>
+            </dl>
+            <dl>
+                <dt>单选题数量:</dt>
+                <dd><input type="text" style="width:100%" name="single" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>多选题数量:</dt>
+                <dd><input type="text" style="width:100%" name="multiple" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>判断题数量:</dt>
+                <dd><input type="text" style="width:100%" name="judge" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>填空题数量:</dt>
+                <dd><input type="text" style="width:100%" name="blank" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>主观题数量:</dt>
+                <dd><input type="text" style="width:100%" name="answer" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>知识点：</dt>
+                <dd>
+                    <{foreach $list as $vo}>
+                    <div style="float:left;margin:5px;">
+                        <input type="checkbox" name="point[]" checked="checked" value="<{$vo.point}>"/><{$vo.point}>
+                    </div>
+                    <{/foreach}>
+                </dd>
+            </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">提交</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">取消</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
