@@ -21,7 +21,7 @@ class ExamAction extends CommonAction
 
         $this->assign("list", $list);
         $this->assign("showPage", $page->show());
-
+        
         $this->display();
     }
 
@@ -158,7 +158,7 @@ class ExamAction extends CommonAction
                 //$this->error('考试还未结束，不能查看考试结果');
             }
             $exam_student = M('exam_student')->where("eid = {$_GET['eid']} and sid={$this->uid}")->find();
-            if (!$exam_student){
+            if (!$exam_student) {
                 $this->error('您未参加此考试，不能查看考试结果');
             }
             $where['e.eid'] = array("eq", $_GET['eid']);

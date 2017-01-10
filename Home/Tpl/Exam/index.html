@@ -1,12 +1,12 @@
 <{include file='../Public/header.html'}>
 <div id="sub-header" class="group_h">
     <div class="container">
-        <div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
+        <!--<div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
             <h1><a href="__URL__/index">在线考试</a></h1>
-        </div>
+        </div>-->
         <div class="col-md-6">
             <ul class="navbar-left">
-
+                <li class="active"><a href="__URL__/index">在线考试</a></li>
             </ul>
         </div>
         <div class="col-md-2">
@@ -14,7 +14,20 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+        setInterval(check_status, 1000);
 
+        function check_status() {
+            var now = new Date().getTime() / 1000;
+            $(".td-exam").each(function () {
+                if ($(this).data('starttime') < now) {
+                    $(this).find('.a-exam-start').removeClass('hidden');
+                }
+            });
+        }
+    })
+</script>
 
 <div id="main" class="bg_f2 ">
     <div class="container">
@@ -51,11 +64,14 @@
                             <td><{$test.starttime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
                             <td><{$test.endtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
                             <td>
-                            <td>
                                 <{if $test.starttime > time()}>
+                            <td class="td-exam" data-starttime="<{$test.starttime}>">
+                                <a class="a-exam-start hidden" href="__URL__/exam/eid/<{$test.id}>">开始考试</a>
                                 <{elseif $test.endtime< time()}>
+                            <td>
                                 <a href="__URL__/detail/eid/<{$test.id}>">查看结果</a>
                                 <{else}>
+                            <td>
                                 <{if $test.status==''}>
                                 <a href="__URL__/exam/eid/<{$test.id}>">开始考试</a>
                                 <{elseif $test.status ==0}>

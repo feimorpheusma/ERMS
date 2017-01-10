@@ -1,12 +1,12 @@
 <{include file='../Public/header.html'}>
 <div id="sub-header" class="group_h">
     <div class="container">
-        <div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
+       <!-- <div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
             <h1><a href="__URL__/index">在线考试</a></h1>
-        </div>
+        </div>-->
         <div class="col-md-6">
             <ul class="navbar-left">
-
+                <li class="active"><a href="__URL__/index">在线考试</a></li>
             </ul>
         </div>
         <div class="col-md-2">
@@ -42,6 +42,11 @@
 <script type="text/javascript">
 
     $(function () {
+        /* $(window).bind('beforeunload', function () {
+
+         return confirm("a asd ");
+         });
+         */
         var timestamp = new Date().getTime() / 1000;
         var end_time = $("#end_time").val();
         var intDiff = parseInt(end_time) - parseInt(timestamp);//倒计时总秒数量
@@ -126,11 +131,11 @@
         <div class="home_module row">
             <div class="container"><{if !$list}>
 
-                <div class="p30 " style="background: white;border-radius: 10px;float:left;">
+                <div class="p30 " style="background: white;border-radius: 10px;float:left; width: 100%;">
                     <div class="null">该考试暂时没有试题,请联系管理员</div>
                 </div>
                 <{else}>
-                <div class=" col-md-3" style=" float:right;">
+                <div class=" col-md-3" style=" float:right; ">
                     <input id="end_time" type="hidden" value="<{$exam.endtime}>">
                     <div id="exam_info" class="p30 ml20" style="background: white;border-radius: 10px; width: 240px;">
                         <span style="font-size: 16px; font-weight: bold"> <{$exam.title}></span>
@@ -147,7 +152,7 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <{$exam.endtime|date_format:"%H:%M:%S"}>
                         <br/><br/>
-                        考试进度：
+                        答题进度：
                         <br/>
                         <ul class="question-no">
                             <{foreach $list as $question}>

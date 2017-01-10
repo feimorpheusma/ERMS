@@ -93,6 +93,10 @@ class LibraryAction extends CommonAction
         if (false === $model->create()) {
             $this->error($model->getError());
         }
+        if (empty($model->cid)) {
+            $this->error(L("请选择一个课程！"));
+        }
+
         $model->uid = $_SESSION[C("USER_AUTH_KEY")]['id'];//取得上传者的id
         //$model->type = $info[0]['extension'];
         $model->size = $_FILES['lib']['size'];
@@ -126,6 +130,9 @@ class LibraryAction extends CommonAction
             }
         }
 
+        if (empty($model->cid)) {
+            $this->error(L("请选择一个课程！"));
+        }
         if (false === $model->create()) {
             unlink("./Public/Uploads/library/{$info[0]['savename']}");
             $this->error($model->getError());

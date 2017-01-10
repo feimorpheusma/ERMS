@@ -26,9 +26,26 @@ class UsersAction extends CommonAction
                     $couselist[] = $v['id'];
                 }
                 $model['courseids'] = $couselist;
-                $_SESSION[C('USER_AUTH_KEY')] = $model;
                 //R("Message/hfnum");
                 //$this->success("登陆成功！",U("Index/index"));
+
+
+                $time = 24 * 60 * 60 * 7 + time();
+                $where['s.id'] = array("eq",$model['id']);
+                $where['e.status'] = array("eq", 1);
+                $where['e.starttime'] = array("lt", $time);
+                $where['e.endtime'] = array("gt", time());
+                $list = M("exam e")->field('e.title,e.starttime')
+                    ->join('edu_class_course c on e.cid = c.coid')
+                    ->join('edu_student s on c.clid = s.cid')
+                    ->where($where)->order('e.starttime desc')->select();
+                $message = '';
+                foreach ($list as $vo) {
+                    $message .= date('Y年m月d日', $vo['starttime']) . ' ' . $vo['title'] . ' ;  ';
+                }
+                $model['exam_message'] =  $message;
+
+                $_SESSION[C('USER_AUTH_KEY')] = $model;
                 $this->redirect("Index/index");
             } else {
                 $this->error("密码错误！");
