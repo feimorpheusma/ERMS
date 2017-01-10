@@ -290,6 +290,23 @@ class QuestionAction extends CommonAction
                         $data['aC'] = '';
                         $data['aD'] = '';
                     }
+                    $level = iconv('gb2312', 'utf-8', $result[$i][9]);
+                    switch ($level) {
+                        case  '易':
+                            $data['level'] = 0;
+                            break;
+                        case  '中':
+                            $data['level'] = 1;
+                            break;
+                        case  '难':
+                            $data['level'] = 2;
+                            break;
+                        default:
+                            $data['level'] = 0;
+                            break;
+                    }
+
+                    $data['point'] = iconv('gb2312', 'utf-8', $result[$i][10]);
                     $data_list[] = $data;
                 } else {
                     $message .= '第' . $i . '行,课程' . $course_name . "权限不足;<br>";
