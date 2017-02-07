@@ -10,7 +10,7 @@
             </dl>
             <dl>
                 <dt>考试名称:</dt>
-                <dd><input type="text" style="width:100%" name="title" value="<{$vo.title}>"/></dd>
+                <dd><input type="text" style="width:100%" name="title" value="<{$vo.title}>" class="required"/></dd>
             </dl>
             <dl>
                 <dt>开始时间:</dt>
@@ -21,6 +21,27 @@
                 <dt>结束时间:</dt>
                 <dd><input type="text" class="date" datefmt="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"
                            readonly="true" style="width:100%" name="endtime" value="<{$vo.endtime}>"/></dd>
+            </dl>
+
+            <dl>
+                <dt>选择题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scoresingle" value="<{$vo.scoresingle}>" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>多选题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scoremultiple" value="<{$vo.scoremultiple}>"  class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>判断题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scorejudge" value="<{$vo.scorejudge}>"  class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>填空题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scoreblank" value="<{$vo.scoreblank}>"  class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>主观题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scoreanswer" value="<{$vo.scoreanswer}>"  class="digits required"/></dd>
             </dl>
         </div>
         <div class="formBar">

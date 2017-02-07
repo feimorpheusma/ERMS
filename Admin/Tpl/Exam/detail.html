@@ -54,7 +54,14 @@
             </td>
             <td><{$vo.point}></td>
             <td><{$vo.content}></td>
-            <td><{$vo.score}></td>
+            <td>
+                <{if $vo.type == 1}><{$exam.scoresingle}>
+                <{else if $vo.type == 2}><{$exam.scoremultiple}>
+                <{else if $vo.type == 3}><{$exam.scorejudge}>
+                <{else if $vo.type == 4}><{$exam.scoreblank}>
+                <{else if $vo.type == 5}><{$exam.scoreanswer}>
+                <{else}>0<{/if}>
+            </td>
             <td><{$vo.aA}></td>
             <td><{$vo.aB}></td>
             <td><{$vo.aC}></td>

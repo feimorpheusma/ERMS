@@ -1,9 +1,9 @@
 <{include file='../Public/header.html'}>
 <div id="sub-header" class="group_h">
     <div class="container">
-       <!-- <div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
-            <h1><a href="__URL__/index">在线考试</a></h1>
-        </div>-->
+        <!-- <div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
+             <h1><a href="__URL__/index">在线考试</a></h1>
+         </div>-->
         <div class="col-md-6">
             <ul class="navbar-left">
                 <li class="active"><a href="__URL__/index">在线考试</a></li>
@@ -42,6 +42,9 @@
 <script type="text/javascript">
 
     $(function () {
+        $(window).bind('beforeunload', function () {
+            return confirm('离开后可继续考试，确定要离开么？');
+        });
         /* $(window).bind('beforeunload', function () {
 
          return confirm("a asd ");
@@ -83,6 +86,7 @@
 
         $("input[name*='answer']").change(function () {
             var question_id = $(this).siblings('#question_id').val();
+            var question_score = $(this).siblings('#question_score').val();
             var exam_question_id = $(this).siblings('#exam_question_id').val();
             var exam_student_id = $('#exam_student_id').val();
             var exam_id = $('#exam_id').val();
@@ -112,7 +116,8 @@
                     "qid": question_id,
                     "eqid": exam_question_id,
                     "esid": exam_student_id,
-                    "answer": answer
+                    "answer": answer,
+                    "question_score": question_score
                 },
                 dataType: "text",
                 success: function (data) {
@@ -197,6 +202,7 @@
                         <input type="hidden" id="question_id" value="<{$question.qid}>">
                         <{if $question.type==1}>
                         <h4><{$question@index+1}>. 单选题：<{$question.content}></h4>
+                        <input type="hidden" id="question_score" value="<{$exam.scoresingle}>">
                         <br/>
 
                         <input type="radio" name="answer<{$question.qid}>[]" value="A" <{if $question.answer=='A'}>
@@ -207,10 +213,10 @@
                         checked="checked"<{/if}>> C.<{$question.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="radio" name="answer<{$question.qid}>[]" value="D" <{if $question.answer=='D'}>
                         checked="checked"<{/if}>> D.<{$question.aD}>
-
                         <{else if $question.type == 2}>
                         <h4><{$question@index+1}>. 多选题：<{$question.content}></h4>
                         <br/>
+                        <input type="hidden" id="question_score" value="<{$exam.scoremultiple}>">
 
                         <input type="checkbox" name="answer<{$question.qid}>[]" value="A"<{if !(
                         strpos($question.answer,'A') === false)}>
@@ -228,6 +234,7 @@
                         <{else if $question.type == 3}>
                         <h4><{$question@index+1}>. 判断题：<{$question.content}></h4>
                         <br/>
+                        <input type="hidden" id="question_score" value="<{$exam.scorejudge}>">
 
                         <input type="radio" name="answer<{$question.qid}>[]" value="对"<{if $question.answer=='对'}>
                         checked="checked"<{/if}>> 对&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -236,10 +243,12 @@
                         <{else if $question.type == 4}>
                         <h4><{$question@index+1}>. 填空题：<{$question.content}></h4>
                         <br/>
+                        <input type="hidden" id="question_score" value="<{$exam.scoreblank}>">
                         请输入答案：<input type="text" name="answer<{$question.qid}>[]" value="<{$question.answer}>"/>
                         <{else if $question.type == 5}>
                         <h4><{$question@index+1}>. 主观题：<{$question.content}></h4>
                         <br/>
+                        <input type="hidden" id="question_score" value="<{$exam.scoreanswer}>">
                         请输入答案：<input type="text" name="answer<{$question.qid}>[]" value="<{$question.answer}>"/>
                         <{/if}>
 

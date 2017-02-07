@@ -9,7 +9,7 @@
             </dl>
             <dl>
                 <dt>考试名称:</dt>
-                <dd><input type="text" style="width:100%" name="title"/></dd>
+                <dd><input type="text" style="width:100%" name="title" class="required"/></dd>
             </dl>
             <dl>
                 <dt>开始时间:</dt>
@@ -20,6 +20,26 @@
                 <dt>结束时间:</dt>
                 <dd><input type="text" class="date" datefmt="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"
                            readonly="true" style="width:100%" name="endtime"/></dd>
+            </dl>
+            <dl>
+                <dt>选择题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scoresingle" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>多选题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scoremultiple" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>判断题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scorejudge" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>填空题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scoreblank" class="digits required"/></dd>
+            </dl>
+            <dl>
+                <dt>主观题分值:</dt>
+                <dd><input type="text" style="width:100%" name="scoreanswer" class="digits required"/></dd>
             </dl>
         </div>
         <div class="formBar">

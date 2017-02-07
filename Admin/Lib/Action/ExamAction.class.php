@@ -63,6 +63,9 @@ class ExamAction extends CommonAction
         $model = M("Exam");
         $model->create();
 
+        if (empty($model->cid)) {
+            $this->error(L("请选择一个课程！"));
+        }
         $model->starttime = strtotime($model->starttime);
         $model->endtime = strtotime($model->endtime);
         $model->uid = $_SESSION[C("USER_AUTH_KEY")]['id'];//取得上传者的id
@@ -146,6 +149,7 @@ class ExamAction extends CommonAction
         //$this->assign("remain_list", $remain_list);
         $vo['id'] = $_GET['id'];
         $this->assign("vo", $vo);
+        $this->assign("exam", $model);
         $this->display();
     }
 
@@ -156,8 +160,8 @@ class ExamAction extends CommonAction
         $vo['cid'] = $model['cid'];
         $vo['title'] = $model['title'];
         $course = M('course')->find($model['cid']);
-        $vo['coursename'] = $course['name'];
-        $this->assign("vo", $vo);
+        $model['coursename'] = $course['name'];
+        $this->assign("vo", $model);
 
         $list = M('question')->distinct(true)->field('point')->where("cid={$model['cid']} and point is not null")->select();
         $this->assign("list", $list);
@@ -191,6 +195,9 @@ class ExamAction extends CommonAction
         $map['type'] = 1;
         $list = M('question')->field('id')->where($map)->select();
 
+        if ($list && sizeof($list) < $vo['single']) {
+            $vo['single'] = sizeof($list);
+        }
         $questions = array_rand($list, $vo['single']);
         if ($list) {
             if (is_array($questions)) {
@@ -209,6 +216,10 @@ class ExamAction extends CommonAction
 
         $map['type'] = 2;
         $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['multiple']) {
+            $vo['multiple'] = sizeof($list);
+        }
         $questions = array_rand($list, $vo['multiple']);
         if ($list) {
             if (is_array($questions)) {
@@ -226,6 +237,10 @@ class ExamAction extends CommonAction
 
         $map['type'] = 3;
         $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['judge']) {
+            $vo['judge'] = sizeof($list);
+        }
         $questions = array_rand($list, $vo['judge']);
         if ($list) {
             if (is_array($questions)) {
@@ -243,6 +258,10 @@ class ExamAction extends CommonAction
 
         $map['type'] = 4;
         $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['blank']) {
+            $vo['blank'] = sizeof($list);
+        }
         $questions = array_rand($list, $vo['blank']);
         if ($list) {
             if (is_array($questions)) {
@@ -260,6 +279,10 @@ class ExamAction extends CommonAction
 
         $map['type'] = 5;
         $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['answer']) {
+            $vo['answer'] = sizeof($list);
+        }
         $questions = array_rand($list, $vo['answer']);
         if ($list) {
             if (is_array($questions)) {

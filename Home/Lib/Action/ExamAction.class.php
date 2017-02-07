@@ -99,7 +99,7 @@ class ExamAction extends CommonAction
             if ($question['type'] != 5) {
                 $data['status'] = 2;
                 if ($question['answer'] == $_POST['answer']) {
-                    $data['score'] = $question['score'];
+                    $data['score'] = $_POST['question_score'];
                 } else {
                     $data['score'] = 0;
                 }
@@ -114,7 +114,7 @@ class ExamAction extends CommonAction
             if ($question['type'] != 5) {
                 $data['status'] = 2;
                 if ($question['answer'] == $_POST['answer']) {
-                    $data['score'] = $question['score'];
+                    $data['score'] = $_POST['question_score'];
                 } else {
                     $data['score'] = 0;
                 }
