@@ -74,39 +74,52 @@ class TestAction extends CommonAction
     public function questions()
     {
         if (!empty($_GET['type']) && ($_GET['type'] == 1 || $_GET['type'] == 2)) {
+            $this->assign("courses", $this->courses);
+            $where['u.uid'] = array("eq", $this->uid);
+
             $this->assign("type", $_GET['type']);
+            $where['u.type'] = array("eq", $_GET['type']);
+
+            if (!empty($_GET['qtype'])) {
+                $this->assign("qtype", $_GET['qtype']);
+                $where['q.type'] = array("eq", $_GET['qtype']);
+            } else {
+                $this->assign("qtype", 0);
+            }
             if (!empty($_GET['cid'])) {
                 $course = M("course")->find($_GET['cid']);
                 $this->assign("course", $course);
-
-                $where['u.uid'] = array("eq", $this->uid);
+                $this->assign("cid", $_GET['cid']);
                 $where['cid'] = array("eq", $_GET['cid']);
-                $where['u.type'] = array("eq", $_GET['type']);
-                //$questions = M("question q")->join('edu_user_question u on q.id = u.qid')->where($where)->select();
-
-                //$this->assign("questions", $questions);
-
-                import("ORG.Util.Page");
-                $count = M("question q")->join('edu_user_question u on q.id = u.qid')->where($where)->count();//获取总数据条数
-                $page = new Page($count, 2);//创建分页对象
-
-                $list = M("question q")->field('q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD')->join('edu_user_question u on q.id = u.qid')->where($where)->limit($page->firstRow . "," . $page->listRows)->select();
-
-
-                $this->assign("list", $list);
-                $this->assign("showPage", $page->show());
-
             } else {
-                $courses = M("Course")->select();
-                $this->assign("courses", $courses);
+                $this->assign("cid", 0);
             }
+            if (!empty($_GET['point'])) {
+                $where['q.point'] = array("eq", $_GET['point']);
+            }
+
+            import("ORG.Util.Page");
+            $count = M("question q")->join('edu_user_question u on q.id = u.qid')->where($where)->count();//获取总数据条数
+            $page = new Page($count, 10);//创建分页对象
+
+            $list = M("question q")->field('q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD')->join('edu_user_question u on q.id = u.qid')->where($where)->limit($page->firstRow . "," . $page->listRows)->select();
+            $this->assign("list", $list);
+            $this->assign("showPage", $page->show());
+
+
+            $where['q.point'] = array("neq", '');
+            $points = M("question q")->distinct(true)->field("point")->join('edu_user_question u on q.id = u.qid')->where($where)->select();//获取总数据条数
+            $this->assign("points", $points);
+
         } else {
             $this->redirect("Test/questions", array('type' => 2));
         }
+
         $this->display();
     }
 
-    public function result()
+    public
+    function result()
     {
         $where['t.sid'] = array("eq", $this->uid);
 
@@ -124,7 +137,8 @@ class TestAction extends CommonAction
     }
 
 
-    public function save()
+    public
+    function save()
     {
         if (!empty($_POST['tqid'])) {
             $total_score = 0;
@@ -163,7 +177,8 @@ class TestAction extends CommonAction
         }
     }
 
-    public function test()
+    public
+    function test()
     {
         if (!empty($_GET['cid'])) {
             $course = M("course")->find($_GET['cid']);
@@ -204,7 +219,8 @@ class TestAction extends CommonAction
         $this->display();
     }
 
-    public function detail()
+    public
+    function detail()
     {
         if (!empty($_GET['tid'])) {
             $cid = M("test")->getFieldById($_GET['tid'], "cid");
@@ -227,8 +243,9 @@ class TestAction extends CommonAction
 
     }
 
-    //定义视频被收藏的方法
-    public function mark()
+//定义视频被收藏的方法
+    public
+    function mark()
     {
         //实例化收藏表对象
         $User_question = M("User_question");
@@ -254,8 +271,9 @@ class TestAction extends CommonAction
         }
     }
 
-    //自定义显示试题详情的方法
-    public function detail1()
+//自定义显示试题详情的方法
+    public
+    function detail1()
     {
         $mod = M("Test");
         $data = $mod->find($_GET['id']);
@@ -276,8 +294,9 @@ class TestAction extends CommonAction
         $this->display();
     }
 
-    //自定义计算考试试卷分数的方法
-    public function score()
+//自定义计算考试试卷分数的方法
+    public
+    function score()
     {
         $mod = M("Quest");
         $model = M("Score");
@@ -301,8 +320,9 @@ class TestAction extends CommonAction
 
     }
 
-    //定义显示试题正确答案的方法
-    public function answer()
+//定义显示试题正确答案的方法
+    public
+    function answer()
     {
         $model = M("Quest");
         $list = $model->where("tid={$_GET['tid']}")->select();
@@ -310,8 +330,9 @@ class TestAction extends CommonAction
         $this->display();
     }
 
-    //定义查看分数的方法
-    public function myscore()
+//定义查看分数的方法
+    public
+    function myscore()
     {
         $uid = $_SESSION[C("USER_AUTH_KEY")]['id'];
         $model = M("Score");

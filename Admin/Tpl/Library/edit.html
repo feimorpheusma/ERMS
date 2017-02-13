@@ -3,6 +3,7 @@
           enctype="multipart/form-data"
           onsubmit="return iframeCallback(this, dialogAjaxDone);">
         <input type="hidden" name="id" value="<{$vo.id}>">
+        <input type="hidden" name="type" value="<{$vo.type}>">
         <div class="pageFormContent" layoutH="60">
             <dl>
                 <dt>资源类型：</dt>
@@ -49,15 +50,24 @@
                 <dt>描述：</dt>
                 <dd><input type="text" style="width:100%" name="note" value="<{$vo.note}>"/></dd>
             </dl>
-            <dl>
-                <dt>选择文档：</dt>
-                <dd><input type="file" style="width:100%" name="lib"/>
+
+            <dl style="height: 62px;">
+                <dt>上传文件：</dt>
+                <dd><input type="file" style="width:100%" name="lib[]"/>
                     <br/>
-                    注意:文档请上传pdf格式（word ppt可另存为pdf格式）
-                    <br/>
-                    视频请上传mp4、flv、rmvb、avi、wmv、mkv格式
+                    <{if ($vo.type == 1)}>word、excel、ppt等文档请另存为pdf格式后上传<{else}>视频请上传mp4、avi、wmv等常见格式<{/if}>
                 </dd>
             </dl>
+
+            <dl id="upload_base" style="height: 62px;<{if ($vo.type == 2)}> display:none; <{/if}>">
+                <dt>上传文档原件：</dt>
+                <dd>
+                    <input type="file" style="width:100%" name="lib[]"/>
+                    <br/>
+                    请上传word、excel、ppt等文档原件供下载使用
+                </dd>
+            </dl>
+
         </div>
 
         <div class="formBar">

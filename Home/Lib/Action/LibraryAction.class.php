@@ -202,10 +202,10 @@ class LibraryAction extends CommonAction
 
             //执行资源下载
             header("Content-Type:{$type}");
-            header("Content-Disposition:attachment;filename={$res['name']}");
-            header("Content-Length:{$res['size']}");
+            header("Content-Disposition:attachment;filename={$res['basename']}");
+            header("Content-Length:{$res['basesize']}");
 
-            readfile("./Public/Uploads/library/{$res['name']}");
+            readfile("./Public/Uploads/library/{$res['basename']}");
         } else {
             $this->error("非法操作！");
         }

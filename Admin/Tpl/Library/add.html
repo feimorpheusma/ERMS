@@ -1,3 +1,20 @@
+<script type="text/javascript">
+    $(function () {
+        $(".type").click(function () {
+            var value = $(this).val();
+            if (value == 1) {
+                $("#upload_message_1").show();
+                $("#upload_message_2").hide();
+                $("#upload_base").show();
+            }
+            else {
+                $("#upload_message_1").hide();
+                $("#upload_message_2").show();
+                $("#upload_base").hide();
+            }
+        });
+    });
+</script>
 <div class="pageContent">
     <form method="post" action="__URL__/insert/navTabId/listlib/callbackType/closeCurrent"
           enctype="multipart/form-data"
@@ -5,8 +22,8 @@
         <div class="pageFormContent" layoutH="60">
             <dl>
                 <dt>资源类型:</dt>
-                <dd>文档<input type="radio" name="type" value='1' checked/>
-                    视频<input type="radio" name="type" value='2'/></dd>
+                <dd>文档<input type="radio" class="type" name="type" value='1' checked/>
+                    视频<input type="radio" class="type" name="type" value='2'/></dd>
             </dl>
             <dl>
                 <dt>名称：</dt>
@@ -17,6 +34,10 @@
                 <dd><{html_options name='cid' options=$Courses selected=$CourseId}></dd>
             </dl>
             <dl>
+                <dt>描述：</dt>
+                <dd><input type="text" style="width:100%" name="note"/></dd>
+            </dl>
+            <dl>
                 <dt>开启浏览:</dt>
                 <dd>是<input type="radio" name="canview" value='1' checked/>
                     否<input type="radio" name="canview" value='0'/></dd>
@@ -24,21 +45,23 @@
             </dl>
             <dl>
                 <dt>开启下载:</dt>
-                <dd>是<input type="radio" name="candownload" value='1' checked/>
-                    否<input type="radio" name="candownload" value='0'/></dd>
-
+                <dd>是<input type="radio" name="candownload" value='1'/>
+                    否<input type="radio" name="candownload" value='0' checked/></dd>
             </dl>
-            <dl>
-                <dt>描述：</dt>
-                <dd><input type="text" style="width:100%" name="note"/></dd>
+            <dl style="height: 62px;">
+                <dt>上传文件：</dt>
+                <dd><input type="file" style="width:100%" name="lib[]"/>
+                    <br/>
+                    <span id="upload_message_1">word、excel、ppt等文档请另存为pdf格式后上传</span>
+                    <span id="upload_message_2" style="display: none;">视频请上传mp4、avi、wmv等常见格式</span>
+                </dd>
             </dl>
-            <dl>
-                <dt>选择文档：</dt>
-                <dd><input type="file" style="width:100%" name="lib"/>
+            <dl id="upload_base" style="height: 62px;">
+                <dt>上传文档原件：</dt>
+                <dd>
+                    <input type="file" style="width:100%" name="lib[]"/>
                     <br/>
-                    注意:文档请上传pdf格式（word ppt可另存为pdf格式）
-                    <br/>
-                    视频请上传mp4、flv、rmvb、avi、wmv、mkv格式
+                    请上传word、excel、ppt等文档原件供下载使用
                 </dd>
             </dl>
         </div>

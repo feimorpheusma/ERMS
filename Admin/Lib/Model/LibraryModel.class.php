@@ -5,7 +5,7 @@
 class LibraryModel extends Model{
     //设置数据表的字段
     protected $fields = array(
-        "id","tid","cid","uid","title","name","size","type","addtime","keyword","favoritenum","clicknum","downloadnum","status","canview","candownload","note","_pk"=>"id","_autoinc"=>true
+        "id","tid","cid","uid","title","name","size","basename","basesize","type","addtime","keyword","favoritenum","clicknum","downloadnum","status","canview","candownload","note","_pk"=>"id","_autoinc"=>true
     );
 
     //设置数据的自动处理功能 

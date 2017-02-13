@@ -79,7 +79,7 @@ class LibraryAction extends CommonAction
         import("ORG.Net.UploadFile");
         $upload = new UploadFile();
         $upload->maxSize = 100000000000000;//设置附件上传大小
-        $upload->allowExts = array('pdf', 'mp4', 'flv', 'rmvb', 'avi', 'wmv', 'mkv');//设置附件上传类型
+        //$upload->allowExts = array('pdf', 'mp4', 'flv', 'rmvb', 'avi', 'wmv', 'mkv');//设置附件上传类型
         $upload->savePath = "./Public/Uploads/library/";//设置上传目录
         if (!$upload->upload()) {
             $this->error($upload->getErrorMsg());
@@ -99,9 +99,15 @@ class LibraryAction extends CommonAction
 
         $model->uid = $_SESSION[C("USER_AUTH_KEY")]['id'];//取得上传者的id
         //$model->type = $info[0]['extension'];
-        $model->size = $_FILES['lib']['size'];
-
+        $model->size = $info[0]['size'];
         $model->name = $info[0]['savename'];//取得上传完成保存的文件名
+        if ($model->type == 1) {
+            $model->basename = $info[1]['savename'];//取得上传完成保存的文件名
+            $model->basesize = $info[1]['size'];//取得上传完成保存的文件名
+        } else {
+            $model->basename = $info[0]['savename'];//取得上传完成保存的文件名
+            $model->basesize = $info[0]['size'];//取得上传完成保存的文件名
+        }
         if ($model->add()) {
             //echo $model->getLastSql();exit;
             $this->success(L("新增成功"));
@@ -117,11 +123,11 @@ class LibraryAction extends CommonAction
         $model = D("Library");
         $id = $_POST['id'];
 
-        if (!empty($_FILES['lib']['name'])) {
+        if (!empty($_FILES['lib']['name'][0])) {
             import("ORG.Net.UploadFile");
             $upload = new UploadFile();
             $upload->maxSize = 100000000000000;//设置附件上传大小
-            $upload->allowExts = array('pdf', 'mp4', 'flv', 'rmvb', 'avi', 'wmv', 'mkv');//设置附件上传类型
+            //$upload->allowExts = array('pdf', 'mp4', 'flv', 'rmvb', 'avi', 'wmv', 'mkv');//设置附件上传类型
             $upload->savePath = "./Public/Uploads/library/";//设置上传目录
             if (!$upload->upload()) {
                 $this->error($upload->getErrorMsg());
@@ -130,17 +136,25 @@ class LibraryAction extends CommonAction
             }
         }
 
-        if (empty($model->cid)) {
-            $this->error(L("请选择一个课程！"));
-        }
         if (false === $model->create()) {
             unlink("./Public/Uploads/library/{$info[0]['savename']}");
             $this->error($model->getError());
         }
+        if (empty($model->cid)) {
+            $this->error(L("请选择一个课程！"));
+        }
         if (!empty($info[0]['savename'])) {
-            $model->type = $info[0]['extension'];
-            $model->size = $_FILES['lib']['size'];
+            //$model->type = $info[0]['extension'];
+            $model->size = $info[0]['size'];
             $model->name = $info[0]['savename'];
+            if ($_POST['type'] == 2) {
+                $model->basename = $info[0]['savename'];//取得上传完成保存的文件名
+                $model->basesize = $info[0]['size'];//取得上传完成保存的文件名
+            }
+        }
+        if (!empty($info[1]['savename']) && $_POST['type'] == 1) {
+            $model->basename = $info[1]['savename'];//取得上传完成保存的文件名
+            $model->basesize = $info[1]['size'];//取得上传完成保存的文件名
         }
         //判断数据是否修改成功
         if (false !== $model->save()) {
