@@ -279,18 +279,29 @@ class QuestionAction extends CommonAction
                     $data['content'] = iconv('gb2312', 'utf-8', $result[$i][2]);
                     $data['score'] = iconv('gb2312', 'utf-8', $result[$i][3]);
                     $data['answer'] = iconv('gb2312', 'utf-8', $result[$i][4]);
-                    if ($data['type'] == 1 || $data['type'] == 2) {
+                    if ($data['type'] == 1) {
                         $data['aA'] = iconv('gb2312', 'utf-8', $result[$i][5]);
                         $data['aB'] = iconv('gb2312', 'utf-8', $result[$i][6]);
                         $data['aC'] = iconv('gb2312', 'utf-8', $result[$i][7]);
                         $data['aD'] = iconv('gb2312', 'utf-8', $result[$i][8]);
+                        $data['aE'] = '';
+                        $data['aF'] = '';
+                    } elseif ($data['type'] == 2) {
+                        $data['aA'] = iconv('gb2312', 'utf-8', $result[$i][5]);
+                        $data['aB'] = iconv('gb2312', 'utf-8', $result[$i][6]);
+                        $data['aC'] = iconv('gb2312', 'utf-8', $result[$i][7]);
+                        $data['aD'] = iconv('gb2312', 'utf-8', $result[$i][8]);
+                        $data['aE'] = iconv('gb2312', 'utf-8', $result[$i][9]);
+                        $data['aF'] = iconv('gb2312', 'utf-8', $result[$i][10]);
                     } else {
                         $data['aA'] = '';
                         $data['aB'] = '';
                         $data['aC'] = '';
                         $data['aD'] = '';
+                        $data['aE'] = '';
+                        $data['aF'] = '';
                     }
-                    $level = iconv('gb2312', 'utf-8', $result[$i][9]);
+                    $level = iconv('gb2312', 'utf-8', $result[$i][11]);
                     switch ($level) {
                         case  '易':
                             $data['level'] = 0;
@@ -306,7 +317,7 @@ class QuestionAction extends CommonAction
                             break;
                     }
 
-                    $data['point'] = iconv('gb2312', 'utf-8', $result[$i][10]);
+                    $data['point'] = iconv('gb2312', 'utf-8', $result[$i][12]);
                     $data_list[] = $data;
                 } else {
                     $message .= '第' . $i . '行,课程' . $course_name . "权限不足;<br>";

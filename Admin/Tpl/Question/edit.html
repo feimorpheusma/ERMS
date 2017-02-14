@@ -72,12 +72,22 @@
                 <dd><input type="text" style="width:100%" name="aD" value="<{$vo.aD}>"/></dd>
             </dl>
             <dl>
+                <dt>答案E:</dt>
+                <dd><input type="text" style="width:100%" name="aE" value="<{$vo.aE}>"/></dd>
+            </dl>
+            <dl>
+                <dt>答案F:</dt>
+                <dd><input type="text" style="width:100%" name="aF" value="<{$vo.aF}>"/></dd>
+            </dl>
+            <dl>
                 <dt>正确答案:</dt>
                 <dd>
                     <input type="checkbox" name="answer[]" value='A'<{if strpos($vo.answer,'A')}>checked<{/if}>/>A
                     <input type="checkbox" name="answer[]" value='B'<{if strpos($vo.answer,'B')}>checked<{/if}>/>B
                     <input type="checkbox" name="answer[]" value='C'<{if strpos($vo.answer,'C')}>checked<{/if}>/>C
                     <input type="checkbox" name="answer[]" value='D'<{if strpos($vo.answer,'D')}>checked<{/if}>/>D
+                    <input type="checkbox" name="answer[]" value='E'<{if strpos($vo.answer,'E')}>checked<{/if}>/>E
+                    <input type="checkbox" name="answer[]" value='F'<{if strpos($vo.answer,'F')}>checked<{/if}>/>F
                 </dd>
             </dl>
             <{else if $vo.type == 3}>

@@ -144,7 +144,7 @@ class ExamAction extends CommonAction
 
         //$remain_list = M("question")->where("cid={$cid} and id not in (select qid from edu_exam_question where eid={$_GET['id']})")->select();
 
-        $list = M("question q")->field("ifnull(e.qid,0) as eqid,q.id as qid,content,aA,aB,aC,aD,q.answer,q.score,q.type,q.point")->join("edu_exam_question e on e.qid=q.id and e.eid={$_GET['id']}")->where("q.cid={$cid} and q.status=1")->order("q.type")->select();
+        $list = M("question q")->field("ifnull(e.qid,0) as eqid,q.id as qid,content,aA,aB,aC,aD,aE,aF,q.answer,q.score,q.type,q.point")->join("edu_exam_question e on e.qid=q.id and e.eid={$_GET['id']}")->where("q.cid={$cid} and q.status=1")->order("q.type")->select();
         $this->assign("list", $list);
         //$this->assign("remain_list", $remain_list);
         $vo['id'] = $_GET['id'];

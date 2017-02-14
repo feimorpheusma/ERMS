@@ -102,7 +102,7 @@ class TestAction extends CommonAction
             $count = M("question q")->join('edu_user_question u on q.id = u.qid')->where($where)->count();//获取总数据条数
             $page = new Page($count, 10);//创建分页对象
 
-            $list = M("question q")->field('q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD')->join('edu_user_question u on q.id = u.qid')->where($where)->limit($page->firstRow . "," . $page->listRows)->select();
+            $list = M("question q")->field('q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD,q.aE,q.aF')->join('edu_user_question u on q.id = u.qid')->where($where)->limit($page->firstRow . "," . $page->listRows)->select();
             $this->assign("list", $list);
             $this->assign("showPage", $page->show());
 
@@ -231,7 +231,7 @@ class TestAction extends CommonAction
             $this->assign("status", $status);
 
             $where['t.tid'] = array("eq", $_GET['tid']);
-            $list = M("test_question t")->field("q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD,q.score,t.answer as tanswer,t.score as tscore")->join("edu_question q on t.qid = q.id")->where($where)->order("type")->select();
+            $list = M("test_question t")->field("q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD,q.aE,q.aF,q.score,t.answer as tanswer,t.score as tscore")->join("edu_question q on t.qid = q.id")->where($where)->order("type")->select();
             $a = strpos('AB', 'D');
             $this->assign("list", $list);
 

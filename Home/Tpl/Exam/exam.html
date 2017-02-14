@@ -229,8 +229,17 @@
                         checked="checked"<{/if}>> C.<{$question.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="checkbox" name="answer<{$question.qid}>[]" value="D"<{if !(
                         strpos($question.answer,'D') === false)}>
-                        checked="checked"<{/if}>> D.<{$question.aD}>
-
+                        checked="checked"<{/if}>> D.<{$question.aD}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <{if !empty($question.aE)}>
+                        <input type="checkbox" name="answer<{$question.qid}>[]" value="E"<{if !(
+                        strpos($question.answer,'E') === false)}>
+                        checked="checked"<{/if}>> E.<{$question.aE}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <{/if}>
+                        <{if !empty($question.aF)}>
+                        <input type="checkbox" name="answer<{$question.qid}>[]" value="F"<{if !(
+                        strpos($question.answer,'F') === false)}>
+                        checked="checked"<{/if}>> F.<{$question.aF}>
+                        <{/if}>
                         <{else if $question.type == 3}>
                         <h4><{$question@index+1}>. 判断题：<{$question.content}></h4>
                         <br/>
