@@ -27,34 +27,84 @@
     </div>
 </div>
 <{if !$course}>
-<div class="container">
-    <div class="home_module row">
-        <div class="container">
-            <!--试题列表块开始-->
-            <div class="col-md-12 m_cats">
-                <div class="tt">
-                    <h3>请先选择一门课程</h3>
-                </div>
-                <ul class="list_ib">
-                    <{foreach $courses as $ty }>
-                    <li><a href="__URL__/test/cid/<{$ty.id}>"><{$ty.name}></a></li>
-                    <{/foreach}>
-                </ul>
+<div class="bg_f2">
+    <div class="container">
+        <div class="home_module row">
+            <div class="p30" style="background: white;border-radius: 10px;">
+                <!--试题列表块开始-->
+                <div class="col-md-12 m_cats">
+                    <div class="tt">
+                        <h3>请先选择一门课程</h3>
+                    </div>
+                    <ul class="list_ib">
+                        <{foreach $courses as $ty }>
+                        <li><a href="__URL__/test/cid/<{$ty.id}>"><{$ty.name}></a></li>
+                        <{/foreach}>
+                    </ul>
 
+                </div>
             </div>
         </div>
     </div>
 </div>
 <{else}>
-<div id="main" class="bg_f2 ">
+<{if !$list}>
+<div class="bg_f2 ">
+    <div class="container">
+        <div class="home_module row">
+            <div class="container">
+                <div class="p30" style="background: white;border-radius: 10px;">
+                    <{if !$rules}>
+
+                    <div class="null">暂时没有组卷规则，请联系管理员。</div>
+
+                    <{else}>
+
+                    <table style="width: 100%; line-height: 40px;">
+                        <tr style="font-weight: bold;border-bottom: 1px solid gainsboro;">
+                            <td width="150">规则名称</td>
+                            <td width="150">单选题数量</td>
+                            <td width="150">多选题数量</td>
+                            <td width="150">判断题数量</td>
+                            <td width="150">填空题数量</td>
+                            <td width="150">主观题数量</td>
+                            <td></td>
+                        </tr>
+
+                        <{foreach $rules as $rule}>
+                        <tr style="border-top: 1px gainsboro dotted">
+                            <td><{$rule.name}></td>
+
+                            <td><{$rule.single}></td>
+                            <td><{$rule.multiple}></td>
+                            <td><{$rule.judge}></td>
+                            <td><{$rule.blank}></td>
+                            <td><{$rule.answer}></td>
+                            <td><a href="__URL__/test/cid/<{$course.id}>/rid/<{$rule.id}>">组卷测试</a></td>
+                        </tr>
+
+                        <{/foreach}>
+
+                    </table>
+                    <div class="tc">
+                        <{$showPage}>
+                    </div>
+
+                    <{/if}>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<{else}>
+<div class="bg_f2 ">
     <div class="container">
         <div class="home_module row">
             <div class="container">
                 <div class="p30" style="background: white;border-radius: 10px;">
                     <{if !$list}>
-
                     <div class="null">该课程暂时没有试题,请换个课程试试</div>
-
                     <{else}>
                     <form action="__URL__/save" method="post">
                         <input type="hidden" name="tid" value="<{$tid}>">
@@ -112,5 +162,6 @@
         </div>
     </div>
 </div>
+<{/if}>
 <{/if}>
 <{include file="../Public/footer.html"}>

@@ -64,7 +64,7 @@ class TestAction extends CommonAction
             $this->assign("hard_question", $hard_question);
             $this->assign("wrong_question", $wrong_question);
         } else {
-            $courses = M("Course")->select();
+            $courses = $this->courses;
             $this->assign("courses", $courses);
         }
 
@@ -118,8 +118,7 @@ class TestAction extends CommonAction
         $this->display();
     }
 
-    public
-    function result()
+    public function result()
     {
         $where['t.sid'] = array("eq", $this->uid);
 
@@ -137,8 +136,7 @@ class TestAction extends CommonAction
     }
 
 
-    public
-    function save()
+    public function save()
     {
         if (!empty($_POST['tqid'])) {
             $total_score = 0;
@@ -177,42 +175,172 @@ class TestAction extends CommonAction
         }
     }
 
-    public
-    function test()
+    public function test()
     {
         if (!empty($_GET['cid'])) {
             $course = M("course")->find($_GET['cid']);
             $this->assign("course", $course);
+            if (empty($_GET['rid'])) {
+
+                $rules = M("test_rule")->select();
+                $this->assign("rules", $rules);
+            } else {
+                $rule = M('test_rule')->where("id={$_GET['rid']}")->find();
+
+                $test['cid'] = $_GET['cid'];
+                $test['sid'] = $this->uid;
+                $test['title'] = $course['name'] . '自主测试' . date('y-m-d h:i:s', time());
+                $test['addtime'] = time();
+                $test['status'] = 0;
+
+                $tid = M("test")->add($test);
 
 
-            $where['cid'] = array("eq", $_GET['cid']);
-            $where['type'] = array("lt", 6);
-            $list = M("question")->where($where)->limit(10)->order("rand()")->select();
+                $map['cid'] = array('eq', $_GET['cid']);
+                $map['status'] = array('eq', 1);
+                if ($rule['single'] > 0) {
+                    unset($questions);
+                    $map['type'] = 1;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $rule['single']) {
+                            $questions = $list;
+                        } elseif ($rule['single'] == 1) {
+                            $questions[0] = $list[0];
+                        } else {
+                            $questions = array_rand($list, $rule['single']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($rule['multiple'] > 0) {
+                    unset($questions);
+                    $map['type'] = 2;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $rule['multiple']) {
+                            $questions = $list;
+                        } elseif ($rule['multiple'] == 1) {
+                            $questions[0] = $list[0];
+                        } else {
+                            $questions = array_rand($list, $rule['multiple']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($rule['judge'] > 0) {
+                    unset($questions);
+                    $map['type'] = 3;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $rule['judge']) {
+                            $questions = $list;
+                        } elseif ($rule['judge'] == 1) {
+                            $questions[0] = $list[0];
+                        } else {
+                            $questions = array_rand($list, $rule['judge']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($rule['blank'] > 0) {
+                    unset($questions);
+                    $map['type'] = 4;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $rule['blank']) {
+                            $questions = $list;
+                        } elseif ($rule['blank'] == 1) {
+                            $questions[0] = $list[0];
+                        } else {
+                            $questions = array_rand($list, $rule['blank']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($rule['answer'] > 0) {
+                    unset($questions);
+                    $map['type'] = 5;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $rule['answer']) {
+                            $questions = $list;
+                        } elseif ($rule['answer'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $rule['answer']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            M('test_question')->add($tq);
+                        }
+                    }
+                }
+
+                $list = M('test_question tq')->field("tq.id as tqid,q.*")->join('edu_question q on tq.qid = q.id')->where("tq.tid={$tid}")->select();
+
+                $this->assign("list", $list);
+
+                $this->assign("tid", $tid);
+
+                /*
+                ///////////////////////////////////////
+                                $where['cid'] = array("eq", $_GET['cid']);
+                                $where['type'] = array("lt", 6);
+                                $list = M("question")->where($where)->limit(10)->order("rand()")->select();
 
 
-            $test['cid'] = $_GET['cid'];
-            $test['sid'] = $this->uid;
-            $test['title'] = $course['name'] . '自主测试' . date('y-m-d h:i:s', time());
-            $test['addtime'] = time();
-            $test['status'] = 0;
+                                $test['cid'] = $_GET['cid'];
+                                $test['sid'] = $this->uid;
+                                $test['title'] = $course['name'] . '自主测试' . date('y-m-d h:i:s', time());
+                                $test['addtime'] = time();
+                                $test['status'] = 0;
 
-            $tid = M("test")->add($test);
+                                $tid = M("test")->add($test);
 
-            foreach ($list as $key => $vo) {
-                $tq['tid'] = $tid;
-                $tq['qid'] = $vo['id'];
-                $tq['status'] = 0;
-                $tq['addtime'] = time();
-                $tqid = M('test_question')->add($tq);
-                $list[$key]['tqid'] = $tqid;
+                                foreach ($list as $key => $vo) {
+                                    $tq['tid'] = $tid;
+                                    $tq['qid'] = $vo['id'];
+                                    $tq['status'] = 0;
+                                    $tq['addtime'] = time();
+                                    $tqid = M('test_question')->add($tq);
+                                    $list[$key]['tqid'] = $tqid;
+                                }
+
+                                $this->assign("list", $list);
+
+                                $this->assign("tid", $tid);*/
+
             }
-
-            $this->assign("list", $list);
-
-            $this->assign("tid", $tid);
-
         } else {
-            $courses = M("Course")->select();
+            $courses = $this->courses;
             $this->assign("courses", $courses);
         }
 
