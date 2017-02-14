@@ -63,7 +63,8 @@
                     </div>
                     <ul class="list_ib">
                         <{foreach $courses as $ty }>
-                        <li><a href="__URL__/questions/type/<{$type}>/cid/<{$ty.id}>"><{$ty.name}></a>
+                        <li class="<{if $cid==$ty.id}>active<{/if}>"><a
+                                href="__URL__/questions/type/<{$type}>/cid/<{$ty.id}>"><{$ty.name}></a>
                         </li>
                         <{/foreach}>
                     </ul>
@@ -72,12 +73,18 @@
                         <span style="line-height: 39px; font-size: 16px;font-weight: bold;">题型</span>
                     </div>
                     <ul class="list_ib">
-                        <li><a href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/0">全部</a></li>
-                        <li><a href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/1">单选题</a></li>
-                        <li><a href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/2">多选题</a></li>
-                        <li><a href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/3">判断题</a></li>
-                        <li><a href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/4">填空题</a></li>
-                        <li><a href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/5">主观题</a></li>
+                        <li class="<{if $qtype==0}>active<{/if}>"><a
+                                href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/0">全部</a></li>
+                        <li class="<{if $qtype==1}>active<{/if}>"><a
+                                href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/1">单选题</a></li>
+                        <li class="<{if $qtype==2}>active<{/if}>"><a
+                                href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/2">多选题</a></li>
+                        <li class="<{if $qtype==3}>active<{/if}>"><a
+                                href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/3">判断题</a></li>
+                        <li class="<{if $qtype==4}>active<{/if}>"><a
+                                href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/4">填空题</a></li>
+                        <li class="<{if $qtype==5}>active<{/if}>"><a
+                                href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/5">主观题</a></li>
                     </ul>
                     <div style="clear: both;"></div>
                     <{if $points}>
@@ -85,8 +92,9 @@
                         <span style="line-height: 39px; font-size: 16px;font-weight: bold;">知识点</span>
                     </div>
                     <ul class="list_ib">
-                        <{foreach $points as $point }>
-                        <li><a href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/<{$qtype}>/point/<{$point['point']}>"><{$point['point']}></a>
+                        <{foreach $points as $p }>
+                        <li class="<{if $point==$p['point']}>active<{/if}>"><a
+                                href="__URL__/questions/type/<{$type}>/cid/<{$cid}>/qtype/<{$qtype}>/point/<{$p['point']}>"><{$p['point']}></a>
                         </li>
                         <{/foreach}>
                     </ul>

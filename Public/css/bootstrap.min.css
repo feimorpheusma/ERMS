@@ -1347,6 +1347,7 @@ a.m_cover_item_info em{display: block;padding-top: 10px;color: #fff;font-style: 
 
 .m_cats li a{display: inline-block;*display: inline;zoom:1;padding: 5px 8px;background: #7bcaa5;margin:2px;color: #fff;font-size: 14px;border-radius: 5px;}
 .m_cats li a:hover{text-decoration: none;background: #9fd9be;}
+.m_cats li.active a{background: #3d926a;}
 
 .m_pay_list li{margin-bottom: 5px;}
 .m_pay_list li span{display: inline-block;*display: inline;zoom:1; width: 20px;height: 20px; margin-right: 10px; background: #f9deb7;line-height: 20px;text-align: center;font-size: 12px;border-radius: 3px;color: #fff}

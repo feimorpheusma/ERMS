@@ -48,13 +48,47 @@ class TestAction extends CommonAction
 
     public function index()
     {
+        $this->assign("courses", $this->courses);
         if (!empty($_GET['cid'])) {
+
+            if (!empty($_GET['cid'])) {
+                $course = M("course")->find($_GET['cid']);
+                $this->assign("course", $course);
+                $this->assign("cid", $_GET['cid']);
+                $where['cid'] = array("eq", $_GET['cid']);
+            } else {
+                $this->assign("cid", 0);
+            }
+            if (!empty($_GET['qtype'])) {
+                $this->assign("qtype", $_GET['qtype']);
+                $where['q.type'] = array("eq", $_GET['qtype']);
+            } else {
+                $this->assign("qtype", 0);
+            }
+            if (!empty($_GET['point']) && $_GET['point'] != "_") {
+                $point = iconv("gb2312","utf-8",$_GET['point']);
+                $where['q.point'] = array("eq", $point);
+                $this->assign("point", $point);
+            } else {
+                $this->assign("point", '_');
+            }
+            if ($_GET['level'] != '' && $_GET['level'] != '-1') {
+                $this->assign("level", $_GET['level']);
+                $where['q.level'] = array("eq", $_GET['level']);
+            } else {
+                $this->assign("level", -1);
+            }
+
+
             $course = M("course")->find($_GET['cid']);
             $this->assign("course", $course);
 
-            $where['cid'] = array("eq", $_GET['cid']);
-            $where['id'] = array("not in", explode('_', $_GET['qid']));
-            $question = M("question")->where($where)->order("rand()")->find();
+            $where['q.id'] = array("not in", explode('_', $_GET['qid']));
+            $question = M("question q")->where($where)->order("rand()")->find();
+
+            $where['q.point'] = array("neq", '');
+            $points = M("question q")->distinct(true)->field("point")->where($where)->select();//获取总数据条数
+            $this->assign("points", $points);
 
             $hard_question = M("user_question")->where("uid={$this->uid} and qid={$question['id']} and type=2")->select();
             $wrong_question = M("user_question")->where("uid={$this->uid} and qid={$question['id']} and type=1")->select();
@@ -63,11 +97,7 @@ class TestAction extends CommonAction
             $this->assign("question", $question);
             $this->assign("hard_question", $hard_question);
             $this->assign("wrong_question", $wrong_question);
-        } else {
-            $courses = M("Course")->select();
-            $this->assign("courses", $courses);
         }
-
         $this->display();
     }
 
@@ -95,7 +125,9 @@ class TestAction extends CommonAction
                 $this->assign("cid", 0);
             }
             if (!empty($_GET['point'])) {
-                $where['q.point'] = array("eq", $_GET['point']);
+                $point = iconv("gb2312","utf-8",$_GET['point']);
+                $where['q.point'] = array("eq", $point);
+                $this->assign("point", $point);
             }
 
             import("ORG.Util.Page");
