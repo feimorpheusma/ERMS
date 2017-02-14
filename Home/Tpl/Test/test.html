@@ -128,8 +128,13 @@
                             <input type="checkbox" name="answer<{$question.tqid}>[]" value="A"> A.<{$question.aA}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="checkbox" name="answer<{$question.tqid}>[]" value="B"> B.<{$question.aB}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <input type="checkbox" name="answer<{$question.tqid}>[]" value="C"> C.<{$question.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="checkbox" name="answer<{$question.tqid}>[]" value="D"> D.<{$question.aD}>
-
+                            <input type="checkbox" name="answer<{$question.tqid}>[]" value="D"> D.<{$question.aD}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <{if !empty($question.aE)}>
+                            <input type="checkbox" name="answer<{$question.tqid}>[]" value="E"> E.<{$question.aE}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <{/if}>
+                            <{if !empty($question.aF)}>
+                            <input type="checkbox" name="answer<{$question.tqid}>[]" value="F"> F.<{$question.aF}>
+                            <{/if}>
                             <{else if $question.type == 3}>
                             <h4>判断题：<{$question.content}></h4>
                             <br/>

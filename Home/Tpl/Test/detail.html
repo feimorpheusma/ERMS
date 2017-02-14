@@ -70,7 +70,18 @@
                         <input type="checkbox" disabled="disabled" <{if !( strpos($question.tanswer,'D') === false)}>
                         checked="checked"<{/if}>>
                         D.<{$question.aD}>
-
+                        <{if !empty($question.aE)}>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" disabled="disabled" <{if !( strpos($question.tanswer,'E') === false)}>
+                        checked="checked"<{/if}>>
+                        E.<{$question.aE}>
+                        <{/if}>
+                        <{if !empty($question.aF)}>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" disabled="disabled" <{if !( strpos($question.tanswer,'F') === false)}>
+                        checked="checked"<{/if}>>
+                        F.<{$question.aF}>
+                        <{/if}>
                         <{else if $question.type == 3}>
                         <h4>判断题：<{$question.content}></h4>
                         <br/>

@@ -56,7 +56,7 @@ class ExamAction extends CommonAction
             $where['e.eid'] = array("eq", $_GET['eid']);
 
             $list = M("exam_question e")
-                ->field('content,type,aA,aB,aC,aD,q.id as qid,e.id as eqid,s.answer')
+                ->field('content,type,aA,aB,aC,aD,aE,aF,q.id as qid,e.id as eqid,s.answer')
                 ->join('edu_question q on e.qid = q.id')
                 ->join("edu_exam_question_student s on e.id = s.eqid and s.sid={$this->uid}")
                 ->where($where)->order("q.type")->select();
@@ -164,7 +164,7 @@ class ExamAction extends CommonAction
             $where['e.eid'] = array("eq", $_GET['eid']);
 
             $list = M("exam_question e")
-                ->field('content,type,aA,aB,aC,aD,q.id as qid,e.id as eqid,q.answer as correctanswer,s.answer,s.score,s.status')
+                ->field('content,type,aA,aB,aC,aD,aE,aF,q.id as qid,e.id as eqid,q.answer as correctanswer,s.answer,s.score,s.status')
                 ->join('edu_question q on e.qid = q.id')
                 ->join("edu_exam_question_student s on e.id = s.eqid and s.sid={$this->uid}")
                 ->where($where)->order("q.type")->select();

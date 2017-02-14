@@ -61,7 +61,7 @@ class ExamStudentAction extends CommonAction
     public function detail()
     {
         $vo = M("exam_student t")->field("e.title,s.name as studentname,s.no as studentno,c.name as coursename,t.starttime,t.endtime")->join("edu_student s on t.sid=s.id")->join("edu_exam e on t.eid=e.id")->join("edu_course c on e.cid=c.id")->where("t.id={$_GET['id']}")->find();
-        $list = M("exam_question_student t")->field("content,aA,aB,aC,aD,q.answer,t.answer as studentanswer,t.score as studentscore,q.type")->join("edu_question q on t.qid=q.id")->where("t.esid={$_GET['id']}")->select();
+        $list = M("exam_question_student t")->field("content,aA,aB,aC,aD,aE,aF,q.answer,t.answer as studentanswer,t.score as studentscore,q.type")->join("edu_question q on t.qid=q.id")->where("t.esid={$_GET['id']}")->select();
         $this->assign("list", $list);
         $this->assign("vo", $vo);
         $this->display();

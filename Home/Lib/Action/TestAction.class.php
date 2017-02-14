@@ -48,13 +48,47 @@ class TestAction extends CommonAction
 
     public function index()
     {
+        $this->assign("courses", $this->courses);
         if (!empty($_GET['cid'])) {
+
+            if (!empty($_GET['cid'])) {
+                $course = M("course")->find($_GET['cid']);
+                $this->assign("course", $course);
+                $this->assign("cid", $_GET['cid']);
+                $where['cid'] = array("eq", $_GET['cid']);
+            } else {
+                $this->assign("cid", 0);
+            }
+            if (!empty($_GET['qtype'])) {
+                $this->assign("qtype", $_GET['qtype']);
+                $where['q.type'] = array("eq", $_GET['qtype']);
+            } else {
+                $this->assign("qtype", 0);
+            }
+            if (!empty($_GET['point']) && $_GET['point'] != "_") {
+                $point = iconv("gb2312","utf-8",$_GET['point']);
+                $where['q.point'] = array("eq", $point);
+                $this->assign("point", $point);
+            } else {
+                $this->assign("point", '_');
+            }
+            if ($_GET['level'] != '' && $_GET['level'] != '-1') {
+                $this->assign("level", $_GET['level']);
+                $where['q.level'] = array("eq", $_GET['level']);
+            } else {
+                $this->assign("level", -1);
+            }
+
+
             $course = M("course")->find($_GET['cid']);
             $this->assign("course", $course);
 
-            $where['cid'] = array("eq", $_GET['cid']);
-            $where['id'] = array("not in", explode('_', $_GET['qid']));
-            $question = M("question")->where($where)->order("rand()")->find();
+            $where['q.id'] = array("not in", explode('_', $_GET['qid']));
+            $question = M("question q")->where($where)->order("rand()")->find();
+
+            $where['q.point'] = array("neq", '');
+            $points = M("question q")->distinct(true)->field("point")->where($where)->select();//获取总数据条数
+            $this->assign("points", $points);
 
             $hard_question = M("user_question")->where("uid={$this->uid} and qid={$question['id']} and type=2")->select();
             $wrong_question = M("user_question")->where("uid={$this->uid} and qid={$question['id']} and type=1")->select();
@@ -95,14 +129,16 @@ class TestAction extends CommonAction
                 $this->assign("cid", 0);
             }
             if (!empty($_GET['point'])) {
-                $where['q.point'] = array("eq", $_GET['point']);
+                $point = iconv("gb2312","utf-8",$_GET['point']);
+                $where['q.point'] = array("eq", $point);
+                $this->assign("point", $point);
             }
 
             import("ORG.Util.Page");
             $count = M("question q")->join('edu_user_question u on q.id = u.qid')->where($where)->count();//获取总数据条数
             $page = new Page($count, 10);//创建分页对象
 
-            $list = M("question q")->field('q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD')->join('edu_user_question u on q.id = u.qid')->where($where)->limit($page->firstRow . "," . $page->listRows)->select();
+            $list = M("question q")->field('q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD,q.aE,q.aF')->join('edu_user_question u on q.id = u.qid')->where($where)->limit($page->firstRow . "," . $page->listRows)->select();
             $this->assign("list", $list);
             $this->assign("showPage", $page->show());
 
@@ -359,7 +395,7 @@ class TestAction extends CommonAction
             $this->assign("status", $status);
 
             $where['t.tid'] = array("eq", $_GET['tid']);
-            $list = M("test_question t")->field("q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD,q.score,t.answer as tanswer,t.score as tscore")->join("edu_question q on t.qid = q.id")->where($where)->order("type")->select();
+            $list = M("test_question t")->field("q.content,q.answer,q.type,q.aA,q.aB,q.aC,q.aD,q.aE,q.aF,q.score,t.answer as tanswer,t.score as tscore")->join("edu_question q on t.qid = q.id")->where($where)->order("type")->select();
             $a = strpos('AB', 'D');
             $this->assign("list", $list);
 
