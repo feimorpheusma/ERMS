@@ -66,7 +66,7 @@ class TestAction extends CommonAction
                 $this->assign("qtype", 0);
             }
             if (!empty($_GET['point']) && $_GET['point'] != "_") {
-                $point = iconv("gb2312","utf-8",$_GET['point']);
+                $point = iconv("gb2312", "utf-8", $_GET['point']);
                 $where['q.point'] = array("eq", $point);
                 $this->assign("point", $point);
             } else {
@@ -129,7 +129,7 @@ class TestAction extends CommonAction
                 $this->assign("cid", 0);
             }
             if (!empty($_GET['point'])) {
-                $point = iconv("gb2312","utf-8",$_GET['point']);
+                $point = iconv("gb2312", "utf-8", $_GET['point']);
                 $where['q.point'] = array("eq", $point);
                 $this->assign("point", $point);
             }
@@ -240,9 +240,9 @@ class TestAction extends CommonAction
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
                         if (sizeof($list) < $rule['single']) {
-                            $questions = $list;
+                            $questions = array_rand($list, sizeof($list));
                         } elseif ($rule['single'] == 1) {
-                            $questions[0] = $list[0];
+                            $questions[0] = 0;
                         } else {
                             $questions = array_rand($list, $rule['single']);
                         }
@@ -251,7 +251,7 @@ class TestAction extends CommonAction
                             $tq['qid'] = $list[$question]['id'];
                             $tq['status'] = 0;
                             $tq['addtime'] = time();
-                            M('test_question')->add($tq);
+                            $flag = M('test_question')->add($tq);
                         }
                     }
                 }
@@ -261,9 +261,9 @@ class TestAction extends CommonAction
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
                         if (sizeof($list) < $rule['multiple']) {
-                            $questions = $list;
+                            $questions = array_rand($list, sizeof($list));
                         } elseif ($rule['multiple'] == 1) {
-                            $questions[0] = $list[0];
+                            $questions[0] = 0;
                         } else {
                             $questions = array_rand($list, $rule['multiple']);
                         }
@@ -272,7 +272,7 @@ class TestAction extends CommonAction
                             $tq['qid'] = $list[$question]['id'];
                             $tq['status'] = 0;
                             $tq['addtime'] = time();
-                            M('test_question')->add($tq);
+                            $flag = M('test_question')->add($tq);
                         }
                     }
                 }
@@ -282,9 +282,9 @@ class TestAction extends CommonAction
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
                         if (sizeof($list) < $rule['judge']) {
-                            $questions = $list;
+                            $questions = array_rand($list, sizeof($list));
                         } elseif ($rule['judge'] == 1) {
-                            $questions[0] = $list[0];
+                            $questions[0] = 0;
                         } else {
                             $questions = array_rand($list, $rule['judge']);
                         }
@@ -293,7 +293,7 @@ class TestAction extends CommonAction
                             $tq['qid'] = $list[$question]['id'];
                             $tq['status'] = 0;
                             $tq['addtime'] = time();
-                            M('test_question')->add($tq);
+                            $flag = M('test_question')->add($tq);
                         }
                     }
                 }
@@ -303,9 +303,9 @@ class TestAction extends CommonAction
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
                         if (sizeof($list) < $rule['blank']) {
-                            $questions = $list;
+                            $questions = array_rand($list, sizeof($list));
                         } elseif ($rule['blank'] == 1) {
-                            $questions[0] = $list[0];
+                            $questions[0] = 0;
                         } else {
                             $questions = array_rand($list, $rule['blank']);
                         }
@@ -314,7 +314,7 @@ class TestAction extends CommonAction
                             $tq['qid'] = $list[$question]['id'];
                             $tq['status'] = 0;
                             $tq['addtime'] = time();
-                            M('test_question')->add($tq);
+                            $flag = M('test_question')->add($tq);
                         }
                     }
                 }
@@ -324,7 +324,7 @@ class TestAction extends CommonAction
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
                         if (sizeof($list) < $rule['answer']) {
-                            $questions = $list;
+                            $questions = array_rand($list, sizeof($list));
                         } elseif ($rule['answer'] == 1) {
                             $questions[0] = 0;
                         } else {
@@ -335,7 +335,7 @@ class TestAction extends CommonAction
                             $tq['qid'] = $list[$question]['id'];
                             $tq['status'] = 0;
                             $tq['addtime'] = time();
-                            M('test_question')->add($tq);
+                            $flag = M('test_question')->add($tq);
                         }
                     }
                 }

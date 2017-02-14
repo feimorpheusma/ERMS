@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50709
 File Encoding         : 65001
 
-Date: 2017-02-13 12:30:20
+Date: 2017-02-14 23:40:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -341,7 +341,7 @@ CREATE TABLE `edu_clicknum` (
 -- ----------------------------
 -- Records of edu_clicknum
 -- ----------------------------
-INSERT INTO `edu_clicknum` VALUES ('1', '3010', '1486391607');
+INSERT INTO `edu_clicknum` VALUES ('1', '3068', '1487086292');
 
 -- ----------------------------
 -- Table structure for edu_collect
@@ -995,7 +995,7 @@ CREATE TABLE `edu_node` (
   `status` tinyint(1) DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_node
@@ -1021,6 +1021,7 @@ INSERT INTO `edu_node` VALUES ('20', '公告管理', 'notice', 'index', '1');
 INSERT INTO `edu_node` VALUES ('32', '考试打分', 'examstudent', 'score', '1');
 INSERT INTO `edu_node` VALUES ('31', '考试记录', 'examstudent', 'index', '1');
 INSERT INTO `edu_node` VALUES ('30', '意见反馈', 'opinion', 'index', '1');
+INSERT INTO `edu_node` VALUES ('33', '自测规则', 'testrule', 'index', '1');
 
 -- ----------------------------
 -- Table structure for edu_note
@@ -1265,26 +1266,34 @@ CREATE TABLE `edu_role_node` (
 -- Records of edu_role_node
 -- ----------------------------
 INSERT INTO `edu_role_node` VALUES ('2', '15');
+INSERT INTO `edu_role_node` VALUES ('1', '31');
+INSERT INTO `edu_role_node` VALUES ('1', '32');
 INSERT INTO `edu_role_node` VALUES ('2', '14');
-INSERT INTO `edu_role_node` VALUES ('2', '11');
-INSERT INTO `edu_role_node` VALUES ('2', '16');
 INSERT INTO `edu_role_node` VALUES ('1', '20');
+INSERT INTO `edu_role_node` VALUES ('2', '11');
 INSERT INTO `edu_role_node` VALUES ('1', '19');
 INSERT INTO `edu_role_node` VALUES ('1', '16');
 INSERT INTO `edu_role_node` VALUES ('1', '15');
+INSERT INTO `edu_role_node` VALUES ('2', '16');
 INSERT INTO `edu_role_node` VALUES ('1', '14');
 INSERT INTO `edu_role_node` VALUES ('1', '13');
 INSERT INTO `edu_role_node` VALUES ('1', '12');
 INSERT INTO `edu_role_node` VALUES ('1', '11');
-INSERT INTO `edu_role_node` VALUES ('2', '9');
 INSERT INTO `edu_role_node` VALUES ('1', '10');
 INSERT INTO `edu_role_node` VALUES ('1', '9');
 INSERT INTO `edu_role_node` VALUES ('1', '8');
 INSERT INTO `edu_role_node` VALUES ('1', '7');
+INSERT INTO `edu_role_node` VALUES ('2', '9');
 INSERT INTO `edu_role_node` VALUES ('1', '6');
 INSERT INTO `edu_role_node` VALUES ('1', '5');
+INSERT INTO `edu_role_node` VALUES ('1', '4');
+INSERT INTO `edu_role_node` VALUES ('1', '3');
+INSERT INTO `edu_role_node` VALUES ('1', '2');
+INSERT INTO `edu_role_node` VALUES ('1', '1');
 INSERT INTO `edu_role_node` VALUES ('7', '3');
 INSERT INTO `edu_role_node` VALUES ('7', '6');
+INSERT INTO `edu_role_node` VALUES ('1', '30');
+INSERT INTO `edu_role_node` VALUES ('1', '33');
 
 -- ----------------------------
 -- Table structure for edu_score
@@ -1379,7 +1388,7 @@ CREATE TABLE `edu_test` (
   `status` int(1) DEFAULT '0',
   `score` int(3) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_test
@@ -1407,6 +1416,22 @@ INSERT INTO `edu_test` VALUES ('43', null, '4', '1', '大学英语自主测试16
 INSERT INTO `edu_test` VALUES ('44', null, '4', '1', '大学英语自主测试16-12-28 12:20:44', '1482855644', '1482855665', '2', '10');
 INSERT INTO `edu_test` VALUES ('45', null, '4', '1', '大学英语自主测试16-12-28 01:20:42', '1482859242', null, '0', '0');
 INSERT INTO `edu_test` VALUES ('46', null, '4', '1', '大学英语自主测试17-02-06 10:33:27', '1486391607', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('47', null, '4', '1', '大学英语自主测试17-02-14 10:10:15', '1487081415', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('48', null, '4', '1', '大学英语自主测试17-02-14 11:08:29', '1487084909', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('49', null, '4', '1', '大学英语自主测试17-02-14 11:08:35', '1487084915', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('50', null, '4', '1', '大学英语自主测试17-02-14 11:10:30', '1487085030', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('51', null, '4', '1', '大学英语自主测试17-02-14 11:11:59', '1487085119', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('52', null, '4', '1', '大学英语自主测试17-02-14 11:12:34', '1487085154', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('53', null, '4', '1', '大学英语自主测试17-02-14 11:12:57', '1487085177', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('54', null, '4', '1', '大学英语自主测试17-02-14 11:13:18', '1487085198', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('55', null, '4', '1', '大学英语自主测试17-02-14 11:13:28', '1487085215', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('56', null, '4', '1', '大学英语自主测试17-02-14 11:15:14', '1487085314', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('57', null, '4', '1', '大学英语自主测试17-02-14 11:26:57', '1487086018', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('58', null, '4', '1', '大学英语自主测试17-02-14 11:28:21', '1487086101', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('59', null, '4', '1', '大学英语自主测试17-02-14 11:29:13', '1487086153', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('60', null, '4', '1', '大学英语自主测试17-02-14 11:29:50', '1487086190', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('61', null, '4', '1', '大学英语自主测试17-02-14 11:31:19', '1487086279', null, '0', '0');
+INSERT INTO `edu_test` VALUES ('62', null, '4', '1', '大学英语自主测试17-02-14 11:31:32', '1487086292', null, '0', '0');
 
 -- ----------------------------
 -- Table structure for edu_test_question
@@ -1421,72 +1446,151 @@ CREATE TABLE `edu_test_question` (
   `status` int(1) DEFAULT '0',
   `addtime` int(12) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=328 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of edu_test_question
 -- ----------------------------
-INSERT INTO `edu_test_question` VALUES ('71', '39', '56', null, null, '0', '1480430295');
-INSERT INTO `edu_test_question` VALUES ('72', '39', '77', null, null, '0', '1480430295');
-INSERT INTO `edu_test_question` VALUES ('73', '39', '71', null, null, '0', '1480430295');
-INSERT INTO `edu_test_question` VALUES ('74', '40', '63', 'B', '2', '2', '1480430337');
-INSERT INTO `edu_test_question` VALUES ('75', '40', '79', 'ABD', '2', '2', '1480430337');
-INSERT INTO `edu_test_question` VALUES ('76', '40', '73', 'A', '0', '2', '1480430337');
-INSERT INTO `edu_test_question` VALUES ('77', '40', '60', '错', '2', '2', '1480430337');
-INSERT INTO `edu_test_question` VALUES ('78', '41', '58', 'C', '0', '2', '1480430906');
-INSERT INTO `edu_test_question` VALUES ('79', '41', '60', '对', '0', '2', '1480430906');
-INSERT INTO `edu_test_question` VALUES ('80', '41', '64', 'B', '0', '2', '1480430906');
-INSERT INTO `edu_test_question` VALUES ('81', '41', '55', '对', '0', '2', '1480430906');
-INSERT INTO `edu_test_question` VALUES ('82', '42', '71', 'haha', '2', '2', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('83', '42', '82', 'asdf ad f', '0', '1', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('84', '42', '55', '对', '0', '2', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('85', '42', '64', 'ABD', '2', '2', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('86', '42', '77', 'sdf adf adf adf ', '0', '1', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('87', '42', '69', 'AB', '0', '2', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('88', '42', '54', 'A', '0', '2', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('89', '42', '76', 'asd fa ', '0', '2', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('90', '42', '65', '错', '2', '2', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('91', '42', '73', 'B', '2', '2', '1480432082');
-INSERT INTO `edu_test_question` VALUES ('92', '43', '67', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('93', '43', '73', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('94', '43', '79', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('95', '43', '63', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('96', '43', '66', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('97', '43', '74', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('98', '43', '65', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('99', '43', '54', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('100', '43', '64', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('101', '43', '57', null, null, '0', '1480517926');
-INSERT INTO `edu_test_question` VALUES ('102', '44', '91', '123', '0', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('103', '44', '54', 'A', '0', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('104', '44', '83', 'D', '2', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('105', '44', '82', '123123', '7', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('106', '44', '84', 'AB', '0', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('107', '44', '65', '对', '0', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('108', '44', '61', '123', '0', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('109', '44', '66', '123', '0', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('110', '44', '62', '123', '1', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('111', '44', '56', '123', '0', '2', '1482855644');
-INSERT INTO `edu_test_question` VALUES ('112', '45', '59', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('113', '45', '74', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('114', '45', '69', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('115', '45', '68', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('116', '45', '63', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('117', '45', '73', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('118', '45', '65', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('119', '45', '67', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('120', '45', '70', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('121', '45', '79', null, null, '0', '1482859242');
-INSERT INTO `edu_test_question` VALUES ('122', '46', '84', null, null, '0', '1486391607');
-INSERT INTO `edu_test_question` VALUES ('123', '46', '77', null, null, '0', '1486391607');
-INSERT INTO `edu_test_question` VALUES ('124', '46', '80', null, null, '0', '1486391607');
-INSERT INTO `edu_test_question` VALUES ('125', '46', '75', null, null, '0', '1486391607');
-INSERT INTO `edu_test_question` VALUES ('126', '46', '112', null, null, '0', '1486391607');
-INSERT INTO `edu_test_question` VALUES ('127', '46', '92', null, null, '0', '1486391607');
-INSERT INTO `edu_test_question` VALUES ('128', '46', '58', null, null, '0', '1486391607');
-INSERT INTO `edu_test_question` VALUES ('129', '46', '57', null, null, '0', '1486391607');
-INSERT INTO `edu_test_question` VALUES ('130', '46', '69', null, null, '0', '1486391607');
-INSERT INTO `edu_test_question` VALUES ('131', '46', '67', null, null, '0', '1486391607');
+INSERT INTO `edu_test_question` VALUES ('210', '52', '55', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('211', '52', '60', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('212', '52', '65', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('213', '52', '85', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('214', '52', '90', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('215', '52', '56', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('216', '52', '66', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('217', '52', '76', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('218', '52', '86', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('219', '52', '91', null, null, '0', '1487085154');
+INSERT INTO `edu_test_question` VALUES ('220', '53', '57', null, null, '0', '1487085177');
+INSERT INTO `edu_test_question` VALUES ('221', '53', '72', null, null, '0', '1487085177');
+INSERT INTO `edu_test_question` VALUES ('222', '53', '77', null, null, '0', '1487085177');
+INSERT INTO `edu_test_question` VALUES ('223', '53', '82', null, null, '0', '1487085177');
+INSERT INTO `edu_test_question` VALUES ('224', '53', '92', null, null, '0', '1487085177');
+INSERT INTO `edu_test_question` VALUES ('225', '54', '65', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('226', '54', '70', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('227', '54', '75', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('228', '54', '80', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('229', '54', '85', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('230', '54', '56', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('231', '54', '66', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('232', '54', '76', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('233', '54', '86', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('234', '54', '91', null, null, '0', '1487085198');
+INSERT INTO `edu_test_question` VALUES ('235', '55', '60', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('236', '55', '75', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('237', '55', '80', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('238', '55', '85', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('239', '55', '90', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('240', '55', '56', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('241', '55', '66', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('242', '55', '71', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('243', '55', '86', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('244', '55', '91', null, null, '0', '1487085215');
+INSERT INTO `edu_test_question` VALUES ('245', '56', '53', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('246', '56', '58', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('247', '56', '63', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('248', '56', '68', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('249', '56', '73', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('250', '56', '78', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('251', '56', '83', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('252', '56', '88', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('253', '56', '108', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('254', '56', '54', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('255', '56', '59', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('256', '56', '64', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('257', '56', '69', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('258', '56', '74', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('259', '56', '79', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('260', '56', '84', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('261', '56', '89', null, null, '0', '1487085330');
+INSERT INTO `edu_test_question` VALUES ('262', '57', '55', null, null, '0', '1487086024');
+INSERT INTO `edu_test_question` VALUES ('263', '57', '60', null, null, '0', '1487086027');
+INSERT INTO `edu_test_question` VALUES ('264', '57', '65', null, null, '0', '1487086028');
+INSERT INTO `edu_test_question` VALUES ('265', '57', '70', null, null, '0', '1487086029');
+INSERT INTO `edu_test_question` VALUES ('266', '57', '80', null, null, '0', '1487086030');
+INSERT INTO `edu_test_question` VALUES ('267', '57', '66', null, null, '0', '1487086036');
+INSERT INTO `edu_test_question` VALUES ('268', '57', '71', null, null, '0', '1487086037');
+INSERT INTO `edu_test_question` VALUES ('269', '57', '81', null, null, '0', '1487086050');
+INSERT INTO `edu_test_question` VALUES ('270', '57', '86', null, null, '0', '1487086051');
+INSERT INTO `edu_test_question` VALUES ('271', '57', '91', null, null, '0', '1487086052');
+INSERT INTO `edu_test_question` VALUES ('272', '58', '60', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('273', '58', '65', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('274', '58', '70', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('275', '58', '85', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('276', '58', '90', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('277', '58', '61', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('278', '58', '66', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('279', '58', '71', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('280', '58', '76', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('281', '58', '91', null, null, '0', '1487086101');
+INSERT INTO `edu_test_question` VALUES ('282', '58', '67', null, null, '0', '1487086150');
+INSERT INTO `edu_test_question` VALUES ('283', '58', '72', null, null, '0', '1487086150');
+INSERT INTO `edu_test_question` VALUES ('284', '58', '77', null, null, '0', '1487086150');
+INSERT INTO `edu_test_question` VALUES ('285', '58', '92', null, null, '0', '1487086150');
+INSERT INTO `edu_test_question` VALUES ('286', '59', '55', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('287', '59', '70', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('288', '59', '75', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('289', '59', '80', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('290', '59', '90', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('291', '59', '61', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('292', '59', '66', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('293', '59', '76', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('294', '59', '81', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('295', '59', '91', null, null, '0', '1487086153');
+INSERT INTO `edu_test_question` VALUES ('296', '59', '57', null, null, '0', '1487086156');
+INSERT INTO `edu_test_question` VALUES ('297', '59', '67', null, null, '0', '1487086156');
+INSERT INTO `edu_test_question` VALUES ('298', '59', '77', null, null, '0', '1487086156');
+INSERT INTO `edu_test_question` VALUES ('299', '59', '82', null, null, '0', '1487086156');
+INSERT INTO `edu_test_question` VALUES ('300', '59', '92', null, null, '0', '1487086156');
+INSERT INTO `edu_test_question` VALUES ('301', '60', '55', null, null, '0', '1487086190');
+INSERT INTO `edu_test_question` VALUES ('302', '60', '60', null, null, '0', '1487086191');
+INSERT INTO `edu_test_question` VALUES ('303', '60', '75', null, null, '0', '1487086191');
+INSERT INTO `edu_test_question` VALUES ('304', '60', '80', null, null, '0', '1487086191');
+INSERT INTO `edu_test_question` VALUES ('305', '60', '85', null, null, '0', '1487086191');
+INSERT INTO `edu_test_question` VALUES ('306', '60', '61', null, null, '0', '1487086191');
+INSERT INTO `edu_test_question` VALUES ('307', '60', '66', null, null, '0', '1487086191');
+INSERT INTO `edu_test_question` VALUES ('308', '60', '81', null, null, '0', '1487086191');
+INSERT INTO `edu_test_question` VALUES ('309', '60', '86', null, null, '0', '1487086191');
+INSERT INTO `edu_test_question` VALUES ('310', '60', '91', null, null, '0', '1487086191');
+INSERT INTO `edu_test_question` VALUES ('311', '60', '57', null, null, '0', '1487086209');
+INSERT INTO `edu_test_question` VALUES ('312', '61', '90', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('313', '61', '65', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('314', '61', '85', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('315', '61', '75', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('316', '61', '55', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('317', '61', '66', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('318', '61', '56', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('319', '61', '91', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('320', '61', '61', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('321', '61', '81', null, null, '0', '1487086279');
+INSERT INTO `edu_test_question` VALUES ('322', '61', '92', null, null, '0', '1487086283');
+INSERT INTO `edu_test_question` VALUES ('323', '62', '72', null, null, '0', '1487086292');
+INSERT INTO `edu_test_question` VALUES ('324', '62', '82', null, null, '0', '1487086292');
+INSERT INTO `edu_test_question` VALUES ('325', '62', '92', null, null, '0', '1487086292');
+INSERT INTO `edu_test_question` VALUES ('326', '62', '87', null, null, '0', '1487086292');
+INSERT INTO `edu_test_question` VALUES ('327', '62', '67', null, null, '0', '1487086292');
+
+-- ----------------------------
+-- Table structure for edu_test_rule
+-- ----------------------------
+DROP TABLE IF EXISTS `edu_test_rule`;
+CREATE TABLE `edu_test_rule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `single` int(11) DEFAULT NULL,
+  `multiple` int(11) DEFAULT NULL,
+  `judge` int(11) DEFAULT NULL,
+  `blank` int(11) DEFAULT NULL,
+  `answer` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of edu_test_rule
+-- ----------------------------
+INSERT INTO `edu_test_rule` VALUES ('1', '规则1', '20', '10', '0', '0', '0');
+INSERT INTO `edu_test_rule` VALUES ('2', '规则2', '0', '0', '5', '5', '1');
+INSERT INTO `edu_test_rule` VALUES ('3', '规则3', '0', '0', '0', '0', '5');
 
 -- ----------------------------
 -- Table structure for edu_usermessage
@@ -1714,7 +1818,7 @@ CREATE TABLE `edu_users` (
 -- ----------------------------
 -- Records of edu_users
 -- ----------------------------
-INSERT INTO `edu_users` VALUES ('55', 'admin', '21232f297a57a5a743894a0e4a801fc3', '管理员', '1', '22', 'admin@admin.com', '74', '530e9f9d3b45b.jpg', '10', '999', '1393430863', '无', '0', '1482942177', '98');
+INSERT INTO `edu_users` VALUES ('55', 'admin', '21232f297a57a5a743894a0e4a801fc3', '管理员', '1', '22', 'admin@admin.com', '74', '530e9f9d3b45b.jpg', '10', '999', '1393430863', '无', '1487080111', '1487081257', '100');
 INSERT INTO `edu_users` VALUES ('97', 'teacher', 'e10adc3949ba59abbe56e057f20f883e', '教师', '1', '0', 'jiaoshi@163.com', '', '57d1853b29e96.png', '0', '0', '1473348923', '', '1482844809', '1482844993', '20');
 
 -- ----------------------------
