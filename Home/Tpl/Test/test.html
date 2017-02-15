@@ -48,13 +48,50 @@
     </div>
 </div>
 <{else}>
-<{if $rules}>
+<{if $generate}>
 <div class="bg_f2 ">
     <div class="container">
         <div class="home_module row">
             <div class="container">
                 <div class="p30" style="background: white;border-radius: 10px;">
-                    <{if !$rules}>
+                    <form action="__URL__/test" method="get">
+                        <input type="hidden" name="cid" value="<{$course.id}>"/>
+                        <{if $points}>
+                        <div class="tt">
+                            <span style="line-height: 39px; font-size: 16px;font-weight: bold;">知识点选择：</span>
+                            <{foreach $points as $vo }>
+                            <input type="checkbox" name="point[]" checked="checked" value="<{$vo.point}>"
+                                   style="width: 16px;height: 16px;"/>&nbsp;<{$vo.point}>&nbsp;&nbsp;
+                            <{/foreach}>
+                        </div>
+
+                        <{/if}>
+                        <div style="clear: both;"></div>
+                        <div class="tt">
+                            <span style="line-height: 39px; font-size: 16px;font-weight: bold;">单选题数量：</span>
+                            <input type="text" name="single" value="10"/>
+                        </div>
+                        <div class="tt">
+                            <span style="line-height: 39px; font-size: 16px;font-weight: bold;">多选题数量：</span>
+                            <input type="text" name="multiple" value="5"/>
+                        </div>
+                        <div class="tt">
+                            <span style="line-height: 39px; font-size: 16px;font-weight: bold;">判断题数量：</span>
+                            <input type="text" name="judge" value="5"/>
+                        </div>
+                        <div class="tt">
+                            <span style="line-height: 39px; font-size: 16px;font-weight: bold;">填空题数量：</span>
+                            <input type="text" name="blank" value="5"/>
+                        </div>
+                        <div class="tt">
+                            <span style="line-height: 39px; font-size: 16px;font-weight: bold;">主观题数量：</span>
+                            <input type="text" name="answer" value="2"/>
+                        </div>
+                        <br/>
+                        <button type="submit" class="btn btn-primary btn-lg">开始测试
+                        </button>
+                    </form>
+                    <!--<{if !$rules}>
 
                     <div class="null">暂时没有组卷规则，请联系管理员。</div>
 
@@ -91,7 +128,7 @@
                     </div>
 
                     <{/if}>
-
+-->
                 </div>
             </div>
         </div>

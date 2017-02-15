@@ -213,17 +213,27 @@ class TestAction extends CommonAction
 
     public function test()
     {
-        if (!empty($_GET['cid'])) {
+        if (!empty($_REQUEST['cid'])) {
             $course = M("course")->find($_GET['cid']);
             $this->assign("course", $course);
-            if (empty($_GET['rid'])) {
+            if (empty($_REQUEST['single']) && empty($_REQUEST['multiple'])) {
+                $points = M("question")->distinct(true)->field('point')->where("cid = {$_GET['cid']} and point is not null")->select();
+                $this->assign("points", $points);
+                $this->assign("generate", true);
 
-                $rules = M("test_rule")->select();
-                $this->assign("rules", $rules);
+                //$rules = M("test_rule")->select();
+                //$this->assign("rules", $rules);
             } else {
-                $rule = M('test_rule')->where("id={$_GET['rid']}")->find();
+                //$rule = M('test_rule')->where("id={$_GET['rid']}")->find();
 
-                $test['cid'] = $_GET['cid'];
+                if (!empty($_REQUEST['point'])) {
+                    foreach ($_REQUEST['point'] as $point) {
+                        $points[] = $point;
+                    }
+                }
+                $map['point'] = array('in', $points);
+
+                $test['cid'] = $_REQUEST['cid'];
                 $test['sid'] = $this->uid;
                 $test['title'] = $course['name'] . '自主测试' . date('y-m-d h:i:s', time());
                 $test['addtime'] = time();
@@ -231,20 +241,19 @@ class TestAction extends CommonAction
 
                 $tid = M("test")->add($test);
 
-
                 $map['cid'] = array('eq', $_GET['cid']);
                 $map['status'] = array('eq', 1);
-                if ($rule['single'] > 0) {
+                if ($_REQUEST['single'] > 0) {
                     unset($questions);
                     $map['type'] = 1;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $rule['single']) {
+                        if (sizeof($list) < $_REQUEST['single']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($rule['single'] == 1) {
+                        } elseif ($_REQUEST['single'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $rule['single']);
+                            $questions = array_rand($list, $_REQUEST['single']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
@@ -255,17 +264,17 @@ class TestAction extends CommonAction
                         }
                     }
                 }
-                if ($rule['multiple'] > 0) {
+                if ($_REQUEST['multiple'] > 0) {
                     unset($questions);
                     $map['type'] = 2;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $rule['multiple']) {
+                        if (sizeof($list) < $_REQUEST['multiple']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($rule['multiple'] == 1) {
+                        } elseif ($_REQUEST['multiple'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $rule['multiple']);
+                            $questions = array_rand($list, $_REQUEST['multiple']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
@@ -276,17 +285,17 @@ class TestAction extends CommonAction
                         }
                     }
                 }
-                if ($rule['judge'] > 0) {
+                if ($_REQUEST['judge'] > 0) {
                     unset($questions);
                     $map['type'] = 3;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $rule['judge']) {
+                        if (sizeof($list) < $_REQUEST['judge']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($rule['judge'] == 1) {
+                        } elseif ($_REQUEST['judge'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $rule['judge']);
+                            $questions = array_rand($list, $_REQUEST['judge']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
@@ -297,17 +306,17 @@ class TestAction extends CommonAction
                         }
                     }
                 }
-                if ($rule['blank'] > 0) {
+                if ($_REQUEST['blank'] > 0) {
                     unset($questions);
                     $map['type'] = 4;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $rule['blank']) {
+                        if (sizeof($list) < $_REQUEST['blank']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($rule['blank'] == 1) {
+                        } elseif ($_REQUEST['blank'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $rule['blank']);
+                            $questions = array_rand($list, $_REQUEST['blank']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
@@ -318,17 +327,17 @@ class TestAction extends CommonAction
                         }
                     }
                 }
-                if ($rule['answer'] > 0) {
+                if ($_REQUEST['answer'] > 0) {
                     unset($questions);
                     $map['type'] = 5;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $rule['answer']) {
+                        if (sizeof($list) < $_REQUEST['answer']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($rule['answer'] == 1) {
+                        } elseif ($_REQUEST['answer'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $rule['answer']);
+                            $questions = array_rand($list, $_REQUEST['answer']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
