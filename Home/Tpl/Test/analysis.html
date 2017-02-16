@@ -131,7 +131,14 @@
                         <div id="content">
 
                             <input type="hidden" name="tqid[]" value="<{$question.tqid}>">
-                            <{if $question.type==1}>
+							<span style='border:1px solid green;padding:5px;'>							
+							正确率：<{$question.correctpercent*100}>%&nbsp;</span>
+							<span style='border:1px solid green;padding:5px;'>
+							练习次数：<{$question.totalcount}>&nbsp;答对次数：<{$question.correctcount}>
+                            </span>
+							<br />
+							<br />
+							<{if $question.type==1}>
                             <h4>单选题：<{$question.content}></h4>
                             <br/>
 
