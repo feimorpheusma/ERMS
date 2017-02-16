@@ -1,0 +1,225 @@
+<{include file='../Public/header.html'}>
+<div id="sub-header" class="group_h">
+    <div class="container">
+        <!--<div class="navbar-header col-sm-offset-1" style="width: 16.66666666%;margin: 0;">
+            <h1><a href="">自主学习</a></h1>
+        </div>-->
+        <div class="col-md-8">
+            <ul class="navbar-left">
+                <li><a href="__URL__/index">自主学习</a></li>
+                <li><a href="__URL__/questions/type/2">难题回看</a></li>
+                <li><a href="__URL__/questions/type/1">错题回看</a></li>
+                <li><a href="__URL__/test">组卷测试</a></li>
+                <li><a href="__URL__/result">测试记录</a></li>
+                <li class="active"><a href="__URL__/analysis">自测分析</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+
+            <ul class="navbar-left">
+
+                <li>
+                    <a href="javascript:;" id="dropdownMenu1" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="true"><i class="icon-list"></i>
+                        课程：<{$course.name}></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="bg_f2">
+    <{if !$course}>
+    <div class="container">
+        <div class="home_module row">
+            <div class="p30" style="background: white;border-radius: 10px;">
+                <!--试题列表块开始-->
+                <div class="col-md-12 m_cats">
+                    <div class="tt">
+                        <h3>请先选择一门课程</h3>
+                    </div>
+                    <ul class="list_ib">
+                        <{foreach $courses as $ty }>
+                        <li><a href="__URL__/analysis/cid/<{$ty.id}>"><{$ty.name}></a></li>
+                        <{/foreach}>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <{else}>
+    <div class="container bg_f2">
+        <div class="home_module row">
+            <div class="container">
+                <!--试题列表块开始-->
+                <div class="p30 m_cats" style="background: white;border-radius: 10px;">
+                    <div class="tt" style="width: 80px;float: left;">
+                        <span style="line-height: 39px; font-size: 16px;font-weight: bold;">课程</span>
+                    </div>
+                    <ul class="list_ib">
+                        <{foreach $courses as $ty }>
+                        <li class="<{if $cid==$ty.id}>active<{/if}>"><a href="__URL__/analysis/cid/<{$ty.id}>"><{$ty.name}></a>
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                    <div style="clear: both;"></div>
+                    <div class="tt" style="width: 80px;float: left;">
+                        <span style="line-height: 39px; font-size: 16px;font-weight: bold;">题型</span>
+                    </div>
+                    <ul class="list_ib">
+                        <li class="<{if $qtype==0}>active<{/if}>"><a href="__URL__/analysis/cid/<{$cid}>/qtype/0">全部</a>
+                        </li>
+                        <li class="<{if $qtype==1}>active<{/if}>"><a
+                                href="__URL__/analysis/cid/<{$cid}>/qtype/1">单选题</a></li>
+                        <li class="<{if $qtype==2}>active<{/if}>"><a
+                                href="__URL__/analysis/cid/<{$cid}>/qtype/2">多选题</a></li>
+                        <li class="<{if $qtype==3}>active<{/if}>"><a
+                                href="__URL__/analysis/cid/<{$cid}>/qtype/3">判断题</a></li>
+                        <li class="<{if $qtype==4}>active<{/if}>"><a
+                                href="__URL__/analysis/cid/<{$cid}>/qtype/4">填空题</a></li>
+                        <li class="<{if $qtype==5}>active<{/if}>"><a
+                                href="__URL__/analysis/cid/<{$cid}>/qtype/5">主观题</a></li>
+                    </ul>
+                    <div style="clear: both;"></div>
+                    <div class="tt" style="width: 80px;float: left;">
+                        <span style="line-height: 39px; font-size: 16px;font-weight: bold;">难度</span>
+                    </div>
+                    <ul class="list_ib">
+                        <li class="<{if $level==-1}>active<{/if}>"><a
+                                href="__URL__/analysis/cid/<{$cid}>/qtype/<{$qtype}>/level/-1">全部</a>
+                        </li>
+                        <li class="<{if $level==2}>active<{/if}>"><a
+                                href="__URL__/analysis/cid/<{$cid}>/qtype/<{$qtype}>/level/2">困难</a>
+                        </li>
+                        <li class="<{if $level==1}>active<{/if}>"><a
+                                href="__URL__/analysis/cid/<{$cid}>/qtype/<{$qtype}>/level/1">中等</a>
+                        </li>
+                        <li class="<{if $level==0}>active<{/if}>"><a
+                                href="__URL__/analysis/cid/<{$cid}>/qtype/<{$qtype}>/level/0">简单</a>
+                        </li>
+                    </ul>
+                    <div style="clear: both;"></div>
+                    <{if $points}>
+                    <div class="tt" style="width: 80px;float: left;">
+                        <span style="line-height: 39px; font-size: 16px;font-weight: bold;">知识点</span>
+                    </div>
+                    <ul class="list_ib">
+                        <{foreach $points as $p }>
+                        <li class="<{if $point==$p['point']}>active<{/if}>">
+                            <a href="__URL__/analysis/cid/<{$cid}>/qtype/<{$qtype}>/level/<{$level}>/point/<{$p['point']}>"><{$p['point']}></a>
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                    <{/if}>
+
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="main" class="bg_f2 ">
+        <div class="container">
+            <div class="home_module row" style="padding-top: 0;">
+                <div class="container">
+                    <div class="p30" style="background: white;border-radius: 10px;">
+                        <{if !$list}>
+
+                        <div class="null">该课程暂时没有试题,请换个课程试试</div>
+
+                        <{else}>
+                        <input type="hidden" name="tid" value="<{$tid}>">
+                        <{foreach $list as $question}>
+                        <div id="content">
+
+                            <input type="hidden" name="tqid[]" value="<{$question.tqid}>">
+                            <{if $question.type==1}>
+                            <h4>单选题：<{$question.content}></h4>
+                            <br/>
+
+                            <input type="radio" disabled="disabled" <{if $question.tanswer=='A'}>
+                            checked="checked"<{/if}>>
+                            A.<{$question.aA}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" disabled="disabled" <{if $question.tanswer=='B'}>
+                            checked="checked"<{/if}>>
+                            B.<{$question.aB}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" disabled="disabled" <{if $question.tanswer=='C'}>
+                            checked="checked"<{/if}>>
+                            C.<{$question.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" disabled="disabled" <{if $question.tanswer=='D'}>
+                            checked="checked"<{/if}>>
+                            D.<{$question.aD}>
+
+                            <{else if $question.type == 2}>
+                            <h4>多选题：<{$question.content}></h4>
+                            <br/>
+
+                            <input type="checkbox" disabled="disabled" <{if !( strpos($question.tanswer,'A') ===
+                            false)}>
+                            checked="checked"<{/if}>>
+                            A.<{$question.aA}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" disabled="disabled" <{if !( strpos($question.tanswer,'B') ===
+                            false)}>
+                            checked="checked"<{/if}>>
+                            B.<{$question.aB}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" disabled="disabled" <{if !( strpos($question.tanswer,'C') ===
+                            false)}>
+                            checked="checked"<{/if}>>
+                            C.<{$question.aC}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" disabled="disabled" <{if !( strpos($question.tanswer,'D') ===
+                            false)}>
+                            checked="checked"<{/if}>>
+                            D.<{$question.aD}>
+                            <{if !empty($question.aE)}>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" disabled="disabled" <{if !( strpos($question.tanswer,'E') ===
+                            false)}>
+                            checked="checked"<{/if}>>
+                            E.<{$question.aE}>
+                            <{/if}>
+                            <{if !empty($question.aF)}>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" disabled="disabled" <{if !( strpos($question.tanswer,'F') ===
+                            false)}>
+                            checked="checked"<{/if}>>
+                            F.<{$question.aF}>
+                            <{/if}>
+                            <{else if $question.type == 3}>
+                            <h4>判断题：<{$question.content}></h4>
+                            <br/>
+
+                            <input type="radio" disabled="disabled" <{if $question.tanswer=='对'}>
+                            checked="checked"<{/if}>>
+                            对&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" disabled="disabled" <{if $question.tanswer=='错'}>
+                            checked="checked"<{/if}>>
+                            错
+                            <{else if $question.type == 4}>
+                            <h4>填空题：<{$question.content}></h4>
+                            <br/>
+                            请输入答案：<input type="text" disabled="disabled" value="<{$question.tanswer}>"/>
+                            <{else if $question.type == 5}>
+                            <h4>主观题：<{$question.content}></h4>
+                            <br/>
+                            请输入答案：<input type="text" disabled="disabled" value="<{$question.tanswer}>"/>
+                            <{/if}>
+                            <span id="answer_right"
+                                  style="color: green;font-weight: bold;">正确答案：<{$question.answer}></span>
+
+                        </div>
+                        <hr style="margin: 20px 0;"/>
+
+                        <{/foreach}>
+                        <div style="text-align: center">
+                            <a href="__URL__/analysis" class="btn btn-primary btn-lg">返回</a>
+
+                        </div>
+                        <{/if}>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<{/if}>
+<{include file="../Public/footer.html"}>
+         

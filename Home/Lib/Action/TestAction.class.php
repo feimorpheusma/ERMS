@@ -392,8 +392,7 @@ class TestAction extends CommonAction
         $this->display();
     }
 
-    public
-    function detail()
+    public function detail()
     {
         if (!empty($_GET['tid'])) {
             $cid = M("test")->getFieldById($_GET['tid'], "cid");
@@ -417,8 +416,7 @@ class TestAction extends CommonAction
     }
 
 //定义视频被收藏的方法
-    public
-    function mark()
+    public function mark()
     {
         //实例化收藏表对象
         $User_question = M("User_question");
@@ -445,8 +443,7 @@ class TestAction extends CommonAction
     }
 
 //自定义显示试题详情的方法
-    public
-    function detail1()
+    public function detail1()
     {
         $mod = M("Test");
         $data = $mod->find($_GET['id']);
@@ -468,8 +465,7 @@ class TestAction extends CommonAction
     }
 
 //自定义计算考试试卷分数的方法
-    public
-    function score()
+    public function score()
     {
         $mod = M("Quest");
         $model = M("Score");
@@ -494,8 +490,7 @@ class TestAction extends CommonAction
     }
 
 //定义显示试题正确答案的方法
-    public
-    function answer()
+    public function answer()
     {
         $model = M("Quest");
         $list = $model->where("tid={$_GET['tid']}")->select();
@@ -504,8 +499,7 @@ class TestAction extends CommonAction
     }
 
 //定义查看分数的方法
-    public
-    function myscore()
+    public function myscore()
     {
         $uid = $_SESSION[C("USER_AUTH_KEY")]['id'];
         $model = M("Score");
@@ -521,6 +515,65 @@ class TestAction extends CommonAction
         }
         $this->assign("list", $list);
         $this->assign("showPage", $page->show());
+        $this->display();
+    }
+
+
+    public function analysis()
+    {
+        $this->assign("courses", $this->courses);
+        if (!empty($_GET['cid'])) {
+
+            if (!empty($_GET['cid'])) {
+                $course = M("course")->find($_GET['cid']);
+                $this->assign("course", $course);
+                $this->assign("cid", $_GET['cid']);
+                $where['q.cid'] = array("eq", $_GET['cid']);
+            } else {
+                $this->assign("cid", 0);
+            }
+            if (!empty($_GET['qtype'])) {
+                $this->assign("qtype", $_GET['qtype']);
+                $where['q.type'] = array("eq", $_GET['qtype']);
+            } else {
+                $this->assign("qtype", 0);
+            }
+            if (!empty($_GET['point']) && $_GET['point'] != "_") {
+                $point = iconv("gb2312", "utf-8", $_GET['point']);
+                $where['q.point'] = array("eq", $point);
+                $this->assign("point", $point);
+            } else {
+                $this->assign("point", '_');
+            }
+            if ($_GET['level'] != '' && $_GET['level'] != '-1') {
+                $this->assign("level", $_GET['level']);
+                $where['q.level'] = array("eq", $_GET['level']);
+            } else {
+                $this->assign("level", -1);
+            }
+
+
+            $course = M("course")->find($_GET['cid']);
+            $this->assign("course", $course);
+
+
+            $where['t.sid'] = array("eq", $this->uid);
+            $where['_string'] = 'tq.answer is not null';
+
+            $questions = M("test_question tq")->field("q.*,count(*) as totalcount,SUM(case tq.score when 0 then 0 else 1 end) as correctcount,SUM(case tq.score when 0 then 0 else 1 end)/count(*)  as correctpercent")->join('join edu_test t on tq.tid = t.id join edu_question q  on tq.qid = q.id ')->where($where)->group('q.id')->order('correctpercent')->select();
+            $this->assign("list", $questions);
+
+            unset($where['t.sid']);
+            unset($where['_string']);
+            $where['q.point'] = array("neq", '');
+            $points = M("question q")->distinct(true)->field("point")->where($where)->select();//获取总数据条数
+            $this->assign("points", $points);
+
+        } else {
+            $courses = $this->courses;
+            $this->assign("courses", $courses);
+        }
+
         $this->display();
     }
 }
