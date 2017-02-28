@@ -12,7 +12,7 @@
             </dl>
             <dl style='height:130px'>
                 <dt>题目：</dt>
-                <dd><textarea class='editor' rows='8' cols='50' name="content" tools='simple'
+                <dd><textarea class='editor' rows='8' cols='50' name="content" tools='mini'
                               upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.content}></textarea></dd>
             </dl>
             <dl>
@@ -28,21 +28,31 @@
                 <dd><input type="text" style="width:100%" name="point" value="<{$vo.point}>"/></dd>
             </dl>
             <{if $vo.type == 1}>
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案A:</dt>
-                <dd><input type="text" style="width:100%" name="aA" value="<{$vo.aA}>"/></dd>
+                <dd>
+
+                <textarea class='editor' rows='5' cols='50' name="aA" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aA}></textarea></dd>
             </dl>
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案B:</dt>
-                <dd><input type="text" style="width:100%" name="aB" value="<{$vo.aB}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="aB" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aB}></textarea></dd>
+
             </dl>
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案C:</dt>
-                <dd><input type="text" style="width:100%" name="aC" value="<{$vo.aC}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="aC" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aC}></textarea></dd>
             </dl>
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案D:</dt>
-                <dd><input type="text" style="width:100%" name="aD" value="<{$vo.aD}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="aD" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aD}></textarea></dd>
             </dl>
             <dl>
                 <dt>正确答案:</dt>
@@ -55,29 +65,41 @@
 
             <{else if $vo.type == 2}>
 
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案A:</dt>
-                <dd><input type="text" style="width:100%" name="aA" value="<{$vo.aA}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="aA" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aA}></textarea></dd>
             </dl>
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案B:</dt>
-                <dd><input type="text" style="width:100%" name="aB" value="<{$vo.aB}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="aB" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aB}></textarea></dd>
             </dl>
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案C:</dt>
-                <dd><input type="text" style="width:100%" name="aC" value="<{$vo.aC}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="aC" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aC}></textarea></dd>
             </dl>
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案D:</dt>
-                <dd><input type="text" style="width:100%" name="aD" value="<{$vo.aD}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="aD" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aD}></textarea></dd>
             </dl>
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案E:</dt>
-                <dd><input type="text" style="width:100%" name="aE" value="<{$vo.aE}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="aE" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aE}></textarea></dd>
             </dl>
-            <dl>
+            <dl style='height:80px'>
                 <dt>答案F:</dt>
-                <dd><input type="text" style="width:100%" name="aF" value="<{$vo.aF}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="aF" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.aF}></textarea></dd>
             </dl>
             <dl>
                 <dt>正确答案:</dt>
@@ -100,7 +122,9 @@
             <{else if $vo.type == 4 || $vo.type == 5}>
             <dl>
                 <dt>正确答案:</dt>
-                <dd><input type="text" style="width:100%" name="answer" value="<{$vo.answer}>"/></dd>
+                <dd>
+                <textarea class='editor' rows='5' cols='50' name="answer" tools='mini'
+                          upImgUrl='__URL__/doupload' upImgExt='jpg,jpeg,gif,png'><{$vo.answer}></textarea></dd>
             </dl>
             <{/if}>
         </div>
