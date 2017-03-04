@@ -8,11 +8,11 @@
             <tr>
                 <td>搜索：</td>
                 <td>
-                    学院：<{html_options name='cid' id='cid' options=$Colleges selected=$CollegeId}>
+                    学院：<{html_options name='cid' id='cid_index' options=$Colleges selected=$CollegeId}>
                 </td>
                 <td>
                     专业：
-                    <select name="mid" id="mid" class="valid required">
+                    <select name="mid" id="mid_index" class="valid required">
                         <option value="">请选择</option>
                         <{foreach $major_list as $v}>
                         <option value="<{$v.id}>" data-parentid="<{$v.cid}>"><{$v.name}></option>
@@ -86,18 +86,18 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#cid").change(function () {
-            $("#mid").val('');
-            $("#mid").children("span").each(function () {
+        $("#cid_index").change(function () {
+            $("#mid_index").val('');
+            $("#mid_index").children("span").each(function () {
                 $(this).children().clone().replaceAll($(this));         //use the content of the <span> replace the <span>
             });
-            $("#mid").find('option').each(function () {
-                if ($(this).data('parentid') != $("#cid").val() && $(this).val() != '') {
+            $("#mid_index").find('option').each(function () {
+                if ($(this).data('parentid') != $("#cid_index").val() && $(this).val() != '') {
                     $(this).wrap("<span style='display:none'></span>");
                 }
             });
         });
 
-        $("#cid").change();
+        $("#cid_index").change();
     });
 </script>

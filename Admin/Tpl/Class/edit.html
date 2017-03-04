@@ -10,12 +10,12 @@
             </dl>
             <dl>
                 <dt>学院：</dt>
-                <dd><{html_options name='cid' class="required" id='cid' options=$Colleges selected=$vo.cid}></dd>
+                <dd><{html_options name='cid' class="required" id='cid_edit' options=$Colleges selected=$vo.cid}></dd>
             </dl>
             <dl>
                 <dt>专业：</dt>
                 <dd>
-                    <select name="mid" id="mid" class="valid required">
+                    <select name="mid" id="mid_edit" class="valid required">
                         <option value="">请选择</option>
                         <{foreach $major_list as $v}>
                         <option value="<{$v.id}>" data-parentid="<{$v.cid}>"><{$v.name}></option>
@@ -48,23 +48,22 @@
 
 <script type="text/javascript">
     $(function () {
-        $("#cid").change(function () {
-            $("#mid").val('');
-            $("#mid").children("span").each(function () {
+        $("#cid_edit").change(function () {
+            $("#mid_edit").val('');
+            $("#mid_edit").children("span").each(function () {
                 $(this).children().clone().replaceAll($(this));         //use the content of the <span> replace the <span>
             });
-            $("#mid").find('option').each(function () {
-                if ($(this).data('parentid') != $("#cid").val() && $(this).val() != '') {
+            $("#mid_edit").find('option').each(function () {
+                if ($(this).data('parentid') != $("#cid_edit").val() && $(this).val() != '') {
                     $(this).wrap("<span style='display:none'></span>");
                 }
             });
         });
 
-        $("#cid").val(<{$vo.cid}>);
-            $("#cid").change();
-            $("#mid").val(
-            <{$vo.mid}>);
-                });
+        $("#cid_edit").val("<{$vo.cid}>");
+        $("#cid_edit").change();
+        $("#mid_edit").val("<{$vo.mid}>");
+    });
 
 
 </script>
