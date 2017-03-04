@@ -61,26 +61,26 @@ class UsersAction extends CommonAction
     {
         // dump($_POST);
         //die();
-
-        import("ORG.Net.UploadFile");//导入文件上传类 执行文件上传
-        $upload = new UploadFile();
-        $upload->maxSize = 3145728;
-        $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg');
-        $upload->savePath = "./Public/Uploads/users/{$_POST['username']}/";
-        if (!$upload->upload()) {
-            $this->error($upload->getErrorMsg());
-        } else {
-            $info = $upload->getUploadFileInfo();
-
-        }
         //实例化表对象
         $model = D("Users");
         if (false === $model->create()) {
-            unlink("./Public/Uploads/users/{$_POST['username']}/{$info[0]['savename']}");
 
             $this->error($model->getError());
         }
-        $model->picture = $info[0]['savename'];
+        if (false) {
+            import("ORG.Net.UploadFile");//导入文件上传类 执行文件上传
+            $upload = new UploadFile();
+            $upload->maxSize = 3145728;
+            $upload->allowExts = array('jpg', 'gif', 'png', 'jpeg');
+            $upload->savePath = "./Public/Uploads/users/{$_POST['username']}/";
+            if (!$upload->upload()) {
+                $this->error($upload->getErrorMsg());
+                //unlink("./Public/Uploads/users/{$_POST['username']}/{$info[0]['savename']}");
+            } else {
+                $info = $upload->getUploadFileInfo();
+                $model->picture = $info[0]['savename'];
+            }
+        }
         $id = $model->add();
 
 
@@ -118,13 +118,10 @@ class UsersAction extends CommonAction
         $r = $model->where("id='$id'")->select();
         $model->picture = $r[0]['picture'];
         //判断数据是否修改成功
-        if ($model->save()) {
-
-            $this->success(L("修改成功"));
-
-        } else {
-
+        if (false === $model->save()) {
             $this->error("修改失败" . $model->getLastSql());
+        } else {
+            $this->success(L("修改成功"));
         }
 
     }
@@ -253,7 +250,7 @@ class UsersAction extends CommonAction
     {
         $id = $_POST['id'];
 
-        $data['userpass'] =md5($_POST['userpass']);
+        $data['userpass'] = md5($_POST['userpass']);
 
         //判断数据是否修改成功
         if (M("users")->where("id='$id'")->save($data)) {

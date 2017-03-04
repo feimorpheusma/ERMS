@@ -43,7 +43,7 @@ class ExamAction extends CommonAction
         //查询数据库表中所有类型 order by concat(path,id) 按照类别的层次进行查询
         $res = $course->field('id,name')->where($map)->order("name")->select();
         //定义存放类别信息的数组
-        $courses[] = '全部';
+        $courses[''] = '请选择';
         foreach ($res as $vo) {
             $courses[$vo['id']] = $vo['name'];
         }
@@ -300,5 +300,17 @@ class ExamAction extends CommonAction
 
 
         $this->success(L('生成成功,请在“考试选题”中进行确认修改！'));
+    }
+
+
+    public function view()
+    {
+        $vo = M("Exam")->find($_GET['id']);
+
+        $list = M("exam_question e")->field("ifnull(e.qid,0) as eqid,q.id as qid,content,aA,aB,aC,aD,aE,aF,q.answer,q.score,q.type,q.point")->join("edu_question q on e.qid=q.id")->where("e.eid={$_GET['id']}")->order("q.type")->select();
+
+        $this->assign("list", $list);
+        $this->assign("vo", $vo);
+        $this->display();
     }
 }

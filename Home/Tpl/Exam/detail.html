@@ -176,16 +176,14 @@
                         <{else if $question.type == 4}>
                         <h4><{$question@index+1}>. 填空题：<{$question.content}></h4>
                         <br/>
-                        请输入答案：<input type="text" disabled="disabled" name="answer<{$question.qid}>[]"
-                                     value="<{$question.answer}>"/>
+                        答案：<{$question.answer}>
                         <{else if $question.type == 5}>
                         <h4><{$question@index+1}>. 主观题：<{$question.content}></h4>
                         <br/>
-                        请输入答案：<input type="text" disabled="disabled" name="answer<{$question.qid}>[]"
-                                     value="<{$question.answer}>"/>
+                        答案：<{$question.answer}>
                         <{/if}>
                         <br/>
-                        <{if $question.type != 5}>
+                        <{if $question.type != 5 &&  $question.type != 4}>
                         <{if $question.answer == $question.correctanswer}>
                         <span id="answer_right" style="color: green;font-weight: bold; ">正确</span>
                         <{else}>

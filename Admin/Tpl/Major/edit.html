@@ -3,6 +3,10 @@
 	<form method="post" action="__URL__/update/navTabId/listmajor/callbackType/closeCurrent" class="pageForm required-validate" onsubmit="return validateCallback(this,dialogAjaxDone);"><?php  //窗体组件采用这个 iframeCallback(this, navTabAjaxDone); ?>
         <input type="hidden" name="id" value="<{$vo.id}>">
 		<div class="pageFormContent" layoutH="60">
+			<dl>
+				<dt>学院：</dt>
+				<dd><{html_options name='cid' class='required'  options=$Colleges selected=$vo.cid}></dd>
+			</dl>
             <dl>
 				<dt>专业名称：</dt>
 				<dd><input type="text" style="width:100%" name="name" value='<{$vo.name}>'/></dd>

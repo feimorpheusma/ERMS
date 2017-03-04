@@ -121,7 +121,7 @@ class StudentAction extends CommonAction
         //查询数据库表中所有类型 order by concat(path,id) 按照类别的层次进行查询
         $res = $class->field('id,name')->order("name")->select();
         //定义存放类别信息的数组
-        $classes[] = '全部';
+        $classes[''] = '请选择';
         foreach ($res as $vo) {
             $classes[$vo['id']] = $vo['name'];
         }

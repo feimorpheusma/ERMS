@@ -27,7 +27,7 @@
 				   height="600" title="查看"><span>查看</span></a></li>
 			<{if in_array('score', $permission['test'])}>
 			<li><a class="edit" href="__URL__/score/id/{sid_user}/navTabId/listexamstudent" target="dialog" width="600"
-				   height="500" title="主观题打分"><span>主观题打分</span></a></li>
+				   height="500" title="填空主观题打分"><span>填空主观题打分</span></a></li>
 			<{/if}>
 
 			<li class="line">line</li>
@@ -38,7 +38,7 @@
 	<table class="table" width="100%" layoutH="138">
 		<thead>
 			<tr>
-                <th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
+                <!--<th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>-->
 				<th width="150">学生学号</th>
 				<th width="150">学生姓名</th>
                 <th width="200">考试名称</th>
@@ -52,7 +52,7 @@
         <tbody>
             <{foreach $list as $vo}>
             <tr target="sid_user" rel="<{$vo.id}>">
-                <td><{$vo.id}></td>
+               <!-- <td><{$vo.id}></td>-->
 				<td><{$vo.studentno}></td>
 				<td><{$vo.studentname}></td>
 				<td><{$vo.title}></td>

@@ -1,0 +1,37 @@
+<{include file="Public/pagerForm.html"}>
+<div class="pageContent">
+    <table class="table" width="100%">
+        <tr>
+            <td colspan="2" style="text-align: center;font-size: 16px; font-weight: bold;line-height: 30px;">
+                <{$vo.title}>
+            </td>
+
+        </tr>
+    </table>
+    <table class="table" width="100%" layoutH="138">
+        <{$i=1}>
+        <{foreach $list as $vo}>
+        <tr>
+            <td colspan="3">
+                <{$i++}>.<{if $vo.type==1}> 单选题<{else if $vo.type == 2}>多选题 <{else if $vo.type == 3}>判断题 <{else if
+                $vo.type == 4}>填空题<{else}>主观题<{/if}>: <{$vo.content}>
+            </td>
+        </tr>
+        <{if $vo.type==1}>
+        <tr>
+            <td colspan="3">
+                A.<{$vo.aA}> &nbsp;&nbsp;&nbsp;&nbsp;B.<{$vo.aB}>&nbsp;&nbsp;&nbsp;&nbsp; C.<{$vo.aC}> &nbsp;&nbsp;&nbsp;&nbsp;D.<{$vo.aD}>
+            </td>
+        </tr>
+        <{else if $vo.type==2}>
+        <tr>
+            <td colspan="3">
+                A.<{$vo.aA}> &nbsp;&nbsp;&nbsp;&nbsp;B.<{$vo.aB}>&nbsp;&nbsp;&nbsp;&nbsp; C.<{$vo.aC}> &nbsp;&nbsp;&nbsp;&nbsp;D.<{$vo.aD}>
+                <{if !empty($vo.aE)}> &nbsp;&nbsp;&nbsp;&nbsp;E.<{$vo.aE}><{/if}>
+                <{if !empty($vo.aF)}> &nbsp;&nbsp;&nbsp;&nbsp;F.<{$vo.aF}><{/if}>
+            </td>
+        </tr>
+        <{/if}>
+        <{/foreach}>
+    </table>
+</div>

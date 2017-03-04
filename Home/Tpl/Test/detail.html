@@ -94,13 +94,13 @@
                         <{else if $question.type == 4}>
                         <h4>填空题：<{$question.content}></h4>
                         <br/>
-                        请输入答案：<input type="text" disabled="disabled" value="<{$question.tanswer}>"/>
+                        答案： <{$question.tanswer}>
                         <{else if $question.type == 5}>
                         <h4>主观题：<{$question.content}></h4>
                         <br/>
-                        请输入答案：<input type="text" disabled="disabled" value="<{$question.tanswer}>"/>
+                        答案： <{$question.tanswer}>
                         <{/if}>
-                        <{if $question.type != 5}>
+                        <{if $question.type != 5 && $question.type != 4}>
                         <{if $question.answer == $question.tanswer}>
                         <span id="answer_right" style="color: green;font-weight: bold; ">正确</span>
                         <{else}>

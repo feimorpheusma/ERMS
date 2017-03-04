@@ -4,6 +4,10 @@
           onsubmit="return iframeCallback(this,dialogAjaxDone);"><?php  //窗体组件采用这个 iframeCallback(this, navTabAjaxDone); ?>
         <div class="pageFormContent" layoutH="60">
             <dl>
+                <dt>学院：</dt>
+                <dd><{html_options name='cid' class='required' options=$Colleges selected=$CollegeId}></dd>
+            </dl>
+            <dl>
                 <dt>专业名称：</dt>
                 <dd><input type="text" style="width:100%" name="name" required="required"/></dd>
             </dl>

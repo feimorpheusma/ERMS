@@ -30,15 +30,16 @@
 <input type="hidden" name="lid" value="<{$vo.id}>">
 <div id="sub-header" class="group_h">
     <div class="container">
-        <div class="navbar-header" style="width: 16.66666666%;margin: 0;">
-            <{if $vo.type==1}>
-            <h1><a href="__URL__/index/type/1">教学资料</a></h1>
-            <{else}>
-            <h1><a href="__URL__/index/">教学视频</a></h1>
-            <{/if}>
-        </div>
         <div class="col-md-6">
+            <ul class="navbar-left">
+                <{if $vo.type==1}>
+                <li class="active"><a href="__URL__/index/type/1">教学课件</a></li>
+                <{else}>
+                <li class="active"><a href="__URL__/index/type/2">教学视频</a></li>
+                <{/if}>
+            </ul>
         </div>
+
         <div class="col-md-2">
             <ul class="navbar-left">
                 <li>

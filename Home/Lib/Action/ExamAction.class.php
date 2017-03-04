@@ -21,7 +21,7 @@ class ExamAction extends CommonAction
 
         $this->assign("list", $list);
         $this->assign("showPage", $page->show());
-        
+
         $this->display();
     }
 
@@ -96,7 +96,7 @@ class ExamAction extends CommonAction
             $data['answer'] = $_POST['answer'];
             $data['eid'] = $_POST['eid'];
             $data['addtime'] = time();
-            if ($question['type'] != 5) {
+            if ($question['type'] != 5 && $question['type'] != 4) {
                 $data['status'] = 2;
                 if ($question['answer'] == $_POST['answer']) {
                     $data['score'] = $_POST['question_score'];
@@ -111,7 +111,7 @@ class ExamAction extends CommonAction
         } else {
             $data['answer'] = $_POST['answer'];
             $data['addtime'] = time();
-            if ($question['type'] != 5) {
+            if ($question['type'] != 5 && $question['type'] != 4) {
                 $data['status'] = 2;
                 if ($question['answer'] == $_POST['answer']) {
                     $data['score'] = $_POST['question_score'];

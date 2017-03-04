@@ -47,8 +47,8 @@
     <table class="list" width="100%" layoutH="138">
         <thead>
         <tr>
-            <th width="40" orderField="id"
-            <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
+            <!--<th width="40" orderField="id"
+            <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>-->
             <th width="80">用户名</th>
             <th width="80">姓名</th>
             <th width="40">性别</th>
@@ -61,7 +61,7 @@
         <tbody>
         <{foreach $list as $vo}>
         <tr target="sid_user" rel="<{$vo.id}>">
-            <td><{$vo.id}></td>
+            <!--<td><{$vo.id}></td>-->
 
             <td><{$vo.username}></td>
             <td><{$vo.name}></td>

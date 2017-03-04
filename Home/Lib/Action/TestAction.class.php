@@ -171,7 +171,6 @@ class TestAction extends CommonAction
         $this->display();
     }
 
-
     public function save()
     {
         if (!empty($_POST['tqid'])) {
@@ -182,7 +181,7 @@ class TestAction extends CommonAction
                 $answer = implode('', $_POST['answer' . $tqid]);
                 $question = M('question q')->field("q.type,q.answer,q.score")->join('edu_test_question t on q.id = t.qid')->where("t.id = {$tqid}")->find();
                 $score = 0;
-                if ($question['type'] == 5) {
+                if ($question['type'] == 5 || $question['type'] == 4) {
                     $has_subjective = true;
                     $tq['status'] = 1;
                 } else {

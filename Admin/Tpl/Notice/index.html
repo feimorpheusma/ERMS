@@ -38,8 +38,8 @@
     <table class="table" width="100%" layoutH="138">
         <thead>
         <tr>
-            <th align="center" width="40" orderField="id"
-            <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
+            <!--<th align="center" width="40" orderField="id"
+            <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>-->
             <th width="130">标题</th>
             <th width="150">内容</th>
             <th width="150">添加者</th>
@@ -51,7 +51,7 @@
         <tbody>
         <{foreach $list as $vo}>
         <tr target="sid_user" rel="<{$vo.id}>">
-            <td><{$vo.id}></td>
+            <!--<td><{$vo.id}></td>-->
             <td><{$vo.title}></td>
             <td><{$vo.content|strip_tags}></td>
             <td><{$vo.author}></td>

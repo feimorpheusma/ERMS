@@ -46,7 +46,7 @@ class ExamStudentAction extends CommonAction
         //查询数据库表中所有类型 order by concat(path,id) 按照类别的层次进行查询
         $res = $course->field('id,name')->where($map)->order("name")->select();
         //定义存放类别信息的数组
-        $courses[] = '全部';
+        $courses[''] = '请选择';
         foreach ($res as $vo) {
             $courses[$vo['id']] = $vo['name'];
         }
@@ -71,7 +71,7 @@ class ExamStudentAction extends CommonAction
     //重载父类中编辑的方法
     public function score()
     {
-        $questions = M("exam_question_student t")->field("t.id,q.content,t.answer as sanswer,q.score,q.answer")->join("edu_question q on t.qid = q.id")->where("q.type=5 and t.esid={$_GET['id']} and t.status=1")->select();
+        $questions = M("exam_question_student t")->field("t.id,q.content,t.answer as sanswer,q.score,q.answer,q.type")->join("edu_question q on t.qid = q.id")->where("q.type in (4,5) and t.esid={$_GET['id']} and t.status=1")->select();
         if ($questions) {
             $this->assign("list", $questions);
             $this->assign("esid", $_GET['id']);

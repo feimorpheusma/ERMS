@@ -59,7 +59,7 @@ class LibraryAction extends CommonAction
         //查询数据库表中所有类型 order by concat(path,id) 按照类别的层次进行查询
         $res = $course->field('id,name')->where($map)->order("name")->select();
         //定义存放类别信息的数组
-        $courses[] = '全部';
+        $courses[''] = '请选择';
         foreach ($res as $vo) {
             $courses[$vo['id']] = $vo['name'];
         }

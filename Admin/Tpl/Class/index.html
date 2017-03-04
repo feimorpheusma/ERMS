@@ -8,10 +8,16 @@
             <tr>
                 <td>搜索：</td>
                 <td>
-                    学院：<{html_options name='cid' options=$Colleges selected=$CollegeId}>
+                    学院：<{html_options name='cid' id='cid' options=$Colleges selected=$CollegeId}>
                 </td>
                 <td>
-                    专业：<{html_options name='mid' options=$Majors selected=$MajorId}>
+                    专业：
+                    <select name="mid" id="mid" class="valid required">
+                        <option value="">请选择</option>
+                        <{foreach $major_list as $v}>
+                        <option value="<{$v.id}>" data-parentid="<{$v.cid}>"><{$v.name}></option>
+                        <{/foreach}>
+                    </select>
                 </td>
 				<td>
                     名称：<input type="text" name="name" size="8" value="<{$smarty.post.name}>"/>
@@ -40,7 +46,7 @@
 	<table class="table" width="100%" layoutH="138">
 		<thead>
 			<tr>
-				<th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
+				<!--<th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>-->
                 <th align="center" width="180">名称</th>
                 <th align="center" width="80">学院</th>
                 <th align="center" width="80">专业</th>
@@ -50,7 +56,7 @@
         <tbody>
             <{foreach $list as $vo}>
             <tr target="sid_user" rel="<{$vo.id}>">
-                <td><{$vo.id}></td>
+                <!--<td><{$vo.id}></td>-->
                 <td><{$vo.name}></td>
                 <td><{$vo.collegename}></td>
                 <td><{$vo.majorname}></td>
@@ -77,3 +83,21 @@
 
 	</div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#cid").change(function () {
+            $("#mid").val('');
+            $("#mid").children("span").each(function () {
+                $(this).children().clone().replaceAll($(this));         //use the content of the <span> replace the <span>
+            });
+            $("#mid").find('option').each(function () {
+                if ($(this).data('parentid') != $("#cid").val() && $(this).val() != '') {
+                    $(this).wrap("<span style='display:none'></span>");
+                }
+            });
+        });
+
+        $("#cid").change();
+    });
+</script>

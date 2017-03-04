@@ -57,12 +57,13 @@ class ClassAction extends CommonAction
 
         $major = M('Major');
         //查询数据库表中所有类型 order by concat(path,id) 按照类别的层次进行查询
-        $res = $major->field('id,name')->order("name")->select();
+        $res = $major->field('id,name,cid')->order("name")->select();
         //定义存放类别信息的数组
-        $majors[] = '全部';
+        $majors[''] = '请选择';
         foreach ($res as $vo) {
             $majors[$vo['id']] = $vo['name'];
         }
+        $this->assign('major_list', $res);
         //把所有类别信息的关联数组赋给模板
         $this->assign('Majors', $majors);
         $this->assign('MajorId', $mid);//设置默认选中的option的下标值id
@@ -71,7 +72,7 @@ class ClassAction extends CommonAction
         //查询数据库表中所有类型 order by concat(path,id) 按照类别的层次进行查询
         $res = $grade->field('id,name')->order("name")->select();
         //定义存放类别信息的数组
-        $colleges[] = '全部';
+        $colleges[''] = '请选择';
         foreach ($res as $vo) {
             $colleges[$vo['id']] = $vo['name'];
         }

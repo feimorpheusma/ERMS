@@ -37,16 +37,22 @@
             <li><a class="edit" href="__URL__/edit/id/{sid_user}/navTabId/listquestion/type/<{$vo.type}>"
                    target="dialog"
                    height="600"><span>修改</span></a></li>
-            <li><a class="delete" href="__URL__/delete/id/{sid_user}/navTabId/listquestion" target="ajaxTodo"
-                   title="确定要删除吗?"><span>删除</span></a></li>
+           <!-- <li><a class="delete" href="__URL__/delete/id/{sid_user}/navTabId/listquestion" target="ajaxTodo"
+                   title="确定要删除吗?"><span>删除</span></a></li>-->
+            <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="id" posttype="string" href="__URL__/delete/navTabId/listquestion"
+                   class="delete"><span>批量删除</span></a></li>
             <li class="line">line</li>
             <{if in_array('audit', $permission['question'])}>
-            <li><a class="edit" href="__URL__/approval/id/{sid_user}/navTabId/listquestion" target="ajaxTodo"
+            <!--<li><a class="edit" href="__URL__/approval/id/{sid_user}/navTabId/listquestion" target="ajaxTodo"
                    title="确定要审核通过吗?"><span>审核通过</span></a>
-            </li>
-            <li><a class="edit" href="__URL__/deny/id/{sid_user}/navTabId/listquestion" target="ajaxTodo"
+            </li>-->
+            <li><a title="确实要审核通过这些记录吗?" target="selectedTodo" rel="id" posttype="string" href="__URL__/approval/navTabId/listquestion"
+                   class="edit"><span>批量审核通过</span></a></li>
+            <!--<li><a class="edit" href="__URL__/deny/id/{sid_user}/navTabId/listquestion" target="ajaxTodo"
                    title="确定要审核不通过吗?"><span>不通过</span></a>
-            </li>
+            </li>-->
+            <li><a title="确实要审核不通过这些记录吗?" target="selectedTodo" rel="id" posttype="string" href="__URL__/deny/navTabId/listquestion"
+                   class="edit"><span>批量审核不通过</span></a></li>
             <li class="line">line</li>
             <{/if}>
             <li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
@@ -56,8 +62,11 @@
     <table class="table" width="100%" layoutH="138">
         <thead>
         <tr>
-            <th align="center" width="50" orderField="id"
-            <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
+            <th style="width: 18px; cursor: default;" class="">
+                <input type="checkbox" group="id" class="checkboxCtrl">
+            </th>
+            <!--<th align="center" width="50" orderField="id"
+            <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>-->
             <th width="80">课程</th>
             <th>试题内容</th>
             <th width="70">试题分数</th>
@@ -78,17 +87,20 @@
         <tbody>
         <{foreach $list as $vo}>
         <tr target="sid_user" rel="<{$vo.id}>">
-            <td><{$vo.id}></td>
+            <td style="width: 18px;">
+                <div><input name="id" value="<{$vo.id}>" type="checkbox"></div>
+            </td>
+            <!--<td><{$vo.id}></td>-->
             <td><{$vo.coursename}></td>
             <td><{$vo.content}></td>
             <td><{$vo.score}></td>
 
-           <!-- <{if $vo.type == 1 || $vo.type == 2}>
-            <td><{$vo.aA}></td>
-            <td><{$vo.aB}></td>
-            <td><{$vo.aC}></td>
-            <td><{$vo.aD}></td>
-            <{/if}>-->
+            <!-- <{if $vo.type == 1 || $vo.type == 2}>
+             <td><{$vo.aA}></td>
+             <td><{$vo.aB}></td>
+             <td><{$vo.aC}></td>
+             <td><{$vo.aD}></td>
+             <{/if}>-->
             <td>
                 <{if $vo.level == 0}>易<{else if $vo.level == 1}>中<{else}>难<{/if}>
             </td>

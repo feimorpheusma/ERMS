@@ -29,6 +29,22 @@ class CommonAction extends Action
             $this->courseids = $_SESSION[C('USER_AUTH_KEY')]['courseids'];
         }
     }
+    
+    public function doupload()
+    {
+        $res = array("err" => "", "msg" => "");//定义一个响应信息
+        import('ORG.Net.UploadFile');
+        $upload = new UploadFile();// 实例化上传类
+        $upload->savePath = './Public/Uploads/editor/' . date('Ym', time()) . '/';// 设置附件上传目录
+        //执行上传
+        if ($upload->upload()) {
+            $info = $upload->getUploadFileInfo();
+            $res["msg"] = __ROOT__ . "/Public/Uploads/editor/" . date('Ym', time()) . '/' . $info[0]['savename'];  //上传成功！
+        } else {
+            $res['err'] = $upload->getErrorMsg(); //失败
+        }
+        echo json_encode($res);
+    }
 
 }
 

@@ -31,7 +31,7 @@
             </dl>
             <dl>
                 <dt>课程：</dt>
-                <dd><{html_options name='cid' options=$Courses selected=$CourseId}></dd>
+                <dd><{html_options name='cid' class='required'  options=$Courses selected=$CourseId}></dd>
             </dl>
             <dl>
                 <dt>描述：</dt>
@@ -53,7 +53,7 @@
                 <dd><input type="file" style="width:100%" name="lib[]"/>
                     <br/>
                     <span id="upload_message_1">word、excel、ppt等文档请另存为pdf格式后上传</span>
-                    <span id="upload_message_2" style="display: none;">视频请上传mp4、avi、wmv等常见格式</span>
+                    <span id="upload_message_2" style="display: none;">视频请上传mp4、flv、f4v格式</span>
                 </dd>
             </dl>
             <dl id="upload_base" style="height: 62px;">

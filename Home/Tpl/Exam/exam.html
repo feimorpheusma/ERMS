@@ -129,6 +129,42 @@
             });
 
         });
+        $("button").click(function () {
+            var question_id = $(this).siblings('#question_id').val();
+            var question_score = $(this).siblings('#question_score').val();
+            var exam_question_id = $(this).siblings('#exam_question_id').val();
+            var exam_student_id = $('#exam_student_id').val();
+            var exam_id = $('#exam_id').val();
+            var answer = $(this).siblings('textarea').val();
+
+            if (answer != '') {
+                $('#question_flag_' + exam_question_id).addClass("answered");
+            }
+            else {
+                $('#question_flag_' + exam_question_id).removeClass("answered");
+            }
+            $.ajax({
+                url: "__URL__/answer",
+                type: "post",
+                async: true,
+                data: {
+                    "eid": exam_id,
+                    "qid": question_id,
+                    "eqid": exam_question_id,
+                    "esid": exam_student_id,
+                    "answer": answer,
+                    "question_score": question_score
+                },
+                dataType: "text",
+                success: function (data) {
+
+                },
+                error: function () {
+                    alert("答题失败,请刷新重试");
+                }
+            });
+
+        });
     });
 </script>
 <div id="main" class="bg_f2 ">
@@ -253,12 +289,23 @@
                         <h4><{$question@index+1}>. 填空题：<{$question.content}></h4>
                         <br/>
                         <input type="hidden" id="question_score" value="<{$exam.scoreblank}>">
-                        请输入答案：<input type="text" name="answer<{$question.qid}>[]" value="<{$question.answer}>"/>
+                        请输入答案：<!--<input type="text" name="answer<{$question.qid}>[]" value="<{$question.answer}>"/>-->
+                        <br/>
+                            <textarea class='editor' rows='5' cols='100' name="answer<{$question.qid}>[]" tools='mini'
+                                      upImgUrl='__URL__/doupload'
+                                      upImgExt='jpg,jpeg,gif,png'><{$question.answer}></textarea>
+                        <br/>
+                        <button>保存</button>
                         <{else if $question.type == 5}>
                         <h4><{$question@index+1}>. 主观题：<{$question.content}></h4>
                         <br/>
                         <input type="hidden" id="question_score" value="<{$exam.scoreanswer}>">
-                        请输入答案：<input type="text" name="answer<{$question.qid}>[]" value="<{$question.answer}>"/>
+                        请输入答案：<!--<input type="text" name="answer<{$question.qid}>[]" value="<{$question.answer}>"/>-->
+                        <br/>
+                            <textarea class='editor' rows='5' cols='100' name="answer<{$question.qid}>[]" tools='mini'
+                                      upImgUrl='__URL__/doupload'
+                                      upImgExt='jpg,jpeg,gif,png'><{$question.answer}></textarea><br/>
+                        <button>保存</button>
                         <{/if}>
 
                     </div>
@@ -273,3 +320,32 @@
 </div>
 
 <{include file="../Public/footer.html"}>
+
+<script src="__PUBLIC__/dwz/xheditor/xheditor-1.1.12-zh-cn.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+
+        $("textarea.editor").each(function () {
+            var $this = $(this);
+            var op = {html5Upload: false, skin: 'vista', tools: $this.attr("tools") || 'full'};
+            var upAttrs = [
+                ["upLinkUrl", "upLinkExt", "zip,rar,txt"],
+                ["upImgUrl", "upImgExt", "jpg,jpeg,gif,png"],
+                ["upFlashUrl", "upFlashExt", "swf"],
+                ["upMediaUrl", "upMediaExt", "avi"]
+            ];
+
+            $(upAttrs).each(function (i) {
+                var urlAttr = upAttrs[i][0];
+                var extAttr = upAttrs[i][1];
+
+                if ($this.attr(urlAttr)) {
+                    op[urlAttr] = $this.attr(urlAttr);
+                    op[extAttr] = $this.attr(extAttr) || upAttrs[i][2];
+                }
+            });
+
+            $this.xheditor(op);
+        });
+    });
+</script>

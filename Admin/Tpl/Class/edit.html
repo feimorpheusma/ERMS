@@ -1,29 +1,70 @@
-
 <div class="pageContent">
-	<form method="post" action="__URL__/update/navTabId/listclass/callbackType/closeCurrent" class="pageForm required-validate"
-        onsubmit="return validateCallback(this,dialogAjaxDone);"><?php  //窗体组件采用这个 iframeCallback(this, navTabAjaxDone); ?>
+    <form method="post" action="__URL__/update/navTabId/listclass/callbackType/closeCurrent"
+          class="pageForm required-validate"
+          onsubmit="return validateCallback(this,dialogAjaxDone);"><?php  //窗体组件采用这个 iframeCallback(this, navTabAjaxDone); ?>
         <input type="hidden" name="id" value="<{$vo.id}>">
-		<div class="pageFormContent" layoutH="60">
-			<dl>
-				<dt>班级名称：</dt>
-				<dd><input type="text" class="required" style="width:100%" name="name" value="<{$vo.name}>"/></dd>
-			</dl>
-			<dl>
-				<dt>学院：</dt>
-				<dd><{html_options name='cid' options=$Colleges selected=$vo.cid}></dd>
-			</dl>
-			<dl>
-				<dt>专业：</dt>
-				<dd><{html_options name='mid' options=$Majors selected=$vo.mid}></dd>
-			</dl>
-		</div>
-		
-		<div class="formBar">
-			<ul>
-				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
-				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
-			</ul>
-		</div>
-	</form>
+        <div class="pageFormContent" layoutH="60">
+            <dl>
+                <dt>班级名称：</dt>
+                <dd><input type="text" class="required" style="width:100%" name="name" value="<{$vo.name}>"/></dd>
+            </dl>
+            <dl>
+                <dt>学院：</dt>
+                <dd><{html_options name='cid' class="required" id='cid' options=$Colleges selected=$vo.cid}></dd>
+            </dl>
+            <dl>
+                <dt>专业：</dt>
+                <dd>
+                    <select name="mid" id="mid" class="valid required">
+                        <option value="">请选择</option>
+                        <{foreach $major_list as $v}>
+                        <option value="<{$v.id}>" data-parentid="<{$v.cid}>"><{$v.name}></option>
+                        <{/foreach}>
+                    </select>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">保存</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button type="button" class="close">取消</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </form>
 </div>
 
+<script type="text/javascript">
+    $(function () {
+        $("#cid").change(function () {
+            $("#mid").val('');
+            $("#mid").children("span").each(function () {
+                $(this).children().clone().replaceAll($(this));         //use the content of the <span> replace the <span>
+            });
+            $("#mid").find('option').each(function () {
+                if ($(this).data('parentid') != $("#cid").val() && $(this).val() != '') {
+                    $(this).wrap("<span style='display:none'></span>");
+                }
+            });
+        });
+
+        $("#cid").val(<{$vo.cid}>);
+            $("#cid").change();
+            $("#mid").val(
+            <{$vo.mid}>);
+                });
+
+
+</script>

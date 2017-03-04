@@ -32,14 +32,16 @@
 	<table class="table" width="100%" layoutH="138">
 		<thead>
 			<tr>
-				<th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>
+				<!--<th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>-->
+                <th align="center" width="60">所属学院</th>
                 <th align="center" width="60">专业名称</th>
 			</tr>
 		</thead>
         <tbody>
             <{foreach $list as $vo}>
             <tr target="sid_user" rel="<{$vo.id}>">
-                <td><{$vo.id}></td>
+                <!--<td><{$vo.id}></td>-->
+                <td><{$vo.collegename}></td>
                 <td><{$vo.name}></td>
             </tr>
             <{/foreach}>

@@ -186,18 +186,42 @@ class CommonAction extends Action
 
     public function approval()
     {
-        $id = $_GET['id'];
-        $data['status'] = 1;
-        M($this->getActionName())->where("id={$id}")->save($data);
-        $this->success(L("审核成功"));
+        $model = D($this->getActionName());
+        if (!empty($model)) {
+            $pk = $model->getPk();
+            $id = $_REQUEST[$pk];
+            if (isset($id)) {
+                $data['status'] = 1;
+                $condition = array($pk => array('in', explode(',', $id)));
+                if (false !== $model->where($condition)->save($data)) {
+                    $this->success(L('审核成功'));
+                } else {
+                    $this->error(L('审核失败'));
+                }
+            } else {
+                $this->error('非法操作');
+            }
+        }
     }
 
     public function deny()
     {
-        $id = $_GET['id'];
-        $data['status'] = 2;
-        M($this->getActionName())->where("id={$id}")->save($data);
-        $this->success(L("审核成功"));
+        $model = D($this->getActionName());
+        if (!empty($model)) {
+            $pk = $model->getPk();
+            $id = $_REQUEST[$pk];
+            if (isset($id)) {
+                $data['status'] = 2;
+                $condition = array($pk => array('in', explode(',', $id)));
+                if (false !== $model->where($condition)->save($data)) {
+                    $this->success(L('审核成功'));
+                } else {
+                    $this->error(L('审核失败'));
+                }
+            } else {
+                $this->error('非法操作');
+            }
+        }
     }
 
     public function delete()
@@ -208,14 +232,6 @@ class CommonAction extends Action
             $pk = $model->getPk();
             $id = $_REQUEST[$pk];
             if (isset($id)) {
-
-                //用于事件处理
-                //if(in_array($this->getActionName(),$this->eventlist)){
-                //保留一下原始数据
-                //	$_POST["jsoninfo"]=$model->where("id=".$id)->find();
-                //	$_POST["jsoninfo"]["actionname"]=$this->getActionName();
-                //}
-
                 $condition = array($pk => array('in', explode(',', $id)));
                 if (false !== $model->where($condition)->delete()) {
                     $this->success(L('删除成功'));
