@@ -36,9 +36,12 @@
             <li><a class="delete" href="__URL__/delete/id/{sid_user}/navTabId/listusers" target="ajaxTodo"
                    title="确定要删除吗?"><span>删除</span></a></li>
             <li class="line">line</li>
-            <li><a class="edit" href="__URL__/rolelist/id/{sid_user}/navTabId/listusers" target="dialog" width="400" height="320"><span>设置角色</span></a></li>
-            <li><a class="edit" href="__URL__/courselist/uid/{sid_user}/navTabId/listusers" target="dialog" width="400" height="320"><span>设置课程</span></a></li>
-            <li><a class="edit" href="__URL__/setpassword/id/{sid_user}/navTabId/listusers" target="dialog" width="400" height="320"><span>重置密码</span></a></li>
+            <li><a class="edit" href="__URL__/rolelist/id/{sid_user}/navTabId/listusers" target="dialog" width="400"
+                   height="320"><span>设置角色</span></a></li>
+            <li><a class="edit" href="__URL__/courselist/uid/{sid_user}/navTabId/listusers" target="dialog" width="400"
+                   height="320"><span>设置课程</span></a></li>
+            <li><a class="edit" href="__URL__/setpassword/id/{sid_user}/navTabId/listusers" target="dialog" width="400"
+                   height="320"><span>重置密码</span></a></li>
             <li class="line">line</li>
             <li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
             <!--<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>-->
@@ -52,7 +55,7 @@
             <th width="80">用户名</th>
             <th width="80">姓名</th>
             <th width="40">性别</th>
-            <th width="40">年龄</th>
+
             <th width="150">邮箱</th>
             <th width="150">角色</th>
             <th>课程</th>
@@ -71,7 +74,7 @@
                 <{else}>未知
                 <{/if}>
             </td>
-            <td><{$vo.age}></td>
+
             <td><{$vo.email}></td>
             <td><{$vo.rolename}></td>
             <td><{$vo.coursename}></td>

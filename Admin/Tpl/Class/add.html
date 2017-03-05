@@ -4,10 +4,6 @@
           onsubmit="return iframeCallback(this,dialogAjaxDone);"><?php  //窗体组件采用这个 iframeCallback(this, navTabAjaxDone); ?>
         <div class="pageFormContent" layoutH="60">
             <dl>
-                <dt>班级名称：</dt>
-                <dd><input type="text" class="required" style="width:100%" name="name"/></dd>
-            </dl>
-            <dl>
                 <dt>学院：</dt>
                 <dd>
                     <{html_options name='cid' class="required" id='cid_add' options=$Colleges selected=$CollegeId}>
@@ -23,6 +19,10 @@
                         <{/foreach}>
                     </select>
                 </dd>
+            </dl>
+            <dl>
+                <dt>班级名称：</dt>
+                <dd><input type="text" class="required" style="width:100%" name="name"/></dd>
             </dl>
         </div>
 

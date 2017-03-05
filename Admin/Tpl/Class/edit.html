@@ -5,10 +5,6 @@
         <input type="hidden" name="id" value="<{$vo.id}>">
         <div class="pageFormContent" layoutH="60">
             <dl>
-                <dt>班级名称：</dt>
-                <dd><input type="text" class="required" style="width:100%" name="name" value="<{$vo.name}>"/></dd>
-            </dl>
-            <dl>
                 <dt>学院：</dt>
                 <dd><{html_options name='cid' class="required" id='cid_edit' options=$Colleges selected=$vo.cid}></dd>
             </dl>
@@ -22,6 +18,10 @@
                         <{/foreach}>
                     </select>
                 </dd>
+            </dl>
+            <dl>
+                <dt>班级名称：</dt>
+                <dd><input type="text" class="required" style="width:100%" name="name" value="<{$vo.name}>"/></dd>
             </dl>
         </div>
 

@@ -144,7 +144,7 @@ class ExamAction extends CommonAction
 
         //$remain_list = M("question")->where("cid={$cid} and id not in (select qid from edu_exam_question where eid={$_GET['id']})")->select();
 
-        $list = M("question q")->field("ifnull(e.qid,0) as eqid,q.id as qid,content,aA,aB,aC,aD,aE,aF,q.answer,q.score,q.type,q.point")->join("edu_exam_question e on e.qid=q.id and e.eid={$_GET['id']}")->where("q.cid={$cid} and q.status=1")->order("q.type")->select();
+        $list = M("question q")->field("ifnull(e.qid,0) as eqid,q.id as qid,content,aA,aB,aC,aD,aE,aF,q.answer,q.score,q.type,q.point,q.level")->join("edu_exam_question e on e.qid=q.id and e.eid={$_GET['id']}")->where("q.cid={$cid} and q.status=1")->order("q.type")->select();
         $this->assign("list", $list);
         //$this->assign("remain_list", $remain_list);
         $vo['id'] = $_GET['id'];
@@ -174,11 +174,21 @@ class ExamAction extends CommonAction
         $vo['id'] = $_POST['id'];
         $vo['cid'] = $_POST['cid'];
         $vo['score'] = $_POST['score'];
-        $vo['single'] = $_POST['single'];
-        $vo['multiple'] = $_POST['multiple'];
-        $vo['judge'] = $_POST['judge'];
-        $vo['blank'] = $_POST['blank'];
-        $vo['answer'] = $_POST['answer'];
+        $vo['single_1'] = $_POST['single_1'];
+        $vo['multiple_1'] = $_POST['multiple_1'];
+        $vo['judge_1'] = $_POST['judge_1'];
+        $vo['blank_1'] = $_POST['blank_1'];
+        $vo['answer_1'] = $_POST['answer_1'];
+        $vo['single_2'] = $_POST['single_2'];
+        $vo['multiple_2'] = $_POST['multiple_2'];
+        $vo['judge_2'] = $_POST['judge_2'];
+        $vo['blank_2'] = $_POST['blank_2'];
+        $vo['answer_2'] = $_POST['answer_2'];
+        $vo['single_0'] = $_POST['single_0'];
+        $vo['multiple_0'] = $_POST['multiple_0'];
+        $vo['judge_0'] = $_POST['judge_0'];
+        $vo['blank_0'] = $_POST['blank_0'];
+        $vo['answer_0'] = $_POST['answer_0'];
 
         if (!empty($_POST['point'])) {
             foreach ($_POST['point'] as $point) {
@@ -193,12 +203,53 @@ class ExamAction extends CommonAction
         $map['point'] = array('in', $points);
 
         $map['type'] = 1;
+        $map['level'] = 0;
         $list = M('question')->field('id')->where($map)->select();
 
-        if ($list && sizeof($list) < $vo['single']) {
-            $vo['single'] = sizeof($list);
+        if ($list && sizeof($list) < $vo['single_0']) {
+            $vo['single_0'] = sizeof($list);
         }
-        $questions = array_rand($list, $vo['single']);
+        $questions = array_rand($list, $vo['single_0']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 1;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['single_1']) {
+            $vo['single_1'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['single_1']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 2;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['single_2']) {
+            $vo['single_2'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['single_2']);
         if ($list) {
             if (is_array($questions)) {
                 foreach ($questions as $question) {
@@ -215,12 +266,53 @@ class ExamAction extends CommonAction
 
 
         $map['type'] = 2;
+        $map['level'] = 0;
         $list = M('question')->field('id')->where($map)->select();
 
-        if ($list && sizeof($list) < $vo['multiple']) {
-            $vo['multiple'] = sizeof($list);
+        if ($list && sizeof($list) < $vo['multiple_0']) {
+            $vo['multiple_0'] = sizeof($list);
         }
-        $questions = array_rand($list, $vo['multiple']);
+        $questions = array_rand($list, $vo['multiple_0']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 1;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['multiple_1']) {
+            $vo['multiple_1'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['multiple_1']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 2;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['multiple_2']) {
+            $vo['multiple_2'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['multiple_2']);
         if ($list) {
             if (is_array($questions)) {
                 foreach ($questions as $question) {
@@ -236,12 +328,53 @@ class ExamAction extends CommonAction
         }
 
         $map['type'] = 3;
+        $map['level'] = 0;
         $list = M('question')->field('id')->where($map)->select();
 
-        if ($list && sizeof($list) < $vo['judge']) {
-            $vo['judge'] = sizeof($list);
+        if ($list && sizeof($list) < $vo['judge_0']) {
+            $vo['judge_0'] = sizeof($list);
         }
-        $questions = array_rand($list, $vo['judge']);
+        $questions = array_rand($list, $vo['judge_0']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 1;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['judge_1']) {
+            $vo['judge_1'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['judge_1']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 2;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['judge_2']) {
+            $vo['judge_2'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['judge_2']);
         if ($list) {
             if (is_array($questions)) {
                 foreach ($questions as $question) {
@@ -257,12 +390,53 @@ class ExamAction extends CommonAction
         }
 
         $map['type'] = 4;
+        $map['level'] = 0;
         $list = M('question')->field('id')->where($map)->select();
 
-        if ($list && sizeof($list) < $vo['blank']) {
-            $vo['blank'] = sizeof($list);
+        if ($list && sizeof($list) < $vo['blank_0']) {
+            $vo['blank_0'] = sizeof($list);
         }
-        $questions = array_rand($list, $vo['blank']);
+        $questions = array_rand($list, $vo['blank_0']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 1;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['blank_1']) {
+            $vo['blank_1'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['blank_1']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 2;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['blank_2']) {
+            $vo['blank_2'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['blank_2']);
         if ($list) {
             if (is_array($questions)) {
                 foreach ($questions as $question) {
@@ -278,12 +452,53 @@ class ExamAction extends CommonAction
         }
 
         $map['type'] = 5;
+        $map['level'] = 0;
         $list = M('question')->field('id')->where($map)->select();
 
-        if ($list && sizeof($list) < $vo['answer']) {
-            $vo['answer'] = sizeof($list);
+        if ($list && sizeof($list) < $vo['answer_0']) {
+            $vo['answer_0'] = sizeof($list);
         }
-        $questions = array_rand($list, $vo['answer']);
+        $questions = array_rand($list, $vo['answer_0']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 1;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['answer_1']) {
+            $vo['answer_1'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['answer_1']);
+        if ($list) {
+            if (is_array($questions)) {
+                foreach ($questions as $question) {
+                    $data['qid'] = $list[$question]['id'];
+                    $data['eid'] = $vo['id'];
+                    M("exam_question")->add($data);
+                }
+            } else {
+                $data['qid'] = $list[0]['id'];
+                $data['eid'] = $vo['id'];
+                M("exam_question")->add($data);
+            }
+        }
+        $map['level'] = 2;
+        $list = M('question')->field('id')->where($map)->select();
+
+        if ($list && sizeof($list) < $vo['answer_2']) {
+            $vo['answer_2'] = sizeof($list);
+        }
+        $questions = array_rand($list, $vo['answer_2']);
         if ($list) {
             if (is_array($questions)) {
                 foreach ($questions as $question) {

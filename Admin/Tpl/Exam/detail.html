@@ -25,6 +25,7 @@
             </th>
             <th width="70">试题类型</th>
             <th width="70">试题知识点</th>
+            <th width="60">试题难度</th>
             <th width="230">试题内容</th>
             <th width="70">试题分数</th>
             <th width="90">答案A</th>
@@ -55,6 +56,9 @@
                 <{else}>无<{/if}>
             </td>
             <td><{$vo.point}></td>
+            <td>
+                <{if $vo.level == 0}>易<{else if $vo.level == 1}>中<{else}>难<{/if}>
+            </td>
             <td><{$vo.content}></td>
             <td>
                 <{if $vo.type == 1}><{$exam.scoresingle}>
@@ -105,7 +109,7 @@
                 var selected = $(this).children('td').eq(0).find('.select-question').is(':checked');
                 if (selected) {
                     var type = $(this).children('td').eq(1).find('input[name="type"]').val();
-                    var score = $(this).children('td').eq(4).find('div').html();
+                    var score = $(this).children('td').eq(5).find('div').html();
                     if (type == 1) {
                         count1++;
                     }
