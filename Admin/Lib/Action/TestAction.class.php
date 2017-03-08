@@ -85,7 +85,7 @@ class TestAction extends CommonAction
         //将当前选择的节点信息添加上去
         if (!empty($_POST['id'])) {
             for ($i = 0; $i < sizeof($_POST['id']); $i++) {
-                $data["score"] = $_POST['score'][$i];
+                $data["score"] = $_POST['score' . $_POST['id'][$i]];
                 $data["status"] = 2;
 
                 $m->where("id = {$_POST['id'][$i]}")->save($data);

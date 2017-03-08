@@ -71,10 +71,14 @@ class ExamStudentAction extends CommonAction
     //重载父类中编辑的方法
     public function score()
     {
-        $questions = M("exam_question_student t")->field("t.id,q.content,t.answer as sanswer,q.score,q.answer,q.type")->join("edu_question q on t.qid = q.id")->where("q.type in (4,5) and t.esid={$_GET['id']} and t.status=1")->select();
+        $questions = M("exam_question_student t")->field("t.id,t.eid,q.content,t.answer as sanswer,q.score,q.answer,q.type")->join("edu_question q on t.qid = q.id")->where("q.type in (4,5) and t.esid={$_GET['id']} and t.status=1")->select();
         if ($questions) {
             $this->assign("list", $questions);
             $this->assign("esid", $_GET['id']);
+
+            $eid = $questions[0]['eid'];
+            $model = M("Exam")->find($eid);
+            $this->assign("exam", $model);
             $this->display();
         } else {
             $this->error("该考试没有主观题或已经打分完毕！");
@@ -91,7 +95,7 @@ class ExamStudentAction extends CommonAction
         if (!empty($_POST['id'])) {
 
             for ($i = 0; $i < sizeof($_POST['id']); $i++) {
-                $data["score"] = $_POST['score'][$i];
+                $data["score"] = $_POST['score' . $_POST['id'][$i]];
                 $data["status"] = 2;
                 $m->where("id = {$_POST['id'][$i]}")->save($data);
 

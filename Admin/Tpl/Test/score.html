@@ -32,7 +32,7 @@
             <dl style="border-bottom: 1px dotted grey;">
                 <dt>学生得分：</dt>
                 <dd>
-                    <input type="text" class="required number" style="width:100%" name="score[]"/>
+                    <input type="text" class="digits required" max='<{$vo.score}>' style="width:100%" name="score<{$vo.id}>"/>
                     <input type="hidden" name="id[]" value="<{$vo.id}>"/>
                 </dd>
             </dl>

@@ -167,7 +167,7 @@ class LibraryAction extends CommonAction
     }
 
     //重载父类的删除方法
-    public function delete()
+    /*public function delete()
     {
         //实例化对象
         $model = M("Library");
@@ -190,7 +190,7 @@ class LibraryAction extends CommonAction
         } else {
             $this->error(L("删除失败") . $model->getLastSql());
         }
-    }
+    }*/
 
     public function view()
     {

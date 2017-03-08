@@ -70,6 +70,10 @@ class ExamAction extends CommonAction
         $model->endtime = strtotime($model->endtime);
         $model->uid = $_SESSION[C("USER_AUTH_KEY")]['id'];//取得上传者的id
 
+        if ($model->starttime > $model->endtime) {
+            $this->error(L("结束时间应大于开始时间，新增失败"));
+        }
+
         if ($model->add()) {
             $this->success(L("新增成功"));
         } else {
@@ -104,6 +108,9 @@ class ExamAction extends CommonAction
         $model->starttime = strtotime($model->starttime);
         $model->endtime = strtotime($model->endtime);
 
+        if ($model->starttime > $model->endtime) {
+            $this->error(L("结束时间应大于开始时间，更新失败"));
+        }
         // 更新数据
         if (false !== $model->save()) {
             // 回调接口

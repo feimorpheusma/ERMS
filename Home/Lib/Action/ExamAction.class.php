@@ -142,7 +142,7 @@ class ExamAction extends CommonAction
 
             M('exam_student')->where("id={$esid}")->save($test);
 
-            $this->success("提交成功，请在测试记录中查看结果", U("Exam/index"));
+            $this->success("提交成功，请在考试记录中查看结果", U("Exam/index"));
         }
     }
 

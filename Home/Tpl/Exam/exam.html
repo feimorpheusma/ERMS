@@ -38,6 +38,11 @@
     .question-no li a:hover {
         text-decoration: none;
     }
+
+    input[type="radio"], input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+    }
 </style>
 <script type="text/javascript">
 
@@ -45,16 +50,15 @@
         $(window).bind('beforeunload', function () {
             return confirm('离开后可继续考试，确定要离开么？');
         });
-        /* $(window).bind('beforeunload', function () {
 
-         return confirm("a asd ");
-         });
-         */
-        var timestamp = new Date().getTime() / 1000;
-        var end_time = $("#end_time").val();
-        var intDiff = parseInt(end_time) - parseInt(timestamp);//倒计时总秒数量
-        function timer(intDiff) {
+        var alertMinutes = false;
+        var alertFinish = false;
+
+        function timer() {
             window.setInterval(function () {
+                var timestamp = new Date().getTime() / 1000;
+                var end_time = $("#end_time").val();
+                var intDiff = parseInt(end_time) - parseInt(timestamp);//倒计时总秒数量
                 var hour = 0, minute = 0, second = 0;//时间默认值
                 if (intDiff > 0) {
                     hour = Math.floor(intDiff / (60 * 60));
@@ -66,11 +70,32 @@
                 var time_string = hour + '时' + minute + '分' + second + '秒';
                 $('#left_time').html(time_string);
 
-                intDiff--;
+                //intDiff--;
+
+                if (alertMinutes == false && intDiff < 60 * 3) {
+                    alertMinutes = true;
+                    alert("请注意，距考试结束还有" + parseInt(intDiff / 60) + "分钟");
+                }
+                if (alertFinish == false && intDiff < 0) {
+                    alertFinish = true;
+                    alert('考试已经结束，所有已答题目都已保存，系统将自动提交答卷');
+                    $("#form_submit").submit();
+                }
             }, 1000);
         }
 
-        timer(intDiff);
+        timer();
+
+        function checkStatus() {
+            var now = new Date().getTime();
+            var end_time = $("#end_time").val();
+            if (now > end_time * 1000) {
+                alert('考试已经结束，所有已答题目都已保存，系统将自动提交答卷');
+                $("#form_submit").submit();
+                return false;
+            }
+            return true;
+        }
 
         window.onscroll = function () {
             //获取窗口的scrollTop
@@ -85,6 +110,10 @@
         }
 
         $("input[name*='answer']").change(function () {
+            if (!checkStatus()) {
+                return;
+            }
+
             var question_id = $(this).siblings('#question_id').val();
             var question_score = $(this).siblings('#question_score').val();
             var exam_question_id = $(this).siblings('#exam_question_id').val();
@@ -130,6 +159,9 @@
 
         });
         $("button").click(function () {
+            if (!checkStatus()) {
+                return;
+            }
             var question_id = $(this).siblings('#question_id').val();
             var question_score = $(this).siblings('#question_score').val();
             var exam_question_id = $(this).siblings('#exam_question_id').val();
@@ -216,7 +248,7 @@
                         </div>
 
                         <div style="text-align: center">
-                            <form action="__URL__/save" method="post">
+                            <form id="form_submit" action="__URL__/save" method="post">
                                 <input type="hidden" name="esid" value="<{$esid}>"/>
                                 <button type="submit" id="submit_test" class="btn btn-primary btn-lg"
                                         onclick="return confirm('确定要提交么？');">提交答卷

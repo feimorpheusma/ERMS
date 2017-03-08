@@ -10,6 +10,7 @@ class MajorAction extends CommonAction{
         if (!empty($_REQUEST['name'])) {
             $map['name'] = array("like", "%{$_REQUEST['name']}%");
         }
+        $_REQUEST['_order'] = 'name';
     }
 
     public function _tigger_list(&$list)

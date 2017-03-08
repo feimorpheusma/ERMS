@@ -33,6 +33,8 @@
             <li><a class="edit" href="__URL__/score/tid/{sid_user}/navTabId/listtest" target="dialog" width="600"
                    height="500" title="填空主观题打分"><span>填空主观题打分</span></a></li>
             <{/if}>
+            <li><a title="确实要删除这些记录吗?" target="selectedTodo" rel="id" posttype="string" href="__URL__/delete/navTabId/listtest"
+                   class="delete"><span>批量删除</span></a></li>
             <li class="line">line</li>
             <li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
             <!--<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>-->
@@ -41,6 +43,9 @@
     <table class="table" width="100%" layoutH="138">
         <thead>
         <tr>
+            <th style="width: 18px; cursor: default;" class="">
+                <input type="checkbox" group="id" class="checkboxCtrl">
+            </th>
           <!--  <th align="center" width="40" orderField="id"
             <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>-->
             <th width="200">名称</th>
@@ -54,6 +59,9 @@
         <tbody>
         <{foreach $list as $vo}>
         <tr target="sid_user" rel="<{$vo.id}>">
+            <td style="width: 18px;">
+                <div><input name="id" value="<{$vo.id}>" type="checkbox"></div>
+            </td>
             <!--<td><{$vo.id}></td>-->
             <td><{$vo.title}></td>
             <td><{$vo.studentname}></td>

@@ -3,20 +3,21 @@
 //自定义分类模块Action
 
 class ClassAction extends CommonAction
-{ 
+{
     //定义封装搜索条件的方法
     public function _filter(&$map)
     {
         if (empty($_REQUEST['mid'])) {
             $map['mid'] = array("egt", "0");
         }
-        if (empty($_REQUEST['cid']))  {
+        if (empty($_REQUEST['cid'])) {
             $map['cid'] = array("egt", "0");
         }
 
         if (!empty($_REQUEST['name'])) {
             $map['name'] = array("like", "%{$_REQUEST['name']}%");
         }
+        $_REQUEST['_order'] = 'name';
     }
 
     //自定义魔术方法 对当前模块中查询出的数据 做其他关联数据的追加
@@ -85,30 +86,32 @@ class ClassAction extends CommonAction
 
 
     //浏览当前角色的节点信息
-    public function courselist(){
+    public function courselist()
+    {
         //1. 获取当前角色信息
         $cid = $_GET['cid'];
         $class = M("Class")->find($cid);
-        $this->assign("class",$class);
+        $this->assign("class", $class);
 
         //2. 获取所有节点信息
         $list = M("Course")->select();
-        $this->assign("list",$list);
+        $this->assign("list", $list);
 
         //3. 获取当前角色的节点信息
         $nodelist = M("Class_course")->where("clid={$cid}")->select();
         //对获取的结果进行处理
-        $mynode=array();
-        foreach($nodelist as $v){
-            $mynode[]=$v['coid'];
+        $mynode = array();
+        foreach ($nodelist as $v) {
+            $mynode[] = $v['coid'];
         }
-        $this->assign("mynode",$mynode);
+        $this->assign("mynode", $mynode);
 
         $this->display("courselist");
     }
 
     //执行角色信息的保存
-    public function savecourse(){
+    public function savecourse()
+    {
         //获取被操作的角色信息
         $cid = $_POST['cid'];
         //删除当前角色的所有节点信息
@@ -116,10 +119,10 @@ class ClassAction extends CommonAction
         $m->where("clid={$cid}")->delete();
 
         //将当前选择的节点信息添加上去
-        if(!empty($_POST['coid'])){
-            foreach($_POST['coid'] as $coid){
-                $data['clid']=$cid;
-                $data['coid']=$coid;
+        if (!empty($_POST['coid'])) {
+            foreach ($_POST['coid'] as $coid) {
+                $data['clid'] = $cid;
+                $data['coid'] = $coid;
                 $m->add($data);
             }
         }

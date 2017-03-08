@@ -5,7 +5,7 @@ class StudentAction extends CommonAction
     //添加搜索方法
     public function _filter(&$map)
     {
-        if (empty($_REQUEST['cid']))  {
+        if (empty($_REQUEST['cid'])) {
             $map['cid'] = array("egt", "0");
         }
 
@@ -15,6 +15,7 @@ class StudentAction extends CommonAction
         if (!empty($_REQUEST['name'])) {
             $map['name'] = array("like", "%{$_REQUEST['name']}%");
         }
+        $_REQUEST['_order'] = 'no';
     }
 
     //自定义魔术方法 对当前模块中查询出的数据 做其他关联数据的追加
@@ -36,6 +37,16 @@ class StudentAction extends CommonAction
     {
         // dump($_POST);
         //die();
+        //实例化表对象
+        $model = D("Student");
+        if (false === $model->create()) {
+            //unlink("./Public/Uploads/student/{$_POST['no']}/{$info[0]['savename']}");
+            $this->error($model->getError());
+        }
+        $exist = M('Student')->where("no={$model->no}")->find();
+        if ($exist) {
+            $this->error(L("学号重复，添加失败"));
+        }
         if (!empty($_FILES['picture']['name'])) {
             import("ORG.Net.UploadFile");//导入文件上传类 执行文件上传
             $upload = new UploadFile();
@@ -47,13 +58,6 @@ class StudentAction extends CommonAction
             } else {
                 $info = $upload->getUploadFileInfo();
             }
-        }
-        //实例化表对象
-        $model = D("Student");
-        if (false === $model->create()) {
-            unlink("./Public/Uploads/student/{$_POST['no']}/{$info[0]['savename']}");
-
-            $this->error($model->getError());
         }
         $model->picture = $info[0]['savename'];
         $id = $model->add();
@@ -77,6 +81,15 @@ class StudentAction extends CommonAction
         $model = D("Student");
         $id = $_POST['id'];
 
+        if (false === $model->create()) {
+            //unlink("./Public/Uploads/student/{$_POST['no']}/{$info[0]['savename']}");
+            $this->error($model->getError());
+        }
+
+        $exist = M('Student')->where("no={$model->no} and id<>{$id}")->find();
+        if ($exist) {
+            $this->error(L("学号重复，修改失败"));
+        }
         if (!empty($_FILES['picture']['name'])) {
             import("ORG.Net.UploadFile");//导入文件上传类 执行文件上传
             $upload = new UploadFile();
@@ -90,10 +103,6 @@ class StudentAction extends CommonAction
             }
         }
 
-        if (false === $model->create()) {
-            unlink("./Public/Uploads/student/{$_POST['no']}/{$info[0]['savename']}");
-            $this->error($model->getError());
-        }
         if (!empty($info[0]['savename'])) {
             $model->picture = $info[0]['savename'];
         }
@@ -109,6 +118,7 @@ class StudentAction extends CommonAction
         }
 
     }
+
     public function typeSelect()
     {
         if ($_REQUEST['cid']) {
@@ -117,18 +127,17 @@ class StudentAction extends CommonAction
             $cid = '0';
         }
 
-        $class = M('Class');
+        $class = M('Class c');
         //查询数据库表中所有类型 order by concat(path,id) 按照类别的层次进行查询
-        $res = $class->field('id,name')->order("name")->select();
+        $res = $class->field('c.id,c.name as cname,m.name as mname,co.name as coname')->join("join edu_major m on c.mid = m.id join edu_college co on c.cid = co.id")->order("co.name,m.name,c.name")->select();
         //定义存放类别信息的数组
         $classes[''] = '请选择';
         foreach ($res as $vo) {
-            $classes[$vo['id']] = $vo['name'];
+            $classes[$vo['id']] = $vo['coname'] . '-' . $vo['mname'] . '-' . $vo['cname'];
         }
         //把所有类别信息的关联数组赋给模板
         $this->assign('Classes', $classes);
         $this->assign('ClassId', $cid);//设置默认选中的option的下标值id
-
 
     }
 
@@ -173,7 +182,7 @@ class StudentAction extends CommonAction
     {
         $id = $_POST['id'];
 
-        $data['pass'] =md5($_POST['pass']);
+        $data['pass'] = md5($_POST['pass']);
 
         //判断数据是否修改成功
         if (M("student")->where("id='$id'")->save($data)) {

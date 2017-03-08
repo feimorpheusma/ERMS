@@ -15,63 +15,78 @@
             </dl>
             <dl>
                 <dt>单选题数量(易):</dt>
-                <dd><input type="text" style="width:60%" name="single_0" class="digits required"/>(每题<{$vo.scoresingle}>分)</dd>
+                <dd><input type="text" style="width:60%" name="single_0" class="digits required"/>(每题<span><{$vo.scoresingle}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>单选题数量(中):</dt>
-                <dd><input type="text" style="width:60%" name="single_1" class="digits required"/>(每题<{$vo.scoresingle}>分)</dd>
+                <dd><input type="text" style="width:60%" name="single_1" class="digits required"/>(每题<span><{$vo.scoresingle}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>单选题数量(难):</dt>
-                <dd><input type="text" style="width:60%" name="single_2" class="digits required"/>(每题<{$vo.scoresingle}>分)</dd>
+                <dd><input type="text" style="width:60%" name="single_2" class="digits required"/>(每题<span><{$vo.scoresingle}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>多选题数量(易):</dt>
-                <dd><input type="text" style="width:60%" name="multiple_0" class="digits required"/>(每题<{$vo.scoremultiple}>分)</dd>
+                <dd><input type="text" style="width:60%" name="multiple_0" class="digits required"/>(每题<span><{$vo.scoremultiple}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>多选题数量(中):</dt>
-                <dd><input type="text" style="width:60%" name="multiple_1" class="digits required"/>(每题<{$vo.scoremultiple}>分)</dd>
+                <dd><input type="text" style="width:60%" name="multiple_1" class="digits required"/>(每题<span><{$vo.scoremultiple}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>多选题数量(难):</dt>
-                <dd><input type="text" style="width:60%" name="multiple_2" class="digits required"/>(每题<{$vo.scoremultiple}>分)</dd>
+                <dd><input type="text" style="width:60%" name="multiple_2" class="digits required"/>(每题<span><{$vo.scoremultiple}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>判断题数量(易):</dt>
-                <dd><input type="text" style="width:60%" name="judge_0" class="digits required"/>(每题<{$vo.scorejudge}>分)</dd>
+                <dd><input type="text" style="width:60%" name="judge_0" class="digits required"/>(每题<span><{$vo.scorejudge}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>判断题数量(中):</dt>
-                <dd><input type="text" style="width:60%" name="judge_1" class="digits required"/>(每题<{$vo.scorejudge}>分)</dd>
+                <dd><input type="text" style="width:60%" name="judge_1" class="digits required"/>(每题<span><{$vo.scorejudge}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>判断题数量(难):</dt>
-                <dd><input type="text" style="width:60%" name="judge_2" class="digits required"/>(每题<{$vo.scorejudge}>分)</dd>
+                <dd><input type="text" style="width:60%" name="judge_2" class="digits required"/>(每题<span><{$vo.scorejudge}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>填空题数量(易):</dt>
-                <dd><input type="text" style="width:60%" name="blank_0" class="digits required"/>(每题<{$vo.scoreblank}>分)</dd>
+                <dd><input type="text" style="width:60%" name="blank_0" class="digits required"/>(每题<span><{$vo.scoreblank}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>填空题数量(中):</dt>
-                <dd><input type="text" style="width:60%" name="blank_1" class="digits required"/>(每题<{$vo.scoreblank}>分)</dd>
+                <dd><input type="text" style="width:60%" name="blank_1" class="digits required"/>(每题<span><{$vo.scoreblank}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>填空题数量(难):</dt>
-                <dd><input type="text" style="width:60%" name="blank_2" class="digits required"/>(每题<{$vo.scoreblank}>分)</dd>
+                <dd><input type="text" style="width:60%" name="blank_2" class="digits required"/>(每题<span><{$vo.scoreblank}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>主观题数量(易):</dt>
-                <dd><input type="text" style="width:60%" name="answer_0" class="digits required"/>(每题<{$vo.scoreanswer}>分)</dd>
+                <dd><input type="text" style="width:60%" name="answer_0" class="digits required"/>(每题<span><{$vo.scoreanswer}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>主观题数量(中):</dt>
-                <dd><input type="text" style="width:60%" name="answer_1" class="digits required"/>(每题<{$vo.scoreanswer}>分)</dd>
+                <dd><input type="text" style="width:60%" name="answer_1" class="digits required"/>(每题<span><{$vo.scoreanswer}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>主观题数量(难):</dt>
-                <dd><input type="text" style="width:60%" name="answer_2" class="digits required"/>(每题<{$vo.scoreanswer}>分)</dd>
+                <dd><input type="text" style="width:60%" name="answer_2" class="digits required"/>(每题<span><{$vo.scoreanswer}></span>分)
+                </dd>
             </dl>
             <dl>
                 <dt>知识点：</dt>
@@ -84,8 +99,30 @@
                 </dd>
             </dl>
         </div>
+        <script type="text/javascript">
+            $(function () {
+                $("input[type='text']").change(function () {
+                    var totalscore = 0;
+                    $("input[type='text']").each(function () {
+                        var count = $(this).val();
+                        if (!isNaN(count)) {
+                            var score = $(this).siblings('span').html();
+                            totalscore += count * score;
+                        }
+                    });
+
+                    $("#total_score").html(totalscore);
+                });
+            });
+        </script>
         <div class="formBar">
             <ul>
+                <li>
+                    <div  style="line-height: 25px;">
+                         试题总分: <span id="total_score">0</span>分
+
+                    </div>
+                </li>
                 <li>
                     <div class="buttonActive">
                         <div class="buttonContent">

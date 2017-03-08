@@ -10,6 +10,7 @@ class CourseAction extends CommonAction{
         if (!empty($_REQUEST['name'])) {
             $map['name'] = array("like", "%{$_REQUEST['name']}%");
         }
+        $_REQUEST['_order'] = 'name';
     }
 
 }
