@@ -31,6 +31,7 @@ class QuestionAction extends CommonAction
         $this->assign('vo', $vo);
     }
 
+
     //定义封装搜索条件的方法
     public function _filter(&$map)
     {

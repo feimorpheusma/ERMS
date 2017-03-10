@@ -234,6 +234,9 @@ class CommonAction extends Action
             if (isset($id)) {
                 $condition = array($pk => array('in', explode(',', $id)));
                 if (false !== $model->where($condition)->delete()) {
+                    if (method_exists($this, '_tigger_delete')) {
+                        $this->_tigger_delete($id);
+                    }
                     $this->success(L('删除成功'));
                 } else {
                     $this->error(L('删除失败'));

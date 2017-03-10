@@ -30,6 +30,12 @@ class TestAction extends CommonAction
         }
     }
 
+    public function _tigger_delete($id)
+    {
+        $condition['tid'] = array('in', explode(',', $id));
+        M('test_question')->where($condition)->delete();
+    }
+
     public function typeSelect()
     {
         if ($_REQUEST['cid']) {

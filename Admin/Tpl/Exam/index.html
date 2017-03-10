@@ -2,98 +2,123 @@
 
 <div class="pageHeader">
     <form rel="pagerForm" onsubmit="return navTabSearch(this);" method="post">
-    
-	<div class="searchBar">
-		<table class="searchContent">
-			<tr>
-				<td>
-					名称：<input type="text" name="title" size="15" value="<{$smarty.post.title}>" />
-				</td>
-                <td>
-                    课程：<{html_options name='cid' options=$Courses selected=$CourseId}>
-                </td>
-                <td>
-					<div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div>
-				</td>
-			</tr>
-		</table>
-	</div>
-	</form>
-</div>
-<div class="pageContent">
-	<div class="panelBar">
-		<ul class="toolBar">
-			<li><a class="add" href="__URL__/add/navTabId/listexam" target="dialog" height="400"><span>添加</span></a>
-			</li>
-			<li><a class="edit" href="__URL__/edit/id/{sid_user}/navTabId/listexam" target="dialog"
-				   height="400"><span>修改</span></a></li>
-			<li><a class="delete" href="__URL__/auto/id/{sid_user}/navTabId/listexam"  target="dialog" height="600"><span>自动组卷</span></a></li>
-			<li><a class="delete" href="__URL__/detail/id/{sid_user}/navTabId/listexam"  target="dialog" max="true" mask="true"><span>考试选题</span></a></li>
-			<li><a class="edit" href="__URL__/view/id/{sid_user}/navTabId/listexam"  target="dialog"  width="830"
-				   height="600"  mask="true"><span>查看试题</span></a></li>
-			<li class="line">line</li>
-			<{if in_array('index', $permission['examstudent'])}>
-			<li><a class="edit" href="__APP__/ExamStudent/index/eid/{sid_user}" target="navTab" rel="listexamstudent" title="考试记录"><span>考试记录</span></a>
-			</li>
-			<li class="line">line</li>
-			<{/if}>
-			<{if in_array('audit', $permission['exam'])}>
-			<li><a class="edit" href="__URL__/approval/id/{sid_user}/navTabId/listexam" target="ajaxTodo"
-				   title="确定要审核通过吗?"><span>审核通过</span></a>
-			</li>
-			<li><a class="edit" href="__URL__/deny/id/{sid_user}/navTabId/listexam" target="ajaxTodo"
-				   title="确定要审核不通过吗?"><span>不通过</span></a>
-			</li>
-			<li class="line">line</li>
-			<{/if}>
-			<li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
-		</ul>
-	</div>
-	<table class="table" width="100%" layoutH="138">
-		<thead>
-			<tr>
-                <!--<th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>-->
-                <th width="200">名称</th>
-				<th width="150">课程</th>
-				<th width="150">开始时间</th>
-				<th width="150">结束时间</th>
-				<th width="150">发布时间</th>
-				<th width="150">发布人</th>
-				<th width="150">审核状态</th>
-			</tr>
-		</thead>
-        <tbody>
-            <{foreach $list as $vo}>
-            <tr target="sid_user" rel="<{$vo.id}>">
-                <!--<td><{$vo.id}></td>-->
-				<td><{$vo.title}></td>
-				<td><{$vo.coursename}></td>
-				<td><{$vo.starttime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
-				<td><{$vo.endtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
-				<td><{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
-				<td><{$vo.username}></td>
-				<td>
-					<{if $vo.status == 0}>未审核<{else if $vo.status == 1}>通过<{else}>未通过<{/if}>
-				</td>
-            </tr>
-            <{/foreach}>
-			
-		</tbody>
-	</table>
-	<div class="panelBar">
-		<div class="pages">
-			<span>显示</span>
-			<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
-                <option value="10" <{if $numPerPage == 10}>selected<{/if}>>10</option>
-                <option value="15" <{if $numPerPage == 15}>selected<{/if}>>15</option>
-                <option value="20" <{if $numPerPage == 20}>selected<{/if}>>20</option>
-                <option value="25" <{if $numPerPage == 25}>selected<{/if}>>25</option>
-                <option value="30" <{if $numPerPage == 30}>selected<{/if}>>30</option>
-			</select>
-            <span>条，共<{$totalCount}>条</span>
-		</div>
-		
-        <div class="pagination" targetType="navTab" totalCount="<{$totalCount}>" numPerPage="<{$numPerPage}>" pageNumShown="10" currentPage="<{$currentPage}>"></div>
 
-	</div>
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        名称：<input type="text" name="title" size="15" value="<{$smarty.post.title}>"/>
+                    </td>
+                    <td>
+                        课程：<{html_options name='cid' options=$Courses selected=$CourseId}>
+                    </td>
+                    <td>
+                        <div class="buttonActive">
+                            <div class="buttonContent">
+                                <button type="submit">检索</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function editConfirm() {
+        alertMsg.confirm("修改原有试卷，原有考试记录将删除，同时需要重新审核，确定要修改么?", {
+            okCall: function () {
+                $('.edit_button').click();
+            }
+        });
+    }
+</script>
+<div class="pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="__URL__/add/navTabId/listexam" target="dialog" height="400"><span>添加</span></a>
+            </li>
+            <li><a class="edit" href="javascript:;" onclick="editConfirm();"><span>修改</span></a>
+                <a class="edit edit_button" href="__URL__/edit/id/{sid_user}/navTabId/listexam" target="dialog"
+                   style="display: none" height="400"><span>修改</span></a>
+            </li>
+            <li><a class="delete" href="__URL__/auto/id/{sid_user}/navTabId/listexam" target="dialog"
+                   height="600"><span>自动组卷</span></a></li>
+            <li><a class="delete" href="__URL__/detail/id/{sid_user}/navTabId/listexam" target="dialog" max="true"
+                   mask="true"><span>考试选题</span></a></li>
+            <li><a class="edit" href="__URL__/view/id/{sid_user}/navTabId/listexam" target="dialog" width="830"
+                   height="600" mask="true"><span>查看试题</span></a></li>
+            <li class="line">line</li>
+            <{if in_array('index', $permission['examstudent'])}>
+            <li><a class="edit" href="__APP__/ExamStudent/index/eid/{sid_user}" target="navTab" rel="listexamstudent"
+                   title="考试记录"><span>考试记录</span></a>
+            </li>
+            <li class="line">line</li>
+            <{/if}>
+            <{if in_array('audit', $permission['exam'])}>
+            <li><a class="edit" href="__URL__/approval/id/{sid_user}/navTabId/listexam" target="ajaxTodo"
+                   title="确定要审核通过吗?"><span>审核通过</span></a>
+            </li>
+            <li><a class="edit" href="__URL__/deny/id/{sid_user}/navTabId/listexam" target="ajaxTodo"
+                   title="确定要审核不通过吗?"><span>不通过</span></a>
+            </li>
+            <li class="line">line</li>
+            <{/if}>
+            <li><a class="icon" href="javascript:navTabPageBreak()"><span>刷新</span></a></li>
+        </ul>
+    </div>
+    <table class="table" width="100%" layoutH="138">
+        <thead>
+        <tr>
+            <!--<th align="center" width="40" orderField="id" <{if $smarty.request._order='id'}>class=<{$smarty.request._sort}><{/if}>>ID号</th>-->
+            <th width="200">名称</th>
+            <th width="150">课程</th>
+            <th width="150">开始时间</th>
+            <th width="150">结束时间</th>
+            <th width="150">发布时间</th>
+            <th width="150">发布人</th>
+            <th width="150">审核状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <{foreach $list as $vo}>
+        <tr target="sid_user" rel="<{$vo.id}>">
+            <!--<td><{$vo.id}></td>-->
+            <td><{$vo.title}></td>
+            <td><{$vo.coursename}></td>
+            <td><{$vo.starttime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+            <td><{$vo.endtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+            <td><{$vo.addtime|date_format:"%Y-%m-%d %H:%M:%S"}></td>
+            <td><{$vo.username}></td>
+            <td>
+                <{if $vo.status == 0}>未审核<{else if $vo.status == 1}>通过<{else}>未通过<{/if}>
+            </td>
+        </tr>
+        <{/foreach}>
+
+        </tbody>
+    </table>
+    <div class="panelBar">
+        <div class="pages">
+            <span>显示</span>
+            <select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+                <option value="10"
+                <{if $numPerPage == 10}>selected<{/if}>>10</option>
+                <option value="15"
+                <{if $numPerPage == 15}>selected<{/if}>>15</option>
+                <option value="20"
+                <{if $numPerPage == 20}>selected<{/if}>>20</option>
+                <option value="25"
+                <{if $numPerPage == 25}>selected<{/if}>>25</option>
+                <option value="30"
+                <{if $numPerPage == 30}>selected<{/if}>>30</option>
+            </select>
+            <span>条，共<{$totalCount}>条</span>
+        </div>
+
+        <div class="pagination" targetType="navTab" totalCount="<{$totalCount}>" numPerPage="<{$numPerPage}>"
+             pageNumShown="10" currentPage="<{$currentPage}>"></div>
+
+    </div>
 </div>

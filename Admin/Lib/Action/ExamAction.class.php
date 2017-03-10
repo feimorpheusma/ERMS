@@ -87,6 +87,7 @@ class ExamAction extends CommonAction
         $id = $_REQUEST[$model->getPk()];
         $vo = $model->find($id);
 
+
         //调用子类typeSelect方法，获取下拉列表
         if (method_exists($this, 'typeSelect')) {
             $this->typeSelect();
@@ -111,6 +112,9 @@ class ExamAction extends CommonAction
         if ($model->starttime > $model->endtime) {
             $this->error(L("结束时间应大于开始时间，更新失败"));
         }
+        $model->status = 0;
+        M('exam_student')->where("eid = {$model->id}")->delete();
+        M('exam_question_student')->where("eid = {$model->id}")->delete();
         // 更新数据
         if (false !== $model->save()) {
             // 回调接口
@@ -147,6 +151,9 @@ class ExamAction extends CommonAction
     public function detail()
     {
         $model = M("Exam")->find($_GET['id']);
+        if ($model['status'] == 1) {
+            $this->error("审核通过的考试不允许再选题，修改考试可对考试进行取消审核，您可修改考试保存后再进行选题！");
+        }
         $cid = $model["cid"];
 
         //$remain_list = M("question")->where("cid={$cid} and id not in (select qid from edu_exam_question where eid={$_GET['id']})")->select();
@@ -163,6 +170,10 @@ class ExamAction extends CommonAction
     public function auto()
     {
         $model = M("Exam")->find($_GET['id']);
+        if ($model['status'] == 1) {
+            $this->error("审核通过的考试不允许再选题，修改考试可对考试进行取消审核，您可修改考试保存后再进行选题！");
+        }
+
         $vo['id'] = $model['id'];
         $vo['cid'] = $model['cid'];
         $vo['title'] = $model['title'];

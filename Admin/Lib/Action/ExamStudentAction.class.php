@@ -33,6 +33,12 @@ class ExamStudentAction extends CommonAction
         }
     }
 
+    public function _tigger_delete($id)
+    {
+        $condition['esid'] = array('in', explode(',', $id));
+        M('exam_question_student')->where($condition)->delete();
+    }
+
     public function typeSelect()
     {
         if ($_REQUEST['cid']) {

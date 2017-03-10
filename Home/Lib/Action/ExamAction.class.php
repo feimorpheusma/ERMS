@@ -37,7 +37,7 @@ class ExamAction extends CommonAction
             } elseif ($exam['endtime'] < time()) {
                 $this->error('考试已经结束');
             }
-            $exam_student_id = 0;
+
             $exam_student = M("exam_student")->where("eid={$exam['id']} and sid={$this->uid}")->find();
             if ($exam_student) {
                 if ($exam_student['status'] > 0) {
@@ -58,7 +58,7 @@ class ExamAction extends CommonAction
             $list = M("exam_question e")
                 ->field('content,type,aA,aB,aC,aD,aE,aF,q.id as qid,e.id as eqid,s.answer')
                 ->join('edu_question q on e.qid = q.id')
-                ->join("edu_exam_question_student s on e.id = s.eqid and s.sid={$this->uid}")
+                ->join("edu_exam_question_student s on e.id = s.eqid and s.sid={$this->uid} and s.esid={$exam_student_id}")
                 ->where($where)->order("q.type")->select();
 
             $this->assign("list", $list);
