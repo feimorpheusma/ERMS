@@ -60,6 +60,7 @@ class StudentAction extends CommonAction
             }
         }
         $model->picture = $info[0]['savename'];
+        $model->pass = md5($model->pass);
         $id = $model->add();
 
 
