@@ -215,7 +215,7 @@ class TestAction extends CommonAction
         if (!empty($_REQUEST['cid'])) {
             $course = M("course")->find($_GET['cid']);
             $this->assign("course", $course);
-            if (empty($_REQUEST['single']) && empty($_REQUEST['multiple'])) {
+            if (empty($_REQUEST['single_0']) && empty($_REQUEST['single_1']) && empty($_REQUEST['single_2']) && empty($_REQUEST['multiple_0'])&& empty($_REQUEST['multiple_1'])&& empty($_REQUEST['multiple_2'])) {
                 $points = M("question")->distinct(true)->field('point')->where("cid = {$_GET['cid']} and point is not null")->select();
                 $this->assign("points", $points);
                 $this->assign("generate", true);
@@ -242,17 +242,18 @@ class TestAction extends CommonAction
 
                 $map['cid'] = array('eq', $_GET['cid']);
                 $map['status'] = array('eq', 1);
-                if ($_REQUEST['single'] > 0) {
+                if ($_REQUEST['single_0'] > 0) {
                     unset($questions);
                     $map['type'] = 1;
+                    $map['level'] = 0;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $_REQUEST['single']) {
+                        if (sizeof($list) < $_REQUEST['single_0']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($_REQUEST['single'] == 1) {
+                        } elseif ($_REQUEST['single_0'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $_REQUEST['single']);
+                            $questions = array_rand($list, $_REQUEST['single_0']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
@@ -263,17 +264,62 @@ class TestAction extends CommonAction
                         }
                     }
                 }
-                if ($_REQUEST['multiple'] > 0) {
+                if ($_REQUEST['single_1'] > 0) {
+                    unset($questions);
+                    $map['type'] = 1;
+                    $map['level'] = 1;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['single_1']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['single_1'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['single_1']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($_REQUEST['single_2'] > 0) {
+                    unset($questions);
+                    $map['type'] = 1;
+                    $map['level'] = 2;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['single_2']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['single_2'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['single_2']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($_REQUEST['multiple_0'] > 0) {
                     unset($questions);
                     $map['type'] = 2;
+                    $map['level'] = 0;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $_REQUEST['multiple']) {
+                        if (sizeof($list) < $_REQUEST['multiple_0']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($_REQUEST['multiple'] == 1) {
+                        } elseif ($_REQUEST['multiple_0'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $_REQUEST['multiple']);
+                            $questions = array_rand($list, $_REQUEST['multiple_0']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
@@ -284,17 +330,62 @@ class TestAction extends CommonAction
                         }
                     }
                 }
-                if ($_REQUEST['judge'] > 0) {
+                if ($_REQUEST['multiple_1'] > 0) {
+                    unset($questions);
+                    $map['type'] = 2;
+                    $map['level'] = 1;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['multiple_1']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['multiple_1'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['multiple_1']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($_REQUEST['multiple_2'] > 0) {
+                    unset($questions);
+                    $map['type'] = 2;
+                    $map['level'] = 2;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['multiple_2']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['multiple_2'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['multiple_2']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($_REQUEST['judge_0'] > 0) {
                     unset($questions);
                     $map['type'] = 3;
+                    $map['level'] = 0;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $_REQUEST['judge']) {
+                        if (sizeof($list) < $_REQUEST['judge_0']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($_REQUEST['judge'] == 1) {
+                        } elseif ($_REQUEST['judge_0'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $_REQUEST['judge']);
+                            $questions = array_rand($list, $_REQUEST['judge_0']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
@@ -305,17 +396,62 @@ class TestAction extends CommonAction
                         }
                     }
                 }
-                if ($_REQUEST['blank'] > 0) {
+                if ($_REQUEST['judge_1'] > 0) {
+                    unset($questions);
+                    $map['type'] = 3;
+                    $map['level'] = 1;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['judge_1']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['judge_1'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['judge_1']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($_REQUEST['judge_2'] > 0) {
+                    unset($questions);
+                    $map['type'] = 3;
+                    $map['level'] = 2;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['judge_2']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['judge_2'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['judge_2']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($_REQUEST['blank_0'] > 0) {
                     unset($questions);
                     $map['type'] = 4;
+                    $map['level'] = 0;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $_REQUEST['blank']) {
+                        if (sizeof($list) < $_REQUEST['blank_0']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($_REQUEST['blank'] == 1) {
+                        } elseif ($_REQUEST['blank_0'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $_REQUEST['blank']);
+                            $questions = array_rand($list, $_REQUEST['blank_0']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
@@ -326,17 +462,108 @@ class TestAction extends CommonAction
                         }
                     }
                 }
-                if ($_REQUEST['answer'] > 0) {
+                if ($_REQUEST['blank_1'] > 0) {
                     unset($questions);
-                    $map['type'] = 5;
+                    $map['type'] = 4;
+                    $map['level'] = 1;
                     $list = M('question')->field('id')->where($map)->order("rand()")->select();
                     if ($list) {
-                        if (sizeof($list) < $_REQUEST['answer']) {
+                        if (sizeof($list) < $_REQUEST['blank_1']) {
                             $questions = array_rand($list, sizeof($list));
-                        } elseif ($_REQUEST['answer'] == 1) {
+                        } elseif ($_REQUEST['blank_1'] == 1) {
                             $questions[0] = 0;
                         } else {
-                            $questions = array_rand($list, $_REQUEST['answer']);
+                            $questions = array_rand($list, $_REQUEST['blank_1']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($_REQUEST['blank_2'] > 0) {
+                    unset($questions);
+                    $map['type'] = 4;
+                    $map['level'] = 2;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['blank_2']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['blank_2'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['blank_2']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+                if ($_REQUEST['answer_0'] > 0) {
+                    unset($questions);
+                    $map['type'] = 5;
+                    $map['level'] = 0;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['answer_0']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['answer_0'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['answer_0']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+
+                if ($_REQUEST['answer_1'] > 0) {
+                    unset($questions);
+                    $map['type'] = 5;
+                    $map['level'] = 1;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['answer_1']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['answer_1'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['answer_1']);
+                        }
+                        foreach ($questions as $question) {
+                            $tq['tid'] = $tid;
+                            $tq['qid'] = $list[$question]['id'];
+                            $tq['status'] = 0;
+                            $tq['addtime'] = time();
+                            $flag = M('test_question')->add($tq);
+                        }
+                    }
+                }
+
+                if ($_REQUEST['answer_2'] > 0) {
+                    unset($questions);
+                    $map['type'] = 5;
+                    $map['level'] = 2;
+                    $list = M('question')->field('id')->where($map)->order("rand()")->select();
+                    if ($list) {
+                        if (sizeof($list) < $_REQUEST['answer_2']) {
+                            $questions = array_rand($list, sizeof($list));
+                        } elseif ($_REQUEST['answer_2'] == 1) {
+                            $questions[0] = 0;
+                        } else {
+                            $questions = array_rand($list, $_REQUEST['answer_2']);
                         }
                         foreach ($questions as $question) {
                             $tq['tid'] = $tid;
